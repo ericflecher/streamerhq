@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @feature.title %>
+</p>
+
+<p>
+  <b>Gherkin:</b>
+  <%= @feature.gherkin %>
+</p>
+
+<%= image_tag @feature.photo(:large) %>
+
+
+<%= link_to 'Edit', edit_feature_path(@feature) %> |
+<%= link_to 'Back', features_path %>

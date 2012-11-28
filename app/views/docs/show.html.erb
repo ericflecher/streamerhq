@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @doc.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @doc.description %>
+</p>
+
+<p>
+<%= image_tag @doc.photo(:large) %>
+</p>
+
+<%=render "docs/features"%>
+
+<%= link_to 'New Feature', new_feature_path(:doc_id => @doc.id) %>|
+<%= link_to 'Edit', edit_doc_path(@doc) %> |
+<%= link_to 'Back', docs_path %>
