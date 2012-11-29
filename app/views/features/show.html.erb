@@ -44,6 +44,7 @@
 
 <%= link_to 'New Sub-Feature', new_feature_path(:feature_id => @feature.id) %>|
 <%= link_to 'Edit', edit_feature_path(@feature) %> |
+<%= link_to 'Delete', @feature, method: :delete, data: { confirm: 'Are you sure?' } %>|
 <%= link_to 'Back', features_path %>
 
 <%= debug session[:doc_id] %>

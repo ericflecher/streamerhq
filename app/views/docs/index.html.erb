@@ -1,25 +1,22 @@
-<h1>Listing docs</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<!DOCTYPE html>
+<html lang="en">
+  
+<div class="row-fluid">
+  <div class="span4"></div>
+  <div class="span4"></div>
+  <div class="span4"></div>
+</div>
 
 <% @docs.each do |doc| %>
-  <tr>
-    <td><%= doc.title %></td>
-    <td><%= doc.description %></td>
-    <td><%= link_to 'Show', doc %></td>
-    <td><%= link_to 'Edit', edit_doc_path(doc) %></td>
-    <td><%= link_to 'Destroy', doc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<div class="row-fluid">
+  <div class="span2"><%= link_to doc.title, doc %></div>
+  <div class="span8"><%= doc.description %></div>
+  <div class="span2"><%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+</div>
 <% end %>
-</table>
 
-<br />
 
 <%= link_to 'New Doc', new_doc_path %>
+
+</html>
