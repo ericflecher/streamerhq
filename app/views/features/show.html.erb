@@ -10,8 +10,42 @@
   <%= @feature.gherkin %>
 </p>
 
-<%= image_tag @feature.photo(:large) %>
+<%if @feature.photo.exists?%>
+	<%= image_tag @feature.photo(:large) %>
+<%else%>
+	
+<%end%>
+
+<h1>Sub-features</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Gherkin</th>
+	<th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @subfeatures = @feature.following_features%>
+<% @subfeatures.each do |subfeature| %>
+  <tr>
+    <td><%= subfeature.title %></td>
+    <td><%= subfeature.gherkin %></td>
+	<td><%= image_tag subfeature.photo(:large) %></td>
+    <td><%= link_to 'Show', subfeature %></td>
+    <td><%= link_to 'Edit', edit_feature_path(subfeature) %></td>
+    <td><%= link_to 'Destroy', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+
+<% end %>
+</table>
 
 
+<%= link_to 'New Sub-Feature', new_feature_path(:feature_id => @feature.id) %>|
 <%= link_to 'Edit', edit_feature_path(@feature) %> |
 <%= link_to 'Back', features_path %>
+
+<%= debug session[:doc_id] %>
+<%= debug session[:feature_id] %>
+<%= debug @feature.following_features.inspect%>

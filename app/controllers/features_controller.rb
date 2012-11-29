@@ -14,6 +14,9 @@ class FeaturesController < ApplicationController
   # GET /features/1.json
   def show
     @feature = Feature.find(params[:id])
+    
+    session[:doc_id]= nil
+    session[:feature_id] = nil
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +31,10 @@ class FeaturesController < ApplicationController
     
     if params[:doc_id]
       session[:doc_id] = params[:doc_id]
+    end
+    
+    if params[:feature_id]
+      session[:feature_id] = params[:feature_id]
     end
 
     respond_to do |format|
@@ -46,12 +53,35 @@ class FeaturesController < ApplicationController
   def create
     @feature = Feature.new(params[:feature])
     
-    i = session[:doc_id]
-    doc = Doc.find(i)
+    d = session[:doc_id]
+    if d.nil?
+    else
+      doc = Doc.find(d)
+    end
+    
+    f = session[:feature_id]
+    if f.nil?
+    else
+      parent_feature = Feature.find(f)
+    end
+
 
     respond_to do |format|
       if @feature.save
-        doc.follow(@feature) 
+        if doc.nil?
+        else
+          doc.follow(@feature) 
+          session[:doc_id]= nil
+          d = nil
+        end
+        
+        if parent_feature.nil?
+        else
+          parent_feature.follow(@feature) 
+          session[:feature_id]= nil
+          f = nil
+        end
+        
         format.html { redirect_to @feature, notice: 'Feature was successfully created.' }
         format.json { render json: @feature, status: :created, location: @feature }
       else

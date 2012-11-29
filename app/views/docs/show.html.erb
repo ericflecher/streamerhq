@@ -11,7 +11,11 @@
 </p>
 
 <p>
-<%= image_tag @doc.photo(:large) %>
+<%if @doc.photo.exists?%>
+	<%= image_tag @doc.photo(:large) %>
+<%else%>
+	
+<%end%>
 </p>
 
 <%=render "docs/features"%>

@@ -14,11 +14,41 @@
   <tr>
     <td><%= feature.title %></td>
     <td><%= feature.gherkin %></td>
-	<td><%= image_tag feature.photo(:large) %></td>
+	<td><%if feature.photo.exists?%>
+		<%= image_tag feature.photo(:large) %>
+	<%else%>
+	
+	<%end%></td>
     <td><%= link_to 'Show', feature %></td>
     <td><%= link_to 'Edit', edit_feature_path(feature) %></td>
     <td><%= link_to 'Destroy', feature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
+
+	<table>
+	  <tr>
+	    <th></th>
+	    <th></th>
+		<th></th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	<% @subfeatures = feature.following_features%>
+	<% @subfeatures.each do |subfeature| %>
+		<tr>
+    		<td><%= subfeature.title %></td>
+    		<td><%= subfeature.gherkin %></td>
+			<td><%= image_tag subfeature.photo(:large) %></td>
+    		<td><%= link_to 'Show', subfeature %></td>
+    		<td><%= link_to 'Edit', edit_feature_path(subfeature) %></td>
+    		<td><%= link_to 'Destroy', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  		</tr>
+	
+	<% end %>
+	</table>
+
+
+
 <% end %>
 </table>
 
