@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
  <div class="row-fluid">
-  <div class="span12"><p id="notice"><%= notice %></p></div>
+  	<div class="span12"><h4><%= @doc.title %></4h></div>
 </div>
+
  <div class="row-fluid">
-  	<div class="span12"><h4><%= @doc.title %></h4><%= link_to 'Edit', edit_doc_path(@doc) %></div>
+  	<div class="span12"><%= link_to 'Edit Document', edit_doc_path(@doc) %></div>
 </div>
+
 
  <div class="row-fluid">
   <div class="span12">	<%if @doc.photo.exists?%>
@@ -23,7 +26,7 @@
 </div>
 
  <div class="row-fluid">
-  	<div class="span12"><%= link_to 'New Feature', new_feature_path(:doc_id => @doc.id) %> |
+  	<div class="span12"><%= link_to 'Add New Feature', new_feature_path(:doc_id => @doc.id) %> |
 	<%= link_to 'Back', docs_path %></div>
 </div>
 

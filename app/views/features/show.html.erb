@@ -1,52 +1,49 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @feature.title %>
-</p>
+<!DOCTYPE html>
+<html lang="en">
 
-<p>
-  <b>Gherkin:</b>
-  <%= @feature.gherkin %>
-</p>
+<div class="row-fluid">
+  <div class="span12"><p id="notice"><h4><%= @feature.title %></h4></div>
+</div>
+ <div class="row-fluid">
+  	<div class="span12"><%= link_to 'Edit Feature', edit_feature_path(@feature) %> |
+	<%= link_to 'Delete Feature', @feature, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+</div>
 
-<%if @feature.photo.exists?%>
-	<%= image_tag @feature.photo(:large) %>
-<%else%>
-	
-<%end%>
-
-<h1>Sub-features</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Gherkin</th>
-	<th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @subfeatures = @feature.following_features%>
-<% @subfeatures.each do |subfeature| %>
-  <tr>
-    <td><%= subfeature.title %></td>
-    <td><%= subfeature.gherkin %></td>
-	<td><%= image_tag subfeature.photo(:large) %></td>
-    <td><%= link_to 'Show', subfeature %></td>
-    <td><%= link_to 'Edit', edit_feature_path(subfeature) %></td>
-    <td><%= link_to 'Destroy', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-
-<% end %>
-</table>
+<div class="row-fluid">
+  <div class="span12">	<%if @feature.photo.exists?%><%= image_tag @feature.photo(:large) %><%else%><%end%></div>
+</div>
+<div class="row-fluid">
+ 	<div class="span12"><%= @feature.gherkin %></div>
+</div>
 
 
-<%= link_to 'New Sub-Feature', new_feature_path(:feature_id => @feature.id) %>|
-<%= link_to 'Edit', edit_feature_path(@feature) %> |
-<%= link_to 'Delete', @feature, method: :delete, data: { confirm: 'Are you sure?' } %>|
-<%= link_to 'Back', features_path %>
 
-<%= debug session[:doc_id] %>
-<%= debug session[:feature_id] %>
-<%= debug @feature.following_features.inspect%>
+
+		<% @subfeatures = @feature.following_features%>
+		<% @subfeatures.each do |subfeature| %>
+			<div class="row-fluid">
+		  		<div class="span10 offset2"><h4><%= subfeature.title%></h4></div>
+			</div>
+			<div class="row-fluid">
+		  		<div class="span10 offset2"><%= link_to 'Edit Sub-Feature', edit_feature_path(subfeature) %>|<%= link_to 'Delete Sub-Feature', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+			</div>
+			
+			<div class="row-fluid">
+		  	<%if subfeature.photo.exists?%>
+		  		<div class="span5 offset2"><%= image_tag subfeature.photo(:large) %></div>
+		  		<div class="span5"><%= subfeature.gherkin %></div>
+		  	<%else%>
+		  		<div class="span10 offset2"><%= subfeature.gherkin %></div>
+		  	<%end%>
+		
+		<% end %>  
+
+	 <div class="row-fluid">
+	  	<div class="span12"><%= link_to 'New Sub-Feature', new_feature_path(:feature_id => @feature.id) %>|
+		<%= link_to 'Back', features_path %></div>
+
+	 </div>
+
+</html>
+
