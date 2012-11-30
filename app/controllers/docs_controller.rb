@@ -47,9 +47,11 @@ class DocsController < ApplicationController
     
     user = current_user
     
+    @doc.owner_list = current_user.id
 
     respond_to do |format|
       if @doc.save
+        
         user.follow(@doc) # Creates a record for the user as the follower and the book as the followable
         format.html { redirect_to @doc, notice: 'Doc was successfully created.' }
         format.json { render json: @doc, status: :created, location: @doc }

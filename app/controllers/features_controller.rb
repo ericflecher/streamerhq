@@ -53,18 +53,24 @@ class FeaturesController < ApplicationController
   def create
     @feature = Feature.new(params[:feature])
     
+    # adding a feature
     d = session[:doc_id]
     if d.nil?
     else
       doc = Doc.find(d)
+      @feature.parent_doc_list = doc.id
     end
     
+    # adding a sub-feature
     f = session[:feature_id]
     if f.nil?
     else
       parent_feature = Feature.find(f)
+      @feature.parent_feature_list = parent_feature.id
+      @feature.parent_doc_list = parent_feature.parent_doc_list
     end
 
+     @feature.owner_list = current_user.id
 
     respond_to do |format|
       if @feature.save
@@ -73,6 +79,7 @@ class FeaturesController < ApplicationController
           doc.follow(@feature) 
           session[:doc_id]= nil
           d = nil
+          format.html { redirect_to doc, notice: 'Feature was successfully created.' }
         end
         
         if parent_feature.nil?
@@ -80,9 +87,10 @@ class FeaturesController < ApplicationController
           parent_feature.follow(@feature) 
           session[:feature_id]= nil
           f = nil
+          format.html { redirect_to parent_feature, notice: 'Feature was successfully created.' }
         end
         
-        format.html { redirect_to @feature, notice: 'Feature was successfully created.' }
+        
         format.json { render json: @feature, status: :created, location: @feature }
       else
         format.html { render action: "new" }
@@ -111,11 +119,27 @@ class FeaturesController < ApplicationController
   # DELETE /features/1.json
   def destroy
     @feature = Feature.find(params[:id])
-    @feature.destroy
+    
+    if @feature.parent_doc_list.nil?
+      r = Doc.find(@feature.parent_doc_list)
+      @feature.destroy
 
-    respond_to do |format|
-      format.html { redirect_to features_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to r }
+        format.json { head :no_content }
+      end
+    else
+      r = Doc.find(@feature.parent_doc_list)
+      
+      @feature.destroy
+
+      respond_to do |format|
+        format.html { redirect_to r }
+        format.json { head :no_content }
+      end
     end
+    
+
+    
   end
 end

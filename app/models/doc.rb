@@ -4,6 +4,8 @@ class Doc < ActiveRecord::Base
   acts_as_followable
   acts_as_follower
   
+  acts_as_taggable_on :version, :owner , :private
+  
   has_attached_file :photo,
       :styles =>{
       :thumb  => "100x100",

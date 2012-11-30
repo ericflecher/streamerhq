@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <div class="row-fluid">
   <div class="span12"><p id="notice"><h4><%= @feature.title %></h4></div>
 </div>
@@ -22,6 +23,7 @@
 
 		<% @subfeatures = @feature.following_features%>
 		<% @subfeatures.each do |subfeature| %>
+		<%=subfeature.parent_feature_list%>
 			<div class="row-fluid">
 		  		<div class="span10 offset2"><h4><%= subfeature.title%></h4></div>
 			</div>
@@ -41,7 +43,7 @@
 
 	 <div class="row-fluid">
 	  	<div class="span12"><%= link_to 'New Sub-Feature', new_feature_path(:feature_id => @feature.id) %>|
-		<%= link_to 'Back', features_path %></div>
+		<%= link_to 'Back', doc_path(@feature.parent_doc_list) %></div>
 
 	 </div>
 
