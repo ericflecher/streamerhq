@@ -1,6 +1,19 @@
+
+<% u = User.find(@feature.owner_list) %>
+<% if current_user.id == u[0].id %> 
+
 <h1>Editing feature</h1>
 
-<%= render 'form' %>
+	<%= render 'form' %>
 
-<%= link_to 'Show', @feature %> |
-<%= link_to 'Back', features_path %>
+	<%= link_to 'Show', @feature %> |
+	<%= link_to 'Back', features_path %>
+	
+<%else%>
+
+	<div class="alert">
+  		<button type="button" class="close" data-dismiss="alert">×</button>
+  		<strong>Warning!</strong> Best check yo self, you don't own this feature.
+	</div>
+
+<%end%>

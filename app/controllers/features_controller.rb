@@ -59,6 +59,7 @@ class FeaturesController < ApplicationController
     else
       doc = Doc.find(d)
       @feature.parent_doc_list = doc.id
+      @feature.owner_list = current_user.id
     end
     
     # adding a sub-feature
@@ -68,6 +69,7 @@ class FeaturesController < ApplicationController
       parent_feature = Feature.find(f)
       @feature.parent_feature_list = parent_feature.id
       @feature.parent_doc_list = parent_feature.parent_doc_list
+      @feature.owner_list = current_user.id
     end
 
      @feature.owner_list = current_user.id
