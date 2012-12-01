@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<% u = User.find(@doc.owner_list) %>
+<% owner = @doc.owner_list%>
  <div class="row-fluid">
-  	<div class="span12"><h4><%= @doc.title %></4h></div>
-</div>
+  	<div class="span10"><p><% if current_user.id == u[0].id %>   
+		
+	<%else%> 
+	
+	<% if Integer(owner[0]) == Integer(current_user.id) %>
+	
+	<%else%>
+		<%if current_user.following?(@doc) == true%>
 
- <div class="row-fluid">
-  	<div class="span12"><%= link_to 'Edit Document', edit_doc_path(@doc) %></div>
+			<%= button_to('Unfollow', follow_path(:doc_id => @doc.id, :follow_code => 'u'), :class => 'btn btn-small btn-primary')%>
+
+		<%else%>
+			<%= button_to('Follow', follow_path(:doc_id => @doc.id, :follow_code => 'f'), :class => 'btn btn-small btn-primary')%>
+		<%end%>
+	<%end%>
+	
+	<%end%></p><p><h4><%= @doc.title %></4h></p><p><small>By: <%= u[0].name %></small></p></div>
+	<div class="span2"><% if current_user.id == u[0].id %> <%= link_to 'Edit Document', edit_doc_path(@doc)%>  <%else%> <%end%> </div>
 </div>
 
 
@@ -22,12 +37,14 @@
 </div>
 
  <div class="row-fluid">
-  	<div class="span12"><%=render "docs/features"%></div>
+  	<%=render "docs/features"%>
 </div>
 
  <div class="row-fluid">
-  	<div class="span12"><%= link_to 'Add New Feature', new_feature_path(:doc_id => @doc.id) %> |
-	<%= link_to 'Back', docs_path %></div>
+  	<div class="span12"><% if current_user.id == u[0].id %> <%= link_to 'Add New Feature', new_feature_path(:doc_id => @doc.id) %> <%else%> <%end%>  </div>
 </div>
+
+
+
 
 </html>

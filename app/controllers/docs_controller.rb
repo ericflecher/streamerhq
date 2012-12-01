@@ -14,7 +14,28 @@ class DocsController < ApplicationController
   # GET /docs/1
   # GET /docs/1.json
   def show
-    @doc = Doc.find(params[:id])
+
+    
+    if params[:doc_id]
+      
+      d = Doc.find(params[:doc_id])
+      c = params[:follow_code]
+      
+      if c == 'f'
+        current_user.follow(d)
+      else
+        current_user.stop_following(d)
+      end
+      
+      @doc = Doc.find(d)
+      
+      #redirect_to doc_path(d)
+      
+    else
+      @doc = Doc.find(params[:id])
+    end
+    
+    
     
     @features = @doc.following_features
 

@@ -1,3 +1,28 @@
-<h3>User</h3>
-<p>User: <%= @user.name %></p>
-<p>Email: <%= @user.email if @user.email %></p>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<div class="row-fluid">
+  <div class="span12"><p id="notice"><h4><%= @user.name %></h4></div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12"><p id="notice"><%= @user.email if @user.email %></div>
+</div>
+
+<div class="row-fluid">
+  <div class="span4"></div>
+  <div class="span4"></div>
+  <div class="span4"></div>
+</div>
+
+<% @docs.each do |doc| %>
+<div class="row-fluid">
+  <div class="span2"><%= link_to doc.title, doc %></div>
+  <div class="span10"><%= doc.description %></div>
+
+</div>
+<% end %>
+
+	
+</html>
