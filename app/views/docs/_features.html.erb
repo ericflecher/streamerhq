@@ -17,7 +17,7 @@
 	<% @f = feature %>
 	<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
    </div>
-	<div class="span4" class="well well-small pull-right">
+	<div class="span4" class="">
 		<p><h4>Feedback on <%= feature.title %></4h></p>
 		<%@all_feature_comments = feature.comment_threads%>
 		<%@all_feature_comments.each do |comments| %>

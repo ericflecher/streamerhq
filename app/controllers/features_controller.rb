@@ -158,4 +158,24 @@ class FeaturesController < ApplicationController
     redirect_to doc_path(r)
   end
   
+  def create_feature_comment_return_feature
+    # create comment here
+    featureid = params[:feature_id]
+    feature = Feature.find(featureid)
+    pf = feature.parent_feature_list
+    if pf[0].nil?
+      r = featureid
+    else
+      r = pf
+    end
+    commenter = current_user.id
+    comment = params[:commenttext]
+    
+    
+    @comment = Comment.build_from(feature, commenter, comment)
+    @comment.save
+  
+    redirect_to feature_path(r)
+  end
+  
 end

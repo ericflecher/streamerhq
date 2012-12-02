@@ -9,6 +9,7 @@ Streamerhq::Application.routes.draw do
   match '/docs/:doc_id' => 'docs#show', :as => 'comment'
   match '/create_comment/:doc_id' => 'docs#create_comment', :as => 'create_comment'
   match '/create_feature_comment/:feature_id' => 'features#create_feature_comment', :as => 'create_feature_comment'
+  match '/create_feature_comment_return_feature/:feature_id' => 'features#create_feature_comment_return_feature', :as => 'create_feature_comment_return_feature'
 
 
   authenticated :user do
