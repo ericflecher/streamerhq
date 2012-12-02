@@ -15,7 +15,7 @@ class DocsController < ApplicationController
   # GET /docs/1.json
   def show
 
-    
+    #Adds doc as followed for current user
     if params[:doc_id]
       
       d = Doc.find(params[:doc_id])
@@ -35,6 +35,7 @@ class DocsController < ApplicationController
       @doc = Doc.find(params[:id])
     end
     
+    @all_comments = @doc.comment_threads
     
     
     @features = @doc.following_features
@@ -109,5 +110,20 @@ class DocsController < ApplicationController
       format.html { redirect_to docs_url }
       format.json { head :no_content }
     end
+  end
+  
+  def create_comment
+    # create comment here
+    docid = params[:doc_id]
+    
+    doc = Doc.find(docid)
+    commenter = current_user.id
+    comment = params[:commenttext]
+    
+    
+    @comment = Comment.build_from(doc, commenter, comment)
+    @comment.save
+  
+    redirect_to doc_path(docid)
   end
 end

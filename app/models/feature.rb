@@ -3,6 +3,7 @@ class Feature < ActiveRecord::Base
   
   acts_as_follower
   acts_as_followable
+  acts_as_commentable
   
   acts_as_taggable_on :version, :owner, :parent_feature, :parent_doc
   

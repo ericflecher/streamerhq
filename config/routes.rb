@@ -6,6 +6,9 @@ Streamerhq::Application.routes.draw do
   match '/feature/new/:doc_id' => 'features#new', :as => 'new'
   match '/feature/new/:feature_id' => 'features#new', :as => 'new'
   match '/follow/:doc_id/:follow_code' => 'docs#show', :as => 'follow'
+  match '/docs/:doc_id' => 'docs#show', :as => 'comment'
+  match '/create_comment/:doc_id' => 'docs#create_comment', :as => 'create_comment'
+  # change to post 
 
   authenticated :user do
     root :to => 'home#index'

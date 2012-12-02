@@ -3,6 +3,7 @@ class Doc < ActiveRecord::Base
   
   acts_as_followable
   acts_as_follower
+  acts_as_commentable
 
   # Alias for <tt>acts_as_ordered_taggable_on :tags</tt>:
   acts_as_taggable_on :version, :owner, :private

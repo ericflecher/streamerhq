@@ -1,0 +1,22 @@
+<div id="comment" class="modal" style="display: none;">
+  	
+	<%= form_tag(create_comment_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
+	  
+		<div class="modal-header">
+	      <a class="close" data-dismiss="modal">&#215;</a>
+	      <h3>Add a comment</h3>
+	    </div>
+	
+	    <div class="modal-body">
+			<p><%= text_field_tag "commenter", current_user.name %></p>
+			<p><%= text_area_tag "commenttext", ""%></p>
+	    </div>
+	    <div class="modal-footer">
+	      <%= submit_tag("Add Comment", class: "btn btn-small btn-primary") %>
+	      <a class="btn" data-dismiss="modal" href="#">Close</a>
+	    </div>
+		
+	  	
+	<% end %>
+	
+</div>

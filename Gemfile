@@ -27,3 +27,4 @@ gem 'aws-s3'
 gem 'aws-sdk'
 gem "acts_as_follower"
 gem 'acts-as-taggable-on', '~> 2.3.1'
+gem 'acts_as_commentable_with_threading'
