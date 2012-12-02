@@ -59,7 +59,6 @@ class FeaturesController < ApplicationController
     else
       doc = Doc.find(d)
       @feature.parent_doc_list = doc.id
-      @feature.owner_list = current_user.id
     end
     
     # adding a sub-feature
@@ -69,13 +68,19 @@ class FeaturesController < ApplicationController
       parent_feature = Feature.find(f)
       @feature.parent_feature_list = parent_feature.id
       @feature.parent_doc_list = parent_feature.parent_doc_list
-      @feature.owner_list = current_user.id
     end
 
+    #Used to determine document owner
      @feature.owner_list = current_user.id
+     
+     #Used to determin doc version
+     @feature.version_list = 1
+
 
     respond_to do |format|
       if @feature.save
+        @feature.baselineid_list = @feature.id
+        @feature.save
         if doc.nil?
         else
           doc.follow(@feature) 

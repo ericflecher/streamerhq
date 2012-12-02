@@ -69,11 +69,17 @@ class DocsController < ApplicationController
     
     user = current_user
     
+    #Used to determine document owner
     @doc.owner_list = current_user.id
+    
+    #Used to determin doc version
+    @doc.version_list = 1
+    
 
     respond_to do |format|
       if @doc.save
-        
+        @doc.baselineid_list = @doc.id
+        @doc.save
         user.follow(@doc) # Creates a record for the user as the follower and the book as the followable
         format.html { redirect_to @doc, notice: 'Doc was successfully created.' }
         format.json { render json: @doc, status: :created, location: @doc }

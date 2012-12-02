@@ -2,22 +2,25 @@
 <html lang="en">
 
 <% @features.each do |feature| %>
+<% 
 
+version = feature.version_list
+baselineid = feature.baselineid_list
+
+%>
 <div class="row-fluid">
-  <div class="span8"><%= link_to feature.title, feature %></div>
+  <div class="span8"><%= link_to feature.title, feature %> v-<%=version[0]%> baselineid <%= baselineid[0]%></div>
+  <div class="span4"></div>
 </div>
 
 <div class="row-fluid">
-  <%if feature.photo.exists?%>
-  	<div class="span8"><%= image_tag feature.photo(:original) %>
-  <%else%>
-  <%end%>
+   <div class="span8"><%if feature.photo.exists?%><%= image_tag feature.photo(:original) %><%else%><%end%>
 
-	<div class="well well-small"><%= feature.gherkin %></div>
-	<% @f = feature %>
-	<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
+		<div class="well well-small"><%= feature.gherkin %></div>
+		<% @f = feature %>
+		<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
    </div>
-	<div class="span4" class="">
+   <div class="span4" class="well well-small pull-right">
 		<p><h4>Feedback on <%= feature.title %></4h></p>
 		<%@all_feature_comments = feature.comment_threads%>
 		<%@all_feature_comments.each do |comments| %>
@@ -30,25 +33,24 @@
 		<%end%>
 		
       	<%= render "docs/feature_comment" %>
-	</div>
+   </div>
 </div>
 
 	<% @subfeatures = feature.following_features%>
 	<% @subfeatures.each do |subfeature| %>
 		<div class="row-fluid">
 	  		<div class="span7 offset1"><%= subfeature.title %></div>
+			<div class="span4"></div>
 		</div>
 
 		<div class="row-fluid">
-	  		<%if subfeature.photo.exists?%>
-	  			<div class="span7 offset1"><%= image_tag subfeature.photo(:original) %>
-	  		<%else%>
-	  		<%end%>
+	  		
+	  		<div class="span7 offset1"><%if subfeature.photo.exists?%><%= image_tag subfeature.photo(:original) %><%else%><%end%>
 				<div class="well well-small"><%= subfeature.gherkin %></div>
 				<% @sf = subfeature %>
 				<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
-				</div>	
-				<div class="span4" class="well well-small pull-right">
+			</div>	
+			<div class="span4" class="well well-small pull-right">
 					<p><h4>Feedback on <%= subfeature.title %></4h></p>
 					<%@all_subfeature_comments = subfeature.comment_threads%>
 					<%@all_subfeature_comments.each do |comments| %>
@@ -61,7 +63,7 @@
 					<%end%>
 
 			      	<%= render "docs/subfeature_comment" %>
-				</div>
+			</div>
 		</div>
 	<% end %> 
 	
