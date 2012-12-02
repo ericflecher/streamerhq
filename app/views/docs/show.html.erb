@@ -26,33 +26,30 @@
 
 
  <div class="row-fluid">
-  <div class="span12">	<%if @doc.photo.exists?%>
+  <div class="span8">	<%if @doc.photo.exists?%>
 		<%= image_tag @doc.photo(:original) %>
 	<%else%>
-
-	<%end%></p></div>
-</div>
-<div class="row-fluid">
- 	<div class="span8"><%= @doc.description %></div>
-	<div class="span4">
-		
+	<%end%>
+	<div class="well well-small">
+		<%= @doc.description %>
+	</div>
+	<a data-toggle="modal" href="#comment" class="btn btn-mini pull-right" type="button">Add your feedback</a>
+ </div>
+	<div class="span4" class="well well-small pull-right">
+		<p><h4>Feedback on <%= @doc.title %></4h></p>
 		<%@all_comments.each do |comments| %>
 			
-			<blockquote>
+			<blockquote >
 			  <p><%=comments.body%></p>
 			  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
 			</blockquote>
 			
-		
 		<%end%>
 		
 		
-		
-		<a data-toggle="modal" href="#comment" class="btn btn-mini" type="button">Comment</a>
       	<%= render "docs/comment" %>
 	</div>
 </div>
-
 
 
  <div class="row-fluid">

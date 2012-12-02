@@ -141,7 +141,21 @@ class FeaturesController < ApplicationController
       end
     end
     
-
-    
   end
+  
+  def create_feature_comment
+    # create comment here
+    featureid = params[:feature_id]
+    feature = Feature.find(featureid)
+    r = Doc.find(feature.parent_doc_list)
+    commenter = current_user.id
+    comment = params[:commenttext]
+    
+    
+    @comment = Comment.build_from(feature, commenter, comment)
+    @comment.save
+  
+    redirect_to doc_path(r)
+  end
+  
 end

@@ -1,6 +1,6 @@
-<div id="comment" class="modal" style="display: none;">
+<div id="feature_comment-<%= @f.id%>" class="modal" style="display: none;">
   	
-	<%= form_tag(create_comment_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
+	<%= form_tag(create_feature_comment_path(@f.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
 	  
 		<div class="modal-header">
 	      <a class="close" data-dismiss="modal">&#215;</a>

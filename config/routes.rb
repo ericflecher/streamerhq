@@ -8,7 +8,8 @@ Streamerhq::Application.routes.draw do
   match '/follow/:doc_id/:follow_code' => 'docs#show', :as => 'follow'
   match '/docs/:doc_id' => 'docs#show', :as => 'comment'
   match '/create_comment/:doc_id' => 'docs#create_comment', :as => 'create_comment'
-  # change to post 
+  match '/create_feature_comment/:feature_id' => 'features#create_feature_comment', :as => 'create_feature_comment'
+
 
   authenticated :user do
     root :to => 'home#index'
