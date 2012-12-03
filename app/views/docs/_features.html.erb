@@ -38,6 +38,7 @@ baselineid = feature.baselineid_list
 </div>
 
 	<% @subfeatures = feature.following_features%>
+	<% @subfeatures = @subfeatures.order("created_at ASC")%>
 	<% @subfeatures.each do |subfeature| %>
 		<div class="row-fluid">
 	  		<div class="span7 offset1"><%= subfeature.title %></div>

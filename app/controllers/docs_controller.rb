@@ -28,7 +28,7 @@ class DocsController < ApplicationController
       end
       
       @doc = Doc.find(d)
-      @doc = @doc.order("created_at DESC")
+      @doc = @doc.order("created_at ASC")
       
       #redirect_to doc_path(d)
       
@@ -40,7 +40,7 @@ class DocsController < ApplicationController
     
     
     @features = @doc.following_features
-    @features = @features.order("created_at DESC")
+    @features = @features.order("created_at ASC")
 
     respond_to do |format|
       format.html # show.html.erb
