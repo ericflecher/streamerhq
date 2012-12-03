@@ -7,6 +7,8 @@ class Feature < ActiveRecord::Base
   
   acts_as_taggable_on :version,:baselineid, :owner, :parent_feature, :parent_doc
   
+  
+  
   has_attached_file :photo,
       :styles =>{
       :thumb  => "100x100",

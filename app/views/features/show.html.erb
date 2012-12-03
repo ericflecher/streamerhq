@@ -50,7 +50,11 @@
 
 
 
-		<% @subfeatures = @feature.following_features%>
+		<% @subfeatures = @feature.following_features
+		   @subfeatures = @subfeatures.order("created_at DESC")
+		
+		
+		%>
 		<% @subfeatures.each do |subfeature| %>
 		
 			<div class="row-fluid">
