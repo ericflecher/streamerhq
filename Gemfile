@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.8'
-gem 'sqlite3'
+gem 'sqlite3', :group => :development
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -28,3 +28,7 @@ gem 'aws-sdk'
 gem "acts_as_follower"
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'acts_as_commentable_with_threading'
+group :production do
+  gem 'pg'
+  gem 'rack-google_analytics', :require => "rack/google_analytics"
+end
