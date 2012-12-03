@@ -9,7 +9,7 @@ baselineid = feature.baselineid_list
 
 %>
 <div class="row-fluid">
-  <div class="span8"><%= link_to feature.title, feature %> v-<%=version[0]%> baselineid <%= baselineid[0]%></div>
+  <div class="span8"><%= link_to feature.title, feature %></div>
   <div class="span4"></div>
 </div>
 
@@ -21,8 +21,8 @@ baselineid = feature.baselineid_list
 		<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
    </div>
    <div class="span4" class="well well-small pull-right">
-		<p><h4>Feedback on <%= feature.title %></4h></p>
 		<%@all_feature_comments = feature.comment_threads%>
+		<% if @all_feature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= feature.title %></4h></p><%end%>
 		<%@all_feature_comments.each do |comments| %>
 			
 			<blockquote >
@@ -51,8 +51,9 @@ baselineid = feature.baselineid_list
 				<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
 			</div>	
 			<div class="span4" class="well well-small pull-right">
-					<p><h4>Feedback on <%= subfeature.title %></4h></p>
+					
 					<%@all_subfeature_comments = subfeature.comment_threads%>
+					<% if @all_subfeature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= subfeature.title %></4h></p><%end%>
 					<%@all_subfeature_comments.each do |comments| %>
 
 						<blockquote >

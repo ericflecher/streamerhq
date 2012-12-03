@@ -5,8 +5,6 @@
 <% 
 	owner = @doc.owner_list
 	version = @doc.version_list
-
-
 %>
  <div class="row-fluid">
   	<div class="span10"><p><% if current_user.id == u[0].id %>   
@@ -25,8 +23,8 @@
 		<%end%>
 	<%end%>
 	
-	<%end%></p><p><h4><%= @doc.title %></4h></p><p><small>v-<%= version[0]%> By: <%= link_to u[0].name, user_path(u[0]) %></small></p></div>
-	<div class="span2"><% if current_user.id == u[0].id %> <%= link_to 'Edit Document', edit_doc_path(@doc)%>  <%else%> <%end%> </div>
+	<%end%></p><p><h4><%= @doc.title %></4h><small> v-<%= version[0]%></small></p> <p><small>By: <%= link_to u[0].name, user_path(u[0]) %></small></p></div>
+	<div class="span2"><% if current_user.id == u[0].id %> <%= link_to 'Edit Document', edit_doc_path(@doc)%> <%else%> <%end%> </div>
 </div>
 
 
@@ -41,7 +39,8 @@
 	<a data-toggle="modal" href="#comment" class="btn btn-mini pull-right" type="button">Add your feedback</a>
  </div>
 	<div class="span4" class="well well-small pull-right">
-		<p><h4>Feedback on <%= @doc.title %></4h></p>
+		<% if @all_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @doc.title %></4h></p> <%end%> 
+		
 		<%@all_comments.each do |comments| %>
 			
 			<blockquote >

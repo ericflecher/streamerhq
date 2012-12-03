@@ -30,8 +30,9 @@
   
   <%= render "features/feature_comment" %>
   <div class="span4" class="">
-		<p><h4>Feedback on <%= @feature.title %></4h></p>
+		
 		<%@all_feature_comments = @feature.comment_threads%>
+		<% if @all_feature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @feature.title %></4h></p><%end%>
 		<%@all_feature_comments.each do |comments| %>
 			
 			<blockquote >
@@ -75,8 +76,9 @@
 				</div>
 				 <%= render "features/subfeature_comment" %>
 				<div class="span4" class="">
-						<p><h4>Feedback on <%= subfeature.title %></4h></p>
+						
 						<%@all_subfeature_comments = subfeature.comment_threads%>
+						<% if @all_subfeature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= subfeature.title %></4h></p><%end%>
 						<%@all_subfeature_comments.each do |comments| %>
 
 							<blockquote >
