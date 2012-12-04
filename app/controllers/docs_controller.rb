@@ -1,4 +1,5 @@
 class DocsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /docs
   # GET /docs.json
   def index
@@ -28,9 +29,7 @@ class DocsController < ApplicationController
       end
       
       @doc = Doc.find(d)
-      @doc = @doc.order("created_at ASC")
-      
-      #redirect_to doc_path(d)
+
       
     else
       @doc = Doc.find(params[:id])
