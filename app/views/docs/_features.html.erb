@@ -19,7 +19,7 @@ baselineid = feature.baselineid_list
 
 		<div class="well well-small"><%= feature.gherkin %></div>
 		<% @f = feature %>
-		<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
+		<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a> 
    </div>
    <div class="span4" class="well well-small pull-right">
 		<%@all_feature_comments = feature.comment_threads%>
@@ -27,7 +27,9 @@ baselineid = feature.baselineid_list
 		<%@all_feature_comments.each do |comments| %>
 			
 			<blockquote >
-			  <p><%=comments.body%></p>
+			  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
+					<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+					<%else%> <%end%>
 			  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
 			</blockquote>
 			
@@ -50,7 +52,7 @@ baselineid = feature.baselineid_list
 	  		<div class="span7 offset1"><%if subfeature.photo.exists?%><%= image_tag subfeature.photo(:original) %><%else%><%end%>
 				<div class="well well-small"><%= subfeature.gherkin %></div>
 				<% @sf = subfeature %>
-				<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a> 
+				<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a> 
 			</div>	
 			<div class="span4" class="well well-small pull-right">
 					
@@ -59,7 +61,9 @@ baselineid = feature.baselineid_list
 					<%@all_subfeature_comments.each do |comments| %>
 
 						<blockquote >
-						  <p><%=comments.body%></p>
+						  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
+									<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+									<%else%> <%end%>
 						  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
 						</blockquote>
 

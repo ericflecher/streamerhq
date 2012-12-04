@@ -25,7 +25,7 @@
 <div class="row-fluid">
   <div class="span8"><%if @feature.photo.exists?%><%= image_tag @feature.photo(:original) %><%else%><%end%>
   	<div class="well well-small"><%= @feature.gherkin %></div>
-	<a data-toggle="modal" href="#feature_comment-<%= @feature.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a>
+	<a data-toggle="modal" href="#feature_comment-<%= @feature.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
   </div>
   
   <%= render "features/feature_comment" %>
@@ -36,7 +36,9 @@
 		<%@all_feature_comments.each do |comments| %>
 			
 			<blockquote >
-			  <p><%=comments.body%></p>
+			  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
+							<%= button_to('Remove', remove_feature_comment_path(:feature_id => @feature.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+							<%else%> <%end%>
 			  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
 			</blockquote>
 		<%end%>
@@ -76,7 +78,7 @@
 		  		<div class="span7 offset1"><%if subfeature.photo.exists?%><%= image_tag subfeature.photo(:original) %><%else%><%end%>
 					<div class="well well-small"><%= subfeature.gherkin %></div>
 					<% @sf = subfeature %>
-					<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini pull-right" type="button">Add your feedback</a>
+					<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
 				</div>
 				 <%= render "features/subfeature_comment" %>
 				<div class="span4" class="">
@@ -86,7 +88,9 @@
 						<%@all_subfeature_comments.each do |comments| %>
 
 							<blockquote >
-							  <p><%=comments.body%></p>
+							  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
+												<%= button_to('Remove', remove_feature_comment_path(:feature_id => @feature.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+												<%else%> <%end%>
 							  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
 							</blockquote>
 						<%end%>

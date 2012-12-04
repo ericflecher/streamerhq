@@ -36,7 +36,7 @@
 	<div class="well well-small">
 		<%= @doc.description %>
 	</div>
-	<a data-toggle="modal" href="#comment" class="btn btn-mini pull-right" type="button">Add your feedback</a>
+	<a data-toggle="modal" href="#comment" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
  </div>
 	<div class="span4" class="well well-small pull-right">
 		<% if @all_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @doc.title %></4h></p> <%end%> 
@@ -44,8 +44,11 @@
 		<%@all_comments.each do |comments| %>
 			
 			<blockquote >
-			  <p><%=comments.body%></p>
+			  <p><%=comments.body%>	 <% if current_user.id == comments.user_id %> 
+				<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+				<%else%> <%end%> 
 			  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
+				
 			</blockquote>
 			
 		<%end%>
@@ -64,6 +67,6 @@
   	<div class="span12"><% if current_user.id == u[0].id %> <%= link_to 'Add New Feature', new_feature_path(:doc_id => @doc.id) %> <%else%> <%end%>  </div>
 </div>
 
-<%= debug @doc%>
+<%= debug @all_comments%>
 
 </html>

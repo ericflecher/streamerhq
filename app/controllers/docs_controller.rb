@@ -133,4 +133,6 @@ class DocsController < ApplicationController
   
     redirect_to doc_path(docid)
   end
+  
+  
 end
