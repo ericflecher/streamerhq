@@ -67,6 +67,4 @@
   	<div class="span12"><% if current_user.id == u[0].id %> <%= link_to 'Add New Feature', new_feature_path(:doc_id => @doc.id) %> <%else%> <%end%>  </div>
 </div>
 
-<%= debug @all_comments%>
-
 </html>
