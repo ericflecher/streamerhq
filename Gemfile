@@ -30,5 +30,5 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'acts_as_commentable_with_threading'
 group :production do
   gem 'pg'
-  gem 'rack-google_analytics', :require => "rack/google_analytics"
+  gem 'google-analytics-rails'
 end

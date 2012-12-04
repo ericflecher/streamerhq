@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head >
+	<%= analytics_init if Rails.env.production? %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "BckTo" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "BckTo" %>">
