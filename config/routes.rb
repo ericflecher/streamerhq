@@ -13,6 +13,8 @@ Streamerhq::Application.routes.draw do
   match '/create_feature_comment_return_feature/:feature_id' => 'features#create_feature_comment_return_feature', :as => 'create_feature_comment_return_feature'
   match '/remove_comment/:doc_id/:comment_id' => 'comments#remove_comment', :as => 'remove_comment'
   match '/remove_feature_comment/:feature_id/:comment_id' => 'comments#remove_feature_comment', :as => 'remove_feature_comment'
+  match '/adduser/:doc_id' => 'docs#adduser', :as => 'adduser'
+
 
   authenticated :user do
     root :to => 'home#index'
@@ -20,4 +22,9 @@ Streamerhq::Application.routes.draw do
   root :to => "home#index"
   devise_for :users
   resources :users
+  
+  resources :users do
+    get :autocomplete_user_name, :on => :collection
+  end
+  
 end

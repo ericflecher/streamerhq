@@ -32,10 +32,12 @@ class FeaturesController < ApplicationController
     
     if params[:doc_id]
       session[:doc_id] = params[:doc_id]
+      @r = session[:doc_id]
     end
     
     if params[:feature_id]
       session[:feature_id] = params[:feature_id]
+      @r = session[:feature_id]
     end
 
     respond_to do |format|

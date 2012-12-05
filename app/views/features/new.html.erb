@@ -2,4 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', features_path %>
+<%if session[:feature_id].nil?%>  <%= link_to 'Back',doc_path(@r) %> <%else%> <%= link_to 'Back', feature_path(@r) %> <%end%> 

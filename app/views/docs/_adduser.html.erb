@@ -1,0 +1,16 @@
+<div id="adduser" class="modal" style="display: none;">
+  	
+	<%= simple_form_for User.all, :url => adduser_path(current_user), :html => {:method => :put, :class => 'form-horizontal' } do |f| %>
+	
+		<%= @doc%>
+		<%= f.input :email %>
+		
+		
+	    
+	    <div class="modal-footer">
+	      <%= f.submit "Add use", :class => "btn" %>
+	      <a class="btn" data-dismiss="modal" href="#">Close</a>
+	    </div>
+	  <% end %>
+	
+</div>

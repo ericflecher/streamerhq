@@ -1,5 +1,15 @@
 class DocsController < ApplicationController
   before_filter :authenticate_user!
+  autocomplete :user, :email, :name
+  
+  
+  def adduser
+    
+    
+  end
+  
+  
+  
   # GET /docs
   # GET /docs.json
   def index
