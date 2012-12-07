@@ -4,7 +4,7 @@ Streamerhq::Application.routes.draw do
   resources :docs
   resources :comments, :only => [:create, :destroy]
   
-  match '/feature/new/:doc_id' => 'features#new', :as => 'new'
+  #match '/feature/new/:doc_id' => 'features#new', :as => 'new'
   match '/feature/new/:feature_id' => 'features#new', :as => 'new'
   match '/follow/:doc_id/:follow_code' => 'docs#show', :as => 'follow'
   match '/docs/:doc_id' => 'docs#show', :as => 'comment'
@@ -13,7 +13,9 @@ Streamerhq::Application.routes.draw do
   match '/create_feature_comment_return_feature/:feature_id' => 'features#create_feature_comment_return_feature', :as => 'create_feature_comment_return_feature'
   match '/remove_comment/:doc_id/:comment_id' => 'comments#remove_comment', :as => 'remove_comment'
   match '/remove_feature_comment/:feature_id/:comment_id' => 'comments#remove_feature_comment', :as => 'remove_feature_comment'
-  match '/adduser/:doc_id' => 'docs#adduser', :as => 'adduser'
+  match '/add_follower/:doc_id' => 'docs#add_follower', :as => 'add_follower'
+  match '/nf/:doc_id' => 'features#new', :as => 'nf'
+  
 
 
   authenticated :user do

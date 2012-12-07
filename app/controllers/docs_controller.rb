@@ -3,10 +3,7 @@ class DocsController < ApplicationController
   autocomplete :user, :email, :name
   
   
-  def adduser
-    
-    
-  end
+
   
   
   
@@ -25,6 +22,10 @@ class DocsController < ApplicationController
   # GET /docs/1
   # GET /docs/1.json
   def show
+    
+    @users = User.all
+    @users.delete current_user
+
 
     #Adds doc as followed for current user
     if params[:doc_id]
@@ -142,6 +143,21 @@ class DocsController < ApplicationController
     @comment.save
   
     redirect_to doc_path(docid)
+  end
+  
+  def add_follower
+    
+    d = params[:doc_id]
+    e = params[:user]
+   
+    user = User.find(e)
+    #session[:test] = user
+
+    doc = Doc.find(Integer(d))
+    user.follow(doc)
+    
+    redirect_to doc
+    
   end
   
   

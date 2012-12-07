@@ -5,10 +5,22 @@
 <% 
 	owner = @doc.owner_list
 	version = @doc.version_list
+	session[:doc_id] = @doc.id
 %>
 
-	<a data-toggle="modal" href="#adduser" class="btn btn-mini btn-primary pull-right" type="button">Add a user</a>
-	<%= render "docs/adduser" %>
+<%= debug session[:test]%>
+	<% if current_user.id == u[0].id  %> 
+
+		<div class="row">
+		  <div class="span1"><%= button_to('New Section', nf_path(:doc_id => @doc.id), :class => 'btn btn-mini btn-primary')%></div>
+		  <div class="span1"><%= button_to 'Edit Doc', edit_doc_path(@doc), :method => :get, :class => 'btn btn-mini btn-primary' %></div>
+		  <div class="span9"></div>
+		  <div class="span1"><a data-toggle="modal" href="#addfollower" class="btn btn-mini btn-primary" type="button">Invite</a></div>
+		</div>
+	
+		<%= render "docs/addfollower" %>
+	<%else%>
+	<%end%>
 
  <div class="row-fluid">
   	<div class="span10"><p><% if current_user.id == u[0].id %>   
@@ -28,7 +40,9 @@
 	<%end%>
 	
 	<%end%></p><p><h4><%= @doc.title %></4h><small> v-<%= version[0]%></small></p> <p><small>By: <%= link_to u[0].name, user_path(u[0]) %></small></p></div>
-	<div class="span2"><% if current_user.id == u[0].id %> <%= link_to 'Edit Document', edit_doc_path(@doc)%> <%else%> <%end%> </div>
+	<div class="span2">
+		
+	</div>
 </div>
 
 
@@ -67,8 +81,5 @@
   	<%=render "docs/features"%>
 </div>
 
- <div class="row-fluid">
-  	<div class="span12"><% if current_user.id == u[0].id %> <%= link_to 'Add New Feature', new_feature_path(:doc_id => @doc.id) %> <%else%> <%end%>  </div>
-</div>
 
 </html>
