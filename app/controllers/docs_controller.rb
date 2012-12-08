@@ -2,10 +2,7 @@ class DocsController < ApplicationController
   before_filter :authenticate_user!
   autocomplete :user, :email, :name
   
-  
-
-  
-  
+    
   
   # GET /docs
   # GET /docs.json
@@ -158,6 +155,20 @@ class DocsController < ApplicationController
     
     redirect_to doc
     
+  end
+  
+  def pdoc
+    d = params[:doc_id]
+    doc = Doc.find(d)
+    
+    if doc.pdoc == 1
+      doc.pdoc = 0
+    else
+      doc.pdoc = 1
+    end
+    session[:test] = doc.pdoc 
+    doc.save
+    redirect_to doc
   end
   
   
