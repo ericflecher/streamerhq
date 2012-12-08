@@ -9,6 +9,7 @@ class DocsController < ApplicationController
   def index
     #@docs = Doc.all
     @docs = current_user.following_docs 
+    
 
     respond_to do |format|
       format.html # index.html.erb

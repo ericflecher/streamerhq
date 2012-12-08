@@ -1,0 +1,21 @@
+<% 
+
+f = @d.following_features
+@features = f.order("created_at ASC")
+
+%>
+
+<% @features.each do |feature| %>
+
+	<div class="row-fluid">
+  		<div class="span8"><%= link_to feature.title, feature %></div>
+  		<div class="span4"></div>
+	</div>
+
+	<div class="row-fluid">
+   		<div class="span8">
+			<%if feature.photo.exists?%><%= image_tag feature.photo(:thumb) %><%else%><%end%>
+   		</div>
+	</div>
+
+<% end %>
