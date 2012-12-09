@@ -4,15 +4,17 @@
   
 
 <% @docs.each do |doc| %>
-<%= link_to doc.title, doc_path(doc) %>
+
 <div class="row-fluid">
   <div class="span2">
-	<%if doc.photo.exists?%>
-		<%= image_tag doc.photo(:medium) %>
-	<%else%>
-	<%end%>
+	
   </div>
 	<div class="span4">
+		<p><%= link_to doc.title, doc_path(doc) %></p>
+		<%if doc.photo.exists?%>
+			<p><%= image_tag doc.photo(:medium) %></p>
+		<%else%>
+		<%end%>
 		<div class="well well-small"><%= doc.description %>
 		</div>
 		<div class="">
