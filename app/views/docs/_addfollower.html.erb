@@ -1,24 +1,51 @@
 <div id="addfollower" class="modal" style="display: none;">
-  	
+
 	<%= form_tag(add_follower_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
 	  
+		<%
+
+			x =	@doc.followers
+			x.delete current_user
+			owner = @doc.owner_list
+
+		%>
+
+		
 		<div class="modal-header">
 	      <a class="close" data-dismiss="modal">&#215;</a>
-	      <h3>Invite users to this project</h3>
+	      <h4>Administer Access</h4>
 	    </div>
 	
 	    <div class="modal-body">
 			<p><%= select_tag("user", options_from_collection_for_select(@users, :id, :name) )%></p>
 	    </div>
+		
+		<table class="table table-condensed">
+
+			<% x.each do |y| %>
+				<tr>
+			    	<td><%= y.name %></td>
+			    	<td><%= y.email %></td>
+					<td>
+					
+					<% if owner.include?(String(y.id)) == true   %> 
+						<%= link_to 'Remove Admin', remove_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
+					<%else%>
+						<%= link_to 'Make Admin', make_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
+					<%end%>	
+					</td>
+			    	<td><%= link_to 'Remove', remove_follower_path(:doc_id => @doc.id, :user_id => y.id) %></td>
+			  </tr>
+				<p></p>
+			<%end%>
+	
+		</table>
 
 	    <div class="modal-footer">
-	      <%= submit_tag("Add user to document", class: "btn btn-small btn-primary") %>
+	      <%= submit_tag("Add user to board", class: "btn btn-small btn-primary") %>
 	      <a class="btn" data-dismiss="modal" href="#">Close</a>
 	    </div>
 		
-	  
-	
-	
 	<% end %>
 	
 </div>

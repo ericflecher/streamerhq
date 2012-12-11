@@ -13,8 +13,11 @@ Streamerhq::Application.routes.draw do
   match '/remove_comment/:doc_id/:comment_id' => 'comments#remove_comment', :as => 'remove_comment'
   match '/remove_feature_comment/:feature_id/:comment_id' => 'comments#remove_feature_comment', :as => 'remove_feature_comment'
   match '/add_follower/:doc_id' => 'docs#add_follower', :as => 'add_follower'
+  match '/remove_follower/:doc_id/:user_id' => 'docs#remove_follower', :as => 'remove_follower'
   match '/nf/:doc_id' => 'features#new', :as => 'nf'
   match '/pdoc/:doc_id' => 'docs#pdoc', :as => 'pdoc'
+  match '/make_admin/:doc_id/:user_id' => 'docs#make_admin', :as => 'make_admin'
+  match '/remove_admin/:doc_id/:user_id' => 'docs#remove_admin', :as => 'remove_admin'
   
 
 

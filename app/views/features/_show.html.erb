@@ -1,4 +1,13 @@
-<% u = User.find(@feature.owner_list) %>
+<% 
+
+	u = User.find(@feature.owner_list)
+	owner = @feature.owner_list
+	p = @feature.parent_doc_list
+	
+	@doc = Doc.find(p[0])
+	docowner = @doc.owner_list
+	
+ %>
 
 
 <div class="row-fluid">
@@ -6,9 +15,10 @@
   <div class="span4"></div>
 </div>
  <div class="row-fluid">
-  	<div class="span8"><% if current_user.id == u[0].id %> 
-		<%= link_to 'Edit Feature', edit_feature_path(@feature) %> |
-		<%= link_to 'Delete Feature', @feature, method: :delete, data: { confirm: 'Are you sure?' } %>
+  	<div class="span8">
+		<% if docowner.include?(String(current_user.id)) == true  %> 
+			<%= link_to 'Edit Feature', edit_feature_path(@feature) %> |
+			<%= link_to 'Delete Feature', @feature, method: :delete, data: { confirm: 'Are you sure?' } %>
 	
 		<%else%>
 		<%end%>
@@ -60,7 +70,7 @@
 				<div class="span4"></div>
 			</div>
 			<div class="row-fluid">
-		  		<div class="span7 offset1"><% if current_user.id == u[0].id %> 
+		  		<div class="span7 offset1"><% if docowner.include?(String(current_user.id)) == true  %> 
 			
 			<%= link_to 'Edit Sub-Feature', edit_feature_path(subfeature) %>|<%= link_to 'Delete Sub-Feature', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %>
 			<%else%>
@@ -98,13 +108,14 @@
 		<% end %>  
 
 	 <div class="row-fluid">
-	  	<div class="span12"><% if current_user.id == u[0].id %> 
-			<%= link_to 'New Sub-Feature', new_feature_path(:feature_id => @feature.id) %>|
-			<%= link_to 'Back', doc_path(@feature.parent_doc_list) %>
-		<%else%>
+	  	<div class="span12"><% if docowner.include?(String(current_user.id)) == true %> 
+			<%= link_to 'New Sub-Section', new_feature_path(:feature_id => @feature.id) %> | 
+			
+			<%else%>
 
 			
-		<%end%>
-			</div>
+			<%end%>
+		<%= link_to 'Full Board', doc_path(@feature.parent_doc_list) %>
+		</div>
 
 	 </div>

@@ -23,8 +23,8 @@ class DocsController < ApplicationController
     
     @users = User.all
     @users.delete current_user
-
-
+    
+  
     #Adds doc as followed for current user
     if params[:doc_id]
       
@@ -43,6 +43,13 @@ class DocsController < ApplicationController
     else
       @doc = Doc.find(params[:id])
     end
+    
+    # deletes current following documnet from users list
+    u_followers = @doc.followers
+  	u_followers.each do |u| 
+  	  x=User.find(u)
+  		@users.delete x
+  	end
     
     @all_comments = @doc.comment_threads
     
@@ -79,10 +86,10 @@ class DocsController < ApplicationController
     
     user = current_user
     
-    #Used to determine document owner
+    #Used to define document owner
     @doc.owner_list = current_user.id
     
-    #Used to determin doc version
+    #Used to define doc version
     @doc.version_list = 1
     
 
@@ -154,6 +161,61 @@ class DocsController < ApplicationController
     doc = Doc.find(Integer(d))
     user.follow(doc)
     
+    redirect_to doc
+    
+  end
+  
+  def remove_follower
+    
+    d = params[:doc_id]
+    e = params[:user_id]
+   
+    user = User.find(e)
+    #session[:test] = user
+
+    doc = Doc.find(Integer(d))
+    user.stop_following(doc)
+    
+    redirect_to doc
+    
+  end
+  
+  def make_admin
+    
+    d = params[:doc_id]
+    e = params[:user_id]
+   
+    user = User.find(e)
+    doc = Doc.find(Integer(d))
+    
+    tags = doc.owner_list
+    tags.push(String(user.id))
+    
+    #Used to define document owner
+    doc.owner_list = tags
+    #session[:test]=tags
+    
+    doc.save
+    redirect_to doc
+    
+  end
+  
+  def remove_admin
+    
+    d = params[:doc_id]
+    e = params[:user_id]
+   
+    user = User.find(e)
+    doc = Doc.find(Integer(d))
+    
+    tags = doc.owner_list
+    tags.delete String(user.id)
+    
+    #Used to define document owner
+    doc.owner_list = tags
+    #session[:test]=tags
+    
+    doc.save
     redirect_to doc
     
   end
