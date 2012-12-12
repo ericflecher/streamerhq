@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
     @feature = feature
     @comment = comment
     if @feature == 1
-      @url  = "http://www.bckto.com" + feature_path(@doc)
+      @url  = "http://www.bckto.com" + doc_path(@doc)
     else
       @url  = "http://www.bckto.com" + feature_path(@feature)
     end
