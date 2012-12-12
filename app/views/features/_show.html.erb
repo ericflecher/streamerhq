@@ -108,8 +108,16 @@
 		<% end %>  
 
 	 <div class="row-fluid">
-	  	<div class="span12"><% if docowner.include?(String(current_user.id)) == true %> 
-			<%= link_to 'New Sub-Section', new_feature_path(:feature_id => @feature.id) %> | 
+	  	<div class="span12">
+			<% if docowner.include?(String(current_user.id)) == true %> 
+				<%
+					pf = @feature.parent_feature_list
+				%>
+				<% if pf[0].nil? %>
+					<%= link_to 'New Sub-Section', new_feature_path(:feature_id => @feature.id) %> | 
+				<%else%>
+					
+				<%end%>
 			
 			<%else%>
 

@@ -146,7 +146,17 @@ class DocsController < ApplicationController
     
     @comment = Comment.build_from(doc, commenter, comment)
     @comment.save
-  
+    
+     # email notificaiton
+     feature = 1
+      @followers = doc.followers
+
+      @followers.each do |f|
+        user = f
+        # Tell the UserMailer to send a welcome Email after save
+        UserMailer.comment_email(user, doc, feature, comment).deliver
+      end
+    
     redirect_to doc_path(docid)
   end
   

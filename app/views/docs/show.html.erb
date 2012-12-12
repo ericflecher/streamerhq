@@ -4,6 +4,7 @@
 <% 
 	owner = @doc.owner_list
 %>
+
 <%if @doc.pdoc == 1%>
 	<%if current_user.following?(@doc) == true%>
 		<%= render "docs/show" %>

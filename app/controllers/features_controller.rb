@@ -155,15 +155,27 @@ class FeaturesController < ApplicationController
     # create comment here
     featureid = params[:feature_id]
     feature = Feature.find(featureid)
-    r = Doc.find(feature.parent_doc_list)
+    doc = Doc.find(feature.parent_doc_list)
     commenter = current_user.id
     comment = params[:commenttext]
     
+   
     
     @comment = Comment.build_from(feature, commenter, comment)
     @comment.save
-  
-    redirect_to doc_path(r)
+    
+    # email notificaiton
+    d = params[:doc_id]
+    doc = Doc.find(d)
+    @followers = doc.followers
+    
+    @followers.each do |f|
+      user = f
+      # Tell the UserMailer to send a welcome Email after save
+      UserMailer.comment_email(user, doc, feature, comment).deliver
+    end
+    
+    redirect_to doc_path(doc)
   end
   
   def create_feature_comment_return_feature
@@ -171,19 +183,34 @@ class FeaturesController < ApplicationController
     featureid = params[:feature_id]
     feature = Feature.find(featureid)
     pf = feature.parent_feature_list
+    
+    
+    
     if pf[0].nil?
-      r = featureid
+      f = featureid
     else
-      r = pf
+      f = pf
     end
     commenter = current_user.id
     comment = params[:commenttext]
     
-    
     @comment = Comment.build_from(feature, commenter, comment)
     @comment.save
+    
+    # email notificaiton
+    d = params[:doc_id]
+    doc = Doc.find(d)
+    @followers = doc.followers
+    
+    @followers.each do |f|
+      user = f
+      # Tell the UserMailer to send a welcome Email after save
+      UserMailer.comment_email(user, doc, feature, comment).deliver
+    end
+
+
   
-    redirect_to feature_path(r)
+    redirect_to feature_path(f)
   end
   
 end
