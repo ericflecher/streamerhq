@@ -12,8 +12,11 @@ class UserMailer < ActionMailer::Base
     @doc = doc
     @feature = feature
     @comment = comment
-    @url  = "http://www.bckto.com" + feature_path(@feature)
-   
+    if @feature == 1
+      @url  = "http://www.bckto.com" + feature_path(@doc)
+    else
+      @url  = "http://www.bckto.com" + feature_path(@feature)
+    end
       mail(:to => @user.email,:subject => "New comment") do |format|
            format.html { render '/user_mailer/comment_email' }
          
