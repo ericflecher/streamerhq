@@ -170,9 +170,10 @@ class FeaturesController < ApplicationController
     @followers = doc.followers
     
     @followers.each do |f|
-      user = f
+      send_to_user = f
+      user = current_user
       # Tell the UserMailer to send a welcome Email after save
-      UserMailer.comment_email(user, doc, feature, comment).deliver
+      UserMailer.comment_email(user, doc, feature, comment, send_to_user).deliver
     end
     
     redirect_to doc_path(doc)
