@@ -1,6 +1,6 @@
-<% u = User.find(@doc.owner_list) %>
+<% owner = @doc.owner_list %>
 
-<% if current_user.id == u[0].id %> 
+<% if owner.include?(String(current_user.id)) == true %> 
 	
 	<h1>Editing doc</h1>
 	<%= render 'form' %>

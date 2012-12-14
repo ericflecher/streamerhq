@@ -9,15 +9,7 @@
 	<% if owner.include?(String(current_user.id)) == true   %> 
 
 		<div class="row">
-		  <div class="span1"><%= button_to('New Section', nf_path(:doc_id => @doc.id), :class => 'btn btn-mini btn-primary')%></div>
-		  <div class="span1"><%= button_to 'Edit Doc', edit_doc_path(@doc), :method => :get, :class => 'btn btn-mini btn-primary' %></div>
-		  <div class="span1">
-			<%if @doc.pdoc == 1%>
-				<%= button_to( 'Make Public', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-primary') %>
-			<%else%>
-				<%= button_to( 'Make Private', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-primary') %>
-			<%end%>
-		  </div>
+		  <div class="span3"><%= link_to('New Section', nf_path(:doc_id => @doc.id))%></div>
 		  <div class="span8"></div>
 		  <div class="span1"><a data-toggle="modal" href="#addfollower" class="btn btn-mini btn-primary" type="button">Admin</a></div>
 		</div>
@@ -84,3 +76,14 @@
  <div class="row-fluid">
   	<%=render "docs/features"%>
 </div>
+
+<% if owner.include?(String(current_user.id)) == true   %> 
+
+	<div class="row">
+	  <div class="span3"><%= link_to('New Section', nf_path(:doc_id => @doc.id))%></div>
+	  <div class="span8"></div>
+	  <div class="span1"></div>
+	</div>
+
+<%else%>
+<%end%>
