@@ -26,8 +26,8 @@ Streamerhq::Application.routes.draw do
     root :to => 'home#index'
   end
   root :to => "home#index"
-  #devise_for :users, controllers: { invitations: 'devise/invitations' }
-  devise_for :users, :controllers => { :invitations => 'users/invitations' }
+  devise_for :users, controllers: { invitations: 'devise/invitations' }
+  #devise_for :users, :controllers => { :invitations => 'users/invitations' }
   resources :users
   
   resources :users do
