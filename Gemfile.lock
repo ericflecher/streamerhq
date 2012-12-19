@@ -233,6 +233,7 @@ DEPENDENCIES
   acts_as_follower
   aws-s3
   aws-sdk
+  bcrypt-ruby
   bootstrap-sass (>= 2.1.1.0)
   cancan (>= 1.6.8)
   capybara (>= 1.1.3)
