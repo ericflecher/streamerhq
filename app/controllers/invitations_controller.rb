@@ -1,4 +1,4 @@
-class Users::InvitationsController < Devise::InvitationsController
+class InvitationsController < Devise::InvitationsController
   def update
     if this
       redirect_to root_path
