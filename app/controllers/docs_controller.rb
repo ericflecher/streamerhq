@@ -177,8 +177,12 @@ class DocsController < ApplicationController
       
       User.invite!({:email => email}, current_user) # current_user will be set as invited_by
       new_user = User.where(:email => email)
-      new_user.follow(doc)
-      session[:test] = new_user
+      
+      x = CustomAss.new
+      x.doc_id = doc.id
+      x.codetype = email
+      x.save
+      
     end
     
 

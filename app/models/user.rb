@@ -17,7 +17,20 @@ class User < ActiveRecord::Base
   after_invitation_accepted :email_invited_by
 
   def email_invited_by
-     # ...
+     # add users to all invited documents
+     
+     
+     
+     invites = CustomAss.where(:codetype => self.email)
+     
+     invites.each do |i|
+       
+       u = User.where(:email => i.codetype)
+       d = Doc.find(i.doc_id)
+       
+       self.follow(d)
+       
+     end
      
      
   end

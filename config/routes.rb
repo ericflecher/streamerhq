@@ -2,6 +2,7 @@ Streamerhq::Application.routes.draw do
   
   resources :features
   resources :docs
+  resources :custom_ass
   resources :comments, :only => [:create, :destroy]
   
   match '/feature/new/:feature_id' => 'features#new', :as => 'new'

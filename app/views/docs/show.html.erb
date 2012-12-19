@@ -4,7 +4,7 @@
 <% 
 	owner = @doc.owner_list
 %>
-<%= debug session[:test]%>
+
 <%if @doc.pdoc == 1%>
 	<%if current_user.following?(@doc) == true%>
 		<%= render "docs/show" %>
