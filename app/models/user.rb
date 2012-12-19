@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :invitable, :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :invitable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :role_ids, :as => :admin
@@ -13,7 +13,14 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_followable
   
+  
+  after_invitation_accepted :email_invited_by
 
+  def email_invited_by
+     # ...
+     
+     
+  end
   
   
 end

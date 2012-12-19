@@ -30,7 +30,7 @@ baselineid = feature.baselineid_list
 			  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
 					<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
 					<%else%> <%end%>
-			  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= User.find(comments.user_id).name%><%else%>Author unknown<%end%></cite></small>
 			</blockquote>
 			
 		<%end%>
@@ -64,7 +64,7 @@ baselineid = feature.baselineid_list
 						  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
 									<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
 									<%else%> <%end%>
-						  <small> <cite title="Source Title"><%= User.find(comments.user_id).name%></cite></small>
+						  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= User.find(comments.user_id).name%><%else%>Author unknown<%end%></cite></small>
 						</blockquote>
 
 					<%end%>

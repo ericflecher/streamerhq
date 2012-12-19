@@ -152,9 +152,11 @@ class DocsController < ApplicationController
       @followers = doc.followers
 
       @followers.each do |f|
-        user = f
+        user = current_user
+        send_to_user = f
         # Tell the UserMailer to send a welcome Email after save
-        UserMailer.comment_email(user, doc, feature, comment).deliver
+        
+        UserMailer.comment_email(user, doc, feature, comment, send_to_user).deliver
       end
     
     redirect_to doc_path(docid)
@@ -164,12 +166,22 @@ class DocsController < ApplicationController
     
     d = params[:doc_id]
     e = params[:user]
-   
-    user = User.find(e)
-    #session[:test] = user
-
+    email = params[:email]
     doc = Doc.find(Integer(d))
-    user.follow(doc)
+    if email.nil?
+      user = User.find(e)
+      #session[:test] = user
+
+      user.follow(doc)
+    else
+      
+      User.invite!({:email => email}, current_user) # current_user will be set as invited_by
+      new_user = User.where(:email => email)
+      new_user.follow(doc)
+      session[:test] = new_user
+    end
+    
+
     
     redirect_to doc
     

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% 
+
+f = @d.following_features
+@features = f.order("created_at ASC")
+
+%>
+<body>
+	<ul class="inline">
+		<% @features.each do |feature| %>
+  			<li>
+				<p><%= link_to feature.title, feature %></p>
+				<%if feature.photo.exists?%><%= image_tag feature.photo(:thumb) %><%else%><%end%>
+   			</li>
+		<% end %>
+	</ul>
+</body>
+
+
+</html>
