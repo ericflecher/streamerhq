@@ -19,8 +19,6 @@ class User < ActiveRecord::Base
   def email_invited_by
      # add users to all invited documents
      
-     
-     
      invites = CustomAss.where(:codetype => self.email)
      
      invites.each do |i|
@@ -29,6 +27,8 @@ class User < ActiveRecord::Base
        d = Doc.find(i.doc_id)
        
        self.follow(d)
+       
+       i.destroy
        
      end
      

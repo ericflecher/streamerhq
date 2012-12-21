@@ -168,11 +168,12 @@ class DocsController < ApplicationController
     e = params[:user]
     email = params[:email]
     doc = Doc.find(Integer(d))
-    if email.nil?
+    if email == ""
+      
       user = User.find(e)
       #session[:test] = user
-
       user.follow(doc)
+      
     else
       
       User.invite!({:email => email}, current_user) # current_user will be set as invited_by

@@ -1,5 +1,10 @@
 
-<% owner = @doc.owner_list  %>
+<% 
+	d = @feature.parent_doc_list
+	doc = Doc.find(d[0])
+	owner = doc.owner_list 
+
+ %>
 <% if owner.include?(String(current_user.id)) == true %> 
 
 <h1>Editing feature</h1>
@@ -7,7 +12,7 @@
 	<%= render 'form' %>
 
 	<%= link_to 'Show', @feature %> |
-	<%= link_to 'Back', features_path %>
+	<%= link_to 'Back', @feature %>
 	
 <%else%>
 
