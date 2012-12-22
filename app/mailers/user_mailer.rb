@@ -25,4 +25,21 @@ class UserMailer < ActionMailer::Base
     
   end
   
+  def section_email(user, doc, feature, send_to_user)
+    @user = user
+    @doc = doc
+    @feature = feature
+    @send_to_user = send_to_user
+    if @feature == 1
+      @url  = "http://www.bckto.com" + doc_path(@doc)
+    else
+      @url  = "http://www.bckto.com" + feature_path(@feature)
+    end
+      mail(:to => @send_to_user.email,:subject => "Board update") do |format|
+           format.html { render '/user_mailer/section_email' }
+         
+      end
+    
+  end
+  
 end

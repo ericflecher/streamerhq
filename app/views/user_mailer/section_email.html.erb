@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4><%= @user.name %> just added to <%if @feature == 1%> <%=@doc.title%> <%else%> <%=@feature.title%><%end%></h4>
+    
+	<p>
+	<%if @feature == 1%> <%if @doc.photo.exists?%><%= image_tag @doc.photo(:large) %><%else%> <%end%> <%else%> <%if @feature.photo.exists?%><%= image_tag @feature.photo(:large) %><%else%><%end%><%end%>
+	</p>
+	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td bgcolor="#C0C0C0	" width="100%" height="50px">	<p>
+		<%if @feature == 1%> <%=@doc.description%> <%else%> <%= @feature.gherkin%><%end%>
+		</p></td>
+	</tr>
+	</table>
+	
+    <p>
+      Reply back at: <%= @url %>.
+    </p>
+    <p>Cool beans!</p>
+  </body>
+</html>

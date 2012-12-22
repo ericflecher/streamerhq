@@ -88,13 +88,41 @@ class FeaturesController < ApplicationController
         else
           doc.follow(@feature) 
           session[:doc_id]= nil
+          
+          
+          # email notificaiton
+          doc = Doc.find(d)
+          @followers = doc.followers
+
+          @followers.each do |f|
+            user = current_user
+            send_to_user = f
+            # Tell the UserMailer to send a welcome Email after save
+            #UserMailer.comment_email(user, doc, feature, comment).deliver
+            UserMailer.section_email(user, doc, @feature, send_to_user).deliver
+          end
+          
           d = nil
+          
           format.html { redirect_to doc, notice: 'Feature was successfully created.' }
         end
         
         if parent_feature.nil?
         else
           parent_feature.follow(@feature) 
+          
+          # email notificaiton
+          doc = Doc.find(@feature.parent_doc_list[0])
+          @followers = doc.followers
+
+          @followers.each do |f|
+            user = current_user
+            send_to_user = f
+            # Tell the UserMailer to send a welcome Email after save
+            #UserMailer.comment_email(user, doc, feature, comment).deliver
+            UserMailer.section_email(user, doc, @feature, send_to_user).deliver
+          end
+          
           session[:feature_id]= nil
           f = nil
           format.html { redirect_to parent_feature, notice: 'Feature was successfully created.' }
@@ -116,6 +144,19 @@ class FeaturesController < ApplicationController
 
     respond_to do |format|
       if @feature.update_attributes(params[:feature])
+        
+        # email notificaiton
+        doc = Doc.find(@feature.parent_doc_list[0])
+        @followers = doc.followers
+
+        @followers.each do |f|
+          user = current_user
+          send_to_user = f
+          # Tell the UserMailer to send a welcome Email after save
+          #UserMailer.comment_email(user, doc, feature, comment).deliver
+          UserMailer.section_email(user, doc, @feature, send_to_user).deliver
+        end
+        
         format.html { redirect_to @feature, notice: 'Feature was successfully updated.' }
         format.json { head :no_content }
       else
