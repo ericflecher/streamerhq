@@ -1,0 +1,40 @@
+<div id="newsubsection" class="modal" style="display: none;">
+	
+	<%
+		@feature = Feature.new
+	%>
+	
+	<%= simple_form_for(@feature) do |f| %>
+	  <%= f.error_notification %>
+	
+		<div class="modal-header">
+	      	<a class="close" data-dismiss="modal">&#215;</a>
+	      	<h3>Create a new story</h3>
+		</div>
+		
+		<div class="modal-body">
+			<div class="row-fluid">
+			  <div class="span12">
+			    <p>Stories make up boards. Use stories to describe how to accomplish a boards goals</p>
+			    <div class="row-fluid">
+			      <div class="span6">
+			        <%= f.input :title,:input_html => { :rows => 1 , :class => "span6"}, :label => "1 - Name it" %>
+			      </div>
+			      <div class="span6"><%= f.input :photo, :label => "2 - Add a photo which represents the story" %></div>
+			    </div>
+			  	<div class="row-fluid">
+			      <div class="span12">
+			        <%= f.input :gherkin, :as => :text, :input_html => { :rows => 8 , :class => "span12"}, :label => "3 - Describe the story" %>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="modal-footer">
+		  	<%= f.button :submit,"Add story to board", class: "btn btn-small btn-primary" %>
+	      	<a class="btn" data-dismiss="modal" href="#">Close</a>
+	 	</div>
+    <% end %>
+	
+</div>

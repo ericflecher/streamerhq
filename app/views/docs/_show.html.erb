@@ -9,7 +9,10 @@
 	<% if owner.include?(String(current_user.id)) == true   %> 
 
 		<div class="row">
-		  <div class="span3"><%= link_to('New Section', nf_path(:doc_id => @doc.id))%></div>
+		  <div class="span3">
+				<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">New Story</a>
+					<%= render "features/newsection" %>
+		  </div>
 		  <div class="span8"></div>
 		  <div class="span1"><a data-toggle="modal" href="#addfollower" class="btn btn-mini btn-primary" type="button">Admin</a></div>
 		</div>
@@ -80,7 +83,8 @@
 <% if owner.include?(String(current_user.id)) == true   %> 
 
 	<div class="row">
-	  <div class="span3"><%= link_to('New Section', nf_path(:doc_id => @doc.id))%></div>
+	  <div class="span3">	<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">New Story</a>
+			<%= render "features/newsection" %></div>
 	  <div class="span8"></div>
 	  <div class="span1"></div>
 	</div>

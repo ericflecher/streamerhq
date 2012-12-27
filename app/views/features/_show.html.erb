@@ -10,6 +10,21 @@
  %>
 
 
+<% if docowner.include?(String(current_user.id)) == true  %> 		
+		<%
+			pf = @feature.parent_feature_list
+		%>
+		<% if pf[0].nil? %>
+				<a data-toggle="modal" href="/features/#newsubsection" class="btn btn-mini btn-primary" type="button">Add a story to <%=@feature.title%></a>
+				
+		<%else%>
+			
+		<%end%>
+
+	<%else%>
+<%end%>
+<%= link_to 'Full Board', doc_path(@feature.parent_doc_list), :class => 'btn btn-mini btn-primary  pull-right' %>
+
 <div class="row-fluid">
   <div class="span8"><h4><%= @feature.title %></h4></div>
   <div class="span4"></div>
@@ -19,6 +34,15 @@
 		<% if docowner.include?(String(current_user.id)) == true  %> 
 			<%= link_to 'Edit Feature', edit_feature_path(@feature) %> |
 			<%= link_to 'Delete Feature', @feature, method: :delete, data: { confirm: 'Are you sure?' } %>
+			
+			<%
+				pf = @feature.parent_feature_list
+			%>
+			<% if pf[0].nil? %>
+					
+			<%else%>
+				
+			<%end%>
 	
 		<%else%>
 		<%end%>
@@ -114,7 +138,7 @@
 					pf = @feature.parent_feature_list
 				%>
 				<% if pf[0].nil? %>
-					<%= link_to 'New Sub-Section', new_feature_path(:feature_id => @feature.id) %> | 
+					
 				<%else%>
 					
 				<%end%>
@@ -123,7 +147,7 @@
 
 			
 			<%end%>
-		<%= link_to 'Full Board', doc_path(@feature.parent_doc_list) %>
+		
 		</div>
-
+	<%= render "features/newsubsection" %>
 	 </div>

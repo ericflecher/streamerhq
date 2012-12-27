@@ -15,6 +15,7 @@ class FeaturesController < ApplicationController
   # GET /features/1.json
   def show
     @feature = Feature.find(params[:id])
+    session[:parent_story_id] = @feature.id
     
     session[:doc_id]= nil
     session[:feature_id] = nil
@@ -67,10 +68,21 @@ class FeaturesController < ApplicationController
     # adding a sub-feature
     f = session[:feature_id]
     if f.nil?
+        
+        
     else
       parent_feature = Feature.find(f)
       @feature.parent_feature_list = parent_feature.id
       @feature.parent_doc_list = parent_feature.parent_doc_list
+    end
+    
+    #created to support modal window
+    substory = session[:parent_story_id]
+    if substory.nil?
+    else
+         parent_feature = Feature.find(substory)
+         @feature.parent_feature_list = parent_feature.id
+         @feature.parent_doc_list = parent_feature.parent_doc_list
     end
 
     #Used to determine document owner
@@ -84,6 +96,9 @@ class FeaturesController < ApplicationController
       if @feature.save
         @feature.baselineid_list = @feature.id
         @feature.save
+        
+
+        
         if doc.nil?
         else
           doc.follow(@feature) 
@@ -124,6 +139,8 @@ class FeaturesController < ApplicationController
           end
           
           session[:feature_id]= nil
+          #sub feature modal 
+          session[:parent_story_id] = nil
           f = nil
           format.html { redirect_to parent_feature, notice: 'Feature was successfully created.' }
         end
