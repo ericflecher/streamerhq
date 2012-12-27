@@ -9,6 +9,12 @@
 	
  %>
 
+	<%= #debug session[:feature_id]
+	%>
+	<%= #debug session[:doc_id]
+	%>
+	<%= #debug session[:parent_story_id]
+	%>
 
 <% if docowner.include?(String(current_user.id)) == true  %> 		
 		<%

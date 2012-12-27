@@ -5,9 +5,12 @@
 	session[:doc_id] = @doc.id
 %>
 
-<%= debug session[:feature_id]%>
-<%= debug session[:doc_id]%>
-<%= debug session[:parent_story_id]%>
+<%= #debug session[:feature_id]
+%>
+<%= #debug session[:doc_id]
+%>
+<%= #debug session[:parent_story_id]
+%>
 
 	<% if owner.include?(String(current_user.id)) == true   %> 
 
