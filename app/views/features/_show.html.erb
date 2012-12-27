@@ -96,7 +96,7 @@
 			<div class="row-fluid">
 		  		<div class="span7 offset1"><% if docowner.include?(String(current_user.id)) == true  %> 
 			
-			<%= link_to 'Edit Sub-Feature', edit_feature_path(subfeature) %>|<%= link_to 'Delete Sub-Feature', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %>
+			<%= link_to 'Edit Sub-Feature', edit_feature_path(subfeature) %> | <%= link_to 'Delete Sub-Feature', subfeature, method: :delete, data: { confirm: 'Are you sure?' } %>
 			<%else%>
 			<%end%>
 			
