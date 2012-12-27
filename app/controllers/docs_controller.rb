@@ -22,6 +22,9 @@ class DocsController < ApplicationController
   # GET /docs/1.json
   def show
     
+    #feature modal create window... makes ure parent feature is null
+    session[:parent_story_id] = nil
+    
     @users = User.all
     @users.delete current_user
     

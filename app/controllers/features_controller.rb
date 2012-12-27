@@ -68,8 +68,7 @@ class FeaturesController < ApplicationController
     # adding a sub-feature
     f = session[:feature_id]
     if f.nil?
-        
-        
+         
     else
       parent_feature = Feature.find(f)
       @feature.parent_feature_list = parent_feature.id
@@ -97,13 +96,10 @@ class FeaturesController < ApplicationController
         @feature.baselineid_list = @feature.id
         @feature.save
         
-
-        
         if doc.nil?
         else
           doc.follow(@feature) 
-          session[:doc_id]= nil
-          
+
           
           # email notificaiton
           doc = Doc.find(d)
@@ -118,7 +114,9 @@ class FeaturesController < ApplicationController
           end
           
           d = nil
-          
+          session[:doc_id]= nil
+          session[:parent_story_id] = nil
+          session[:feature_id]= nil
           format.html { redirect_to doc, notice: 'Feature was successfully created.' }
         end
         
@@ -139,6 +137,7 @@ class FeaturesController < ApplicationController
           end
           
           session[:feature_id]= nil
+          session[:doc_id] = nil
           #sub feature modal 
           session[:parent_story_id] = nil
           f = nil
