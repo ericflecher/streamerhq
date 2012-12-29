@@ -19,6 +19,9 @@ Streamerhq::Application.routes.draw do
   match '/pdoc/:doc_id' => 'docs#pdoc', :as => 'pdoc'
   match '/make_admin/:doc_id/:user_id' => 'docs#make_admin', :as => 'make_admin'
   match '/remove_admin/:doc_id/:user_id' => 'docs#remove_admin', :as => 'remove_admin'
+  match '/followuser/:user_id/:follow_code' => 'users#followuser', :as => 'followuser'
+  
+  
   
 
 

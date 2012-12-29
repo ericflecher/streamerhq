@@ -5,17 +5,53 @@
 <div class="row-fluid">
   <div class="span12"><p id="notice"><h4><%= @user.name %></h4></div>
 </div>
+<%if current_user == @user%>
+<%else%>
+	<%if current_user.following?(@user) == true%>
+
+		<%= button_to('Unfollow', followuser_path(:user_id => @user.id, :follow_code => 'u'), :class => 'btn btn-small btn-primary')%>
+
+	<%else%>
+		<%= button_to('Follow', followuser_path(:user_id => @user.id, :follow_code => 'f'), :class => 'btn btn-small btn-primary')%>
+	<%end%>
+<%end%>
+
+
+
+<%
+	following =	@user.followers_by_type('User')
+	followers = @user.following_by_type('User')
+
+%>
+
 
 <div class="row-fluid">
-  <div class="span12"><p id="notice"><%= @user.email if @user.email %></div>
-</div>
+  <div class="span3">
+		<h4>bckto'ers following <%=@user.name%>: </h4>
+  		<table class="table table-condensed">
+			<% following.each do |y| %>
+				<tr>
+			    	<td><%= link_to y.name, y %></td>
+			  	</tr>
 
-<div class="row-fluid">
-  <div class="span4"></div>
-  <div class="span4"></div>
-  <div class="span4"></div>
-</div>
+		    <%end%>
 
+		</table>
+  </div>
+  <div class="span3">
+  		<h4>bckto'ers <%=@user.name%> is following:</h4>
+  		<table class="table table-condensed">
+			<% followers.each do |y| %>
+				<tr>
+			    	<td><%= link_to y.name, y %></td>
+			  	</tr>
+
+		    <%end%>
+
+		</table>
+  </div>
+</div>
+<h4><%=@user.name%>'s boards: </h4>
 <% @docs.each do |doc| %>
 <div class="row-fluid">
   <div class="span2"><%= link_to doc.title, doc %></div>

@@ -25,8 +25,8 @@ class DocsController < ApplicationController
     #feature modal create window... makes ure parent feature is null
     session[:parent_story_id] = nil
     
-    @users = User.all
-    @users.delete current_user
+   
+
     
   
     #Adds doc as followed for current user
@@ -48,12 +48,18 @@ class DocsController < ApplicationController
       @doc = Doc.find(params[:id])
     end
     
+    @users = current_user.following_user
     # deletes current following documnet from users list
-    u_followers = @doc.followers
-  	u_followers.each do |u| 
-  	  x=User.find(u)
-  		@users.delete x
+    @u_followers = @doc.followers
+  	@u_followers.each do |u| 
+  	
+  	    #x=@users.where(:id => u.id)
+  		  #@users.delete x
+		    
   	end
+  	
+  	#session[:u] = @u_followers
+  	#session[:y] = @users
     
     @all_comments = @doc.comment_threads
     
@@ -180,13 +186,24 @@ class DocsController < ApplicationController
       
     else
       
-      User.invite!({:email => email}, current_user) # current_user will be set as invited_by
-      new_user = User.where(:email => email)
+      existing_u = User.where(:email => email)
       
-      x = CustomAss.new
-      x.doc_id = doc.id
-      x.codetype = email
-      x.save
+      if existing_u == nil
+      
+        User.invite!({:email => email}, current_user) # current_user will be set as invited_by
+        new_user = User.where(:email => email)
+      
+        x = CustomAss.new
+        x.doc_id = doc.id
+        x.codetype = email
+        x.save
+      
+      else
+        
+        existing_u[0].follow(doc)
+
+        
+      end
       
     end
     

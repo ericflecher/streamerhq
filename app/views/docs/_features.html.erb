@@ -25,12 +25,12 @@ baselineid = feature.baselineid_list
 		<%@all_feature_comments = feature.comment_threads%>
 		<% if @all_feature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= feature.title %></4h></p><%end%>
 		<%@all_feature_comments.each do |comments| %>
-			
+			<%u = User.find(comments.user_id)%>
 			<blockquote >
 			  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
 					<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
 					<%else%> <%end%>
-			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= User.find(comments.user_id).name%><%else%>Author unknown<%end%></cite></small>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
 			</blockquote>
 			
 		<%end%>
@@ -59,12 +59,12 @@ baselineid = feature.baselineid_list
 					<%@all_subfeature_comments = subfeature.comment_threads%>
 					<% if @all_subfeature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= subfeature.title %></4h></p><%end%>
 					<%@all_subfeature_comments.each do |comments| %>
-
+						<%u = User.find(comments.user_id)%>
 						<blockquote >
 						  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
 									<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
 									<%else%> <%end%>
-						  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= User.find(comments.user_id).name%><%else%>Author unknown<%end%></cite></small>
+						  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
 						</blockquote>
 
 					<%end%>

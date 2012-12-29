@@ -13,7 +13,6 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_followable
   
-  
   after_invitation_accepted :email_invited_by
 
   def email_invited_by
@@ -32,8 +31,6 @@ class User < ActiveRecord::Base
        
      end
      
-     
   end
-  
   
 end
