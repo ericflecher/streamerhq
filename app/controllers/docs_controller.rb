@@ -197,10 +197,12 @@ class DocsController < ApplicationController
         x.doc_id = doc.id
         x.codetype = email
         x.save
+        
       
       else
         
         existing_u[0].follow(doc)
+        current_user.follow(existing_u[0])
        
       end
       
