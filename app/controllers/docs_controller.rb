@@ -188,7 +188,7 @@ class DocsController < ApplicationController
       
       existing_u = User.where(:email => email)
       
-      #if existing_u == ""
+      if existing_u.blank?
       
         User.invite!({:email => email}, current_user) # current_user will be set as invited_by
         new_user = User.where(:email => email)
@@ -198,11 +198,11 @@ class DocsController < ApplicationController
         x.codetype = email
         x.save
       
-      #else
+      else
         
-        #existing_u[0].follow(doc)
-        session[:email] = existing_u
-      #end
+        existing_u[0].follow(doc)
+       
+      end
       
     end
     
