@@ -51,7 +51,10 @@ baselineid = feature.baselineid_list
 	  <div class="span8"><%if feature.photo.exists?%><%= image_tag feature.photo(:original) %><%else%><%end%>
 
 		<div class="well well-small"><%= feature.gherkin %></div>
-		<% @f = feature %> 
+		 	<% @currentversion = feature %> 
+
+				<a data-toggle="modal" href="#version_comment-<%= feature.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
+			<%= render "features/version_comment" %>
 	  </div>
 	  <div class="span4" class="well well-small pull-right">
 		<%@all_feature_comments = feature.comment_threads%>
