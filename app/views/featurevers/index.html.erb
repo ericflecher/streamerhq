@@ -76,7 +76,10 @@ baselineid = feature.baselineid_list
 
 
 <div class="row-fluid">
-  <div class="span8"><h4><%= @feature.title %></h4></div>
+  <div class="span8">
+	<h4><%= @feature.title %></h4>
+	<p>Updated: <%= @feature.created_at.strftime("%d %b %y")%></p>
+  </div>
   <div class="span4"></div>
 </div>
 
