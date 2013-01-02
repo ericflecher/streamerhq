@@ -69,13 +69,11 @@
 			<blockquote >
 			  <p><%=comments.body%>	 <% if current_user.id == comments.user_id %> 
 				<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
-				<%else%> <%end%> 
+				<%else%> 
+				<%end%> 
 			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
-				
 			</blockquote>
-			
 		<%end%>
-		
 		
       	<%= render "docs/comment" %>
 	</div>
@@ -83,7 +81,51 @@
 
 
  <div class="row-fluid">
-  	<%=render "docs/features"%>
+	
+
+	<% @features.each do |feature| %>
+		<%
+		@feature = feature
+		@version = Featurever.where(:featureid => feature.id)
+		
+		if @version.size > 0
+		%>
+			<% @currentversion = @version.last%>
+			<%=render "docs/latestversion"%>
+			
+			
+			<% @subfeatures = @feature.following_features%>
+			
+			<% @subfeatures = @subfeatures.order("created_at ASC")%>
+			<% @subfeatures.each do |subfeature| %>
+				
+				<%
+				@subfeature = subfeature
+				@subversion = Featurever.where(:featureid => subfeature.id)
+			
+					
+				if @subversion.size > 0
+				%>
+					<% @currentsubversion = @subversion.last%>
+				
+					<%= render "docs/latestsubfeature"
+					%>
+			
+				<%else%>
+					<% @currentversion = subfeature%>
+			  		<%= render "docs/initialsubfeature"
+					%>
+				<% end %>
+
+			
+			<%end%>
+		<%else%>
+	  		<%=render "docs/features"%>
+		<% end %>
+	<%end%>
+
+
+
 </div>
 
 <% if owner.include?(String(current_user.id)) == true   %> 

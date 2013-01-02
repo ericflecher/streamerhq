@@ -1,5 +1,7 @@
 Streamerhq::Application.routes.draw do
   
+  resources :featurevers
+
   resources :features
   resources :docs
   resources :custom_ass
@@ -20,9 +22,11 @@ Streamerhq::Application.routes.draw do
   match '/make_admin/:doc_id/:user_id' => 'docs#make_admin', :as => 'make_admin'
   match '/remove_admin/:doc_id/:user_id' => 'docs#remove_admin', :as => 'remove_admin'
   match '/followuser/:user_id/:follow_code' => 'users#followuser', :as => 'followuser'
-  
-  
-  
+  match '/versions/:feature_id' => 'featurevers#versions', :as => 'versions'
+  match '/featurevers/index/:feature_id' => 'featurevers#index', :as => 'versions'
+  match '/featurevers/new/:feature_id' => 'featurevers#new', :as => 'newversion'
+  match '/create_version_comment_return_feature/:version_id/:doc_id' => 'featurevers#create_version_comment_return_feature', :as => 'create_version_comment_return_feature'
+  match '/remove_version_comment/:version_id/:comment_id' => 'comments#remove_version_comment', :as => 'remove_version_comment'
 
 
   authenticated :user do

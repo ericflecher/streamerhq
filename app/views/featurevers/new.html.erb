@@ -1,0 +1,42 @@
+
+<%= render 'form' %>
+
+
+<% 
+@versions.each do |feature| %>
+<% 
+
+version = feature.version_list
+baselineid = feature.baselineid_list
+
+%>
+
+	<div class="row-fluid">
+	 <div class="span8"><%= feature.title %></div>
+	 <div class="span4"></div>
+	</div>
+
+	<div class="row-fluid">
+	  <div class="span8"><%if feature.photo.exists?%><%= image_tag feature.photo(:original) %><%else%><%end%>
+
+		<div class="well well-small"><%= feature.gherkin %></div>
+		<% @f = feature %> 
+	  </div>
+	  <div class="span4" class="well well-small pull-right">
+		<%@all_feature_comments = feature.comment_threads%>
+		<% if @all_feature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= feature.title %></4h></p><%end%>
+		<%@all_feature_comments.each do |comments| %>
+			<%u = User.find(comments.user_id)%>
+			<blockquote >
+			  <p><%=comments.body%></p>	
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
+			</blockquote>
+		
+		<%end%>	
+
+	  </div>
+	</div>
+
+<%end%>
+
+<%= link_to 'Back', feature_path(@feature_redirect) %>

@@ -1,0 +1,53 @@
+
+<% 
+
+	u = User.find(@feature.owner_list)
+	owner = @feature.owner_list
+	p = @feature.parent_doc_list
+
+	@doc = Doc.find(p[0])
+	docowner = @doc.owner_list
+
+ %>
+
+
+
+<div class="row-fluid">
+	<div class="span7 offset1"><h4><%= @subfeature.title%></h4></div>
+	<div class="span4"></div>
+</div>
+<div class="row-fluid">
+	<div class="span7 offset1"><% if docowner.include?(String(current_user.id)) == true  %> 
+
+<%= link_to "Edit", new_featurever_path(:feature_id => @subfeature.id)   %> | <%= link_to 'Delete', @subfeature, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%else%>
+<%end%>
+
+	</div>
+	<div class="span4"></div>
+</div>
+
+<div class="row-fluid">
+	<div class="span7 offset1"><%if @subfeature.photo.exists?%><%= image_tag @subfeature.photo(:original) %><%else%><%end%>
+		<div class="well well-small"><%= @subfeature.gherkin %></div>
+		<% @sf = @subfeature %>
+		<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
+	</div>
+	 <%= render "features/subfeature_comment" %>
+	<div class="span4" class="">
+			
+			<%@all_subfeature_comments = @subfeature.comment_threads%>
+			<% if @all_subfeature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @subfeature.title %></4h></p><%end%>
+			<%@all_subfeature_comments.each do |comments| %>
+				<%u = User.find(comments.user_id)%>
+				<blockquote >
+				  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
+									<%= button_to('Remove', remove_feature_comment_path(:feature_id => @feature.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+									<%else%> <%end%>
+				  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
+				</blockquote>
+			<%end%>
+
+	</div>
+	 
+</div>

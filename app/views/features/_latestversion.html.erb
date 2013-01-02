@@ -1,0 +1,66 @@
+<% 
+
+	u = User.find(@feature.owner_list)
+	owner = @feature.owner_list
+	p = @feature.parent_doc_list
+	
+	@doc = Doc.find(p[0])
+	docowner = @doc.owner_list
+	
+	@currentversion = Featurever.where(:featureid => @feature.id).last
+	
+ %>
+
+<div class="row-fluid">
+  <div class="span8"><h4><%= @currentversion.title %></h4></div>
+  <div class="span4"></div>
+</div>
+ <div class="row-fluid">
+  	<div class="span8">
+		<% if docowner.include?(String(current_user.id)) == true  %>
+		 	<%= link_to "Versions", versions_path(:feature_id => @feature.id) %> |
+			<%= link_to "Edit", new_featurever_path(:feature_id => @feature.id) %> |
+			<%= link_to 'Delete', @currentversion, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+			<%
+				pf = @feature.parent_feature_list
+			%>
+			<% if pf[0].nil? %>
+
+			<%else%>
+
+			<%end%>
+
+		<%else%>
+		<%end%>
+
+    </div>
+	<div class="span4"></div>
+
+</div>
+
+<div class="row-fluid">
+  <div class="span8"><%if @currentversion.photo.exists?%><%= image_tag @currentversion.photo(:original) %><%else%><%end%>
+  	<div class="well well-small"><%= @currentversion.gherkin %></div>
+	<a data-toggle="modal" href="#version_comment-<%= @currentversion.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
+  </div>
+
+  <%= render "features/version_comment" %>
+  <div class="span4" class="">
+
+		<%@all_feature_comments = @currentversion.comment_threads%>
+		<% if @all_feature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @currentversion.title %></4h></p><%end%>
+		<%@all_feature_comments.each do |comments| %>
+			<%u = User.find(comments.user_id)%>
+			<blockquote >
+			  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
+							<%= button_to('Remove', remove_version_comment_path(:version_id => @currentversion.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+							<%else%> <%end%>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%> Author unknown<%end%></cite></small>
+			</blockquote>
+		<%end%>
+
+    </div>
+</div>
+<div class="row-fluid">
+</div>

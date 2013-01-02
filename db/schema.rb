@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218034914) do
+ActiveRecord::Schema.define(:version => 20121229223304) do
 
   create_table "comments", :force => true do |t|
     t.integer   "commentable_id",   :default => 0
@@ -31,12 +31,12 @@ ActiveRecord::Schema.define(:version => 20121218034914) do
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "custom_asses", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "feature_id"
-    t.integer  "doc_id"
-    t.text     "codetype"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer   "user_id"
+    t.integer   "feature_id"
+    t.integer   "doc_id"
+    t.text      "codetype"
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
   create_table "docs", :force => true do |t|
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(:version => 20121218034914) do
     t.string    "photo_content_type"
     t.integer   "photo_file_size"
     t.timestamp "photo_updated_at"
+  end
+
+  create_table "featurevers", :force => true do |t|
+    t.string   "title"
+    t.text     "gherkin"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "featureid"
   end
 
   create_table "follows", :force => true do |t|
@@ -104,25 +116,25 @@ ActiveRecord::Schema.define(:version => 20121218034914) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                :default => "", :null => false
-    t.string   "encrypted_password",                   :default => ""
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                        :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
-    t.string   "name"
-    t.string   "invitation_token",       :limit => 60
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
+    t.string    "email",                                :default => "", :null => false
+    t.string    "encrypted_password",                   :default => ""
+    t.string    "reset_password_token"
+    t.timestamp "reset_password_sent_at"
+    t.timestamp "remember_created_at"
+    t.integer   "sign_in_count",                        :default => 0
+    t.timestamp "current_sign_in_at"
+    t.timestamp "last_sign_in_at"
+    t.string    "current_sign_in_ip"
+    t.string    "last_sign_in_ip"
+    t.timestamp "created_at",                                           :null => false
+    t.timestamp "updated_at",                                           :null => false
+    t.string    "name"
+    t.string    "invitation_token",       :limit => 60
+    t.timestamp "invitation_sent_at"
+    t.timestamp "invitation_accepted_at"
+    t.integer   "invitation_limit"
+    t.integer   "invited_by_id"
+    t.string    "invited_by_type"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

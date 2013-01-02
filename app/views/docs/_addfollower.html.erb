@@ -30,7 +30,7 @@
 			%>
 
 		
-	<h4>Select a friend to add to board:</h4>
+	<h4>Select a followed user to add to board:</h4>
 			<p><%= select_tag("user", options_from_collection_for_select(@users, :id, :name) )%></p>
 			<p>or invite a new users by email</p>
 			<%= field_set_tag do %>

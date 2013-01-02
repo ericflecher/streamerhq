@@ -18,4 +18,13 @@ class CommentsController < ApplicationController
     redirect_to feature_path(featureid)
   end
   
+  def remove_version_comment
+    versionid = params[:version_id]
+    version = Featurever.find(versionid)
+    commentid = params[:comment_id]
+    comment = Comment.find(commentid)  
+    comment.destroy    
+    redirect_to feature_path(version.featureid)
+  end
+  
 end
