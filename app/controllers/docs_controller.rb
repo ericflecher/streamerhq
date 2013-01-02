@@ -183,6 +183,7 @@ class DocsController < ApplicationController
       user = User.find(e)
       #session[:test] = user
       user.follow(doc)
+     
       
     else
       
