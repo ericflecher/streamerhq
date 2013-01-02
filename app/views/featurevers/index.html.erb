@@ -26,9 +26,9 @@ baselineid = feature.baselineid_list
 	 <div class="span4"></div>
 	</div>
 	 <div class="row-fluid">
-	  	<div class="span8">
+        <div class="span8">
 			<% if docowner.include?(String(current_user.id)) == true  %> 
-				<%= link_to 'Delete', @currentversion, method: :delete, data: { confirm: 'Are you sure?' } %>
+				<%= link_to 'Delete', feature, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 				<%
 					pf = @feature.parent_feature_list
@@ -43,9 +43,9 @@ baselineid = feature.baselineid_list
 			<%end%>
 
 	    </div>
-		<div class="span4"></div>
+			<div class="span4"></div>
 
-	</div>
+	 </div>
 
 	<div class="row-fluid">
 	  <div class="span8"><%if feature.photo.exists?%><%= image_tag feature.photo(:original) %><%else%><%end%>
