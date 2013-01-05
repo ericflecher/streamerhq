@@ -63,7 +63,7 @@ baselineid = feature.baselineid_list
 			<%u = User.find(comments.user_id)%>
 			<blockquote >
 			  <p><%=comments.body%></p>	
-			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y %I:%M")%></cite></small>
 			</blockquote>
 		
 		<%end%>	
@@ -99,7 +99,7 @@ baselineid = feature.baselineid_list
 			<%u = User.find(comments.user_id)%>
 			<blockquote >
 			  <p><%=comments.body%></p>	
-			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%> Author unknown<%end%></cite></small>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%> Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y %I:%M")%></cite></small>
 			</blockquote>
 		<%end%>
 

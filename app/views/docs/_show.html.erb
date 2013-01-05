@@ -65,7 +65,7 @@
 				<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
 				<%else%> 
 				<%end%> 
-			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%></cite></small>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y %I:%M")%></cite></small>
 			</blockquote>
 		<%end%>
 		
