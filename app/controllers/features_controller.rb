@@ -117,7 +117,7 @@ class FeaturesController < ApplicationController
           session[:doc_id]= nil
           session[:parent_story_id] = nil
           session[:feature_id]= nil
-          format.html { redirect_to doc, notice: 'Feature was successfully created.' }
+          format.html { redirect_to doc, notice: 'Story was successfully created.' }
         end
         
         if parent_feature.nil?
@@ -141,7 +141,7 @@ class FeaturesController < ApplicationController
           #sub feature modal 
           session[:parent_story_id] = nil
           f = nil
-          format.html { redirect_to parent_feature, notice: 'Feature was successfully created.' }
+          format.html { redirect_to parent_feature, notice: 'Story was successfully created.' }
         end
         
         
@@ -173,7 +173,7 @@ class FeaturesController < ApplicationController
           UserMailer.section_email(user, doc, @feature, send_to_user).deliver
         end
         
-        format.html { redirect_to @feature, notice: 'Feature was successfully updated.' }
+        format.html { redirect_to @feature, notice: 'Story was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

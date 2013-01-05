@@ -7,6 +7,15 @@
 	@doc = Doc.find(p[0])
 	docowner = @doc.owner_list
 	
+	if @versions.blank?
+		
+		session[:latest_feature] = @feature.id
+
+	else
+		v = @versions.last
+		session[:latest_version] = v.id
+	end
+
  %>
 
 

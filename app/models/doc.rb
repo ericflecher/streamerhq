@@ -18,6 +18,6 @@ class Doc < ActiveRecord::Base
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
     :path => ":attachment/:id/:style.:extension",
-    :bucket => 'streamerhq_doc'
+    :bucket => 'streamerhq_doc_dev'
   
 end

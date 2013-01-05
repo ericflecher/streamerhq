@@ -17,10 +17,10 @@
 </div>
  <div class="row-fluid">
   	<div class="span7 offset1">
+		<%= link_to "Versions", versions_path(:feature_id => @subfeature.id) %>
 		<% if docowner.include?(String(current_user.id)) == true  %> 
-	 	<%= link_to "Versions", versions_path(:feature_id => @subfeature.id) %> |
-		<%= link_to "Edit", new_featurever_path(:feature_id => @subfeature.id) %> |
-		<%= link_to 'Delete', @currentversion, method: :delete, data: { confirm: 'Are you sure?' } %>
+	 	 |
+		<%= link_to "Edit", new_featurever_path(:feature_id => @subfeature.id) %> 
 
 			<%
 				pf = @feature.parent_feature_list

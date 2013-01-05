@@ -108,7 +108,7 @@ class DocsController < ApplicationController
         @doc.baselineid_list = @doc.id
         @doc.save
         user.follow(@doc) # Creates a record for the user as the follower and the book as the followable
-        format.html { redirect_to @doc, notice: 'Doc was successfully created.' }
+        format.html { redirect_to @doc, notice: 'Board was successfully created.' }
         format.json { render json: @doc, status: :created, location: @doc }
       else
         format.html { render action: "new" }
@@ -124,7 +124,7 @@ class DocsController < ApplicationController
 
     respond_to do |format|
       if @doc.update_attributes(params[:doc])
-        format.html { redirect_to @doc, notice: 'Doc was successfully updated.' }
+        format.html { redirect_to @doc, notice: 'Board was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

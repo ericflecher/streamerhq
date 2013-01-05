@@ -5,12 +5,6 @@
 	session[:doc_id] = @doc.id
 %>
 
-<%= #debug session[:feature_id]
-%>
-<%= #debug session[:doc_id]
-%>
-<%= #debug session[:parent_story_id]
-%>
 
 	<% if owner.include?(String(current_user.id)) == true   %> 
 
@@ -44,7 +38,7 @@
 		<%end%>
 	<%end%>
 	
-	<%end%></p><p><h4><%= @doc.title %></4h><small> v-<%= version[0]%></small></p> <p><small>By: <%= link_to u[0].name, user_path(u[0]) %></small></p></div>
+	<%end%></p><p><h4><%= @doc.title %></4h></p> <p><small>By: <%= link_to u[0].name, user_path(u[0]) %></small></p></div>
 	<div class="span2">
 		
 	</div>
@@ -107,7 +101,6 @@
 				if @subversion.size > 0
 				%>
 					<% @currentsubversion = @subversion.last%>
-				
 					<%= render "docs/latestsubfeature"
 					%>
 			

@@ -1,17 +1,44 @@
+<%
+	feature_id = session[:feature_id]
+    @feature = Feature.find(feature_id)
+
+	if session[:latest_version].nil?
+		i = session[:latest_feature]
+		v = Feature.find(i)
+		@featurever.title = v.title
+		@featurever.gherkin = v.gherkin
+		@featurever.photo = v.photo
+		@featurever.save
+	else
+		i = session[:latest_version]
+		v = Featurever.find(i)
+		@featurever.title = v.title
+		@featurever.gherkin = v.gherkin
+		@featurever.photo = v.photo
+		@featurever.featureid = feature_id
+		@featurever.save
+	end
+	
+	
+%>
+
+<%= debug v.photo%>
+<%= debug @featurever.id%>
+
 <%= simple_form_for(@featurever) do |f| %>
   <%= f.error_notification %>
 
 
-   <h3>Create a new story</h3>
+   <h3>Edit story</h3>
 	
 		<div class="row-fluid">
 		  <div class="span12">
 		    <p>Stories make up boards. Use stories to describe how to accomplish a boards goals</p>
 		    <div class="row-fluid">
 		      <div class="span6">
-		        <%= f.input :title,:input_html => { :rows => 1 , :class => "span6"}, :label => "1 - Name it" %>
+		        <%= f.input :title,:input_html => { :rows => 1 , :class => "span6"}, :label => "1 - Name it"%>
 		      </div>
-		      <div class="span6"><%= f.input :photo, :label => "2 - Add a photo which represents the story" %></div>
+		      <div class="span6"><%if v.photo.exists?%><%= image_tag v.photo(:original) %><%else%><%end%><%= f.input :photo, :label => "2 - Add a photo which represents the story" %></div>
 		    </div>
 		  	<div class="row-fluid">
 		      <div class="span12">
@@ -22,6 +49,8 @@
 		</div>
 
 	  	<%= f.button :submit,"Save story to board", class: "btn btn-small btn-primary" %>
+	
+	<% session[:latest_version] = nil %>
       
 
 <% end %>

@@ -139,11 +139,26 @@ class FeatureversController < ApplicationController
   # PUT /featurevers/1
   # PUT /featurevers/1.json
   def update
+    
+    
+    feature_id = session[:feature_id]
+    @feature = Feature.find(feature_id)
+    
+    pf = @feature.parent_feature_list
+    
+    if pf[0].nil?
+      feature_redirect = @feature.id
+    else
+      feature_redirect = pf
+    end
+    
     @featurever = Featurever.find(params[:id])
+    
+    @featurever.featureid = feature_id
 
     respond_to do |format|
       if @featurever.update_attributes(params[:featurever])
-        format.html { redirect_to @featurever, notice: 'You story successfully updated.' }
+        format.html { redirect_to feature_path(feature_redirect), notice: 'Your story successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
