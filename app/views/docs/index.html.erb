@@ -2,44 +2,38 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">New Board</a>
-	<%= render "docs/newboard" %>
+
 
 <% @docs.each do |doc| %>
 
-<div class="row-fluid">
-  <div class="span2">
-	
-  </div>
-	<div class="span4">
-		<p><%= link_to doc.title, doc_path(doc) %></p>
+
+	<div class="media">
+	  <a class="pull-left" href= <%=doc_path(doc)%>>
 		<%if doc.photo.exists?%>
 			<p><%= image_tag doc.photo(:medium) %></p>
 		<%else%>
 		<%end%>
-		<div class="well well-small"><%= doc.description %>
-		</div>
-		<div class="">
-			<% 
-			
+	  </a>
+	  <div class="media-body">
+	    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+	    <%= doc.description %>
+		<p>
+			<% 	
 				u = User.find(doc.owner_list)
-				owner = doc.owner_list
-			
+				owner = doc.owner_list		
 			 %>
 			<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> <%else%> <%end%>
-		</div>
+		</p>
+	  </div>
 	</div>
-	<div class="span6">
-		<%@d = doc%>
-		<%= render "docs/ifeatures" %>
-	</div>
+ 	<hr />
 
-</div>
-<div class="row-fluid">
-	<div class="span2">
-	</div>
-</div>
+	
+	
 <% end %>
 
+	<%= render "docs/newboard" %>
 
 </html>

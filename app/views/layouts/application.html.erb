@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html>
-  <head >
-	<%= analytics_init if Rails.env.production? %>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "BckTo" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "BckTo" %>">
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+    <title><%= content_for?(:title) ? yield(:title) : "Bckto" %></title>
     <%= csrf_meta_tags %>
-    <%= yield(:head) %>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+    <%= stylesheet_link_tag "application", :media => "all"%>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>">
-    <header class="navbar navbar-fixed-top">
-      <nav class="navbar-inner">
-        <div class="container">
-          <%= render 'layouts/navigation' %>
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+  	  <a class="pull-left" href= <%=root_path%>>
+  			<p><%= image_tag "bckto-icon.png" , :size => "125x125"%></p>
+  	  </a>
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          
+          <ul class="nav">
+		  <%= render 'layouts/navigation' %>
+          </ul>
+         
         </div>
-      </nav>
-    </header>
-    <div id="main" role="main">
-      <div class="container">
-        <div class="content">
-           <div class="row">
-            <div class="span12">
-              <%= render 'layouts/messages' %>
-              <%= yield %>
-            </div>
-          </div>
-          <footer>
-          </footer>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span1">
+          <!--<div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li><%= link_to "Link1", "/path1"  %></li>
+              <li><%= link_to "Link2", "/path2"  %></li>
+              <li><%= link_to "Link3", "/path3"  %></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span10">
+          <%= bootstrap_flash %>
+          <%= yield %>
         </div>
-      </div> <!--! end of .container -->
-    </div> <!--! end of #main -->
+        <div class="span1">
+
+        </div>
+      </div><!--/row-->
+
+      <footer>
+        <p>&copy; A 2one6 Product 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+
   </body>
 </html>

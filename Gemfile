@@ -32,7 +32,15 @@ gem 'acts_as_commentable_with_threading'
 gem 'rails3-jquery-autocomplete'
 gem 'sendgrid'
 gem 'bcrypt-ruby'
+gem "twitter-bootstrap-rails"
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 group :production do
   gem 'pg'
   gem 'google-analytics-rails'
+end
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
 end
