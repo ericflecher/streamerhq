@@ -2,37 +2,99 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">New Board</a>
+<p></p>
+
+<div class="nav nav-tabs">
+<ul class="nav nav-tabs">
+    <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Feed</a></li>
+    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">Boards I Own</a></li>
+	<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Boards I am Invited</a></li>
+	<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived Boards</a></li>
+</ul>
 
 
-<% @docs.each do |doc| %>
+<div class="tab-content">
+    <div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
+       Feed
+    </div>
+    <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
 
-
-	<div class="media">
-	  <a class="pull-left" href= <%=doc_path(doc)%>>
-		<%if doc.photo.exists?%>
-			<p><%= image_tag doc.photo(:medium) %></p>
-		<%else%>
-		<%end%>
-	  </a>
-	  <div class="media-body">
-	    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
-	    <%= doc.description %>
-		<p>
+		<% @docs.each do |doc| %>
+			
 			<% 	
 				u = User.find(doc.owner_list)
 				owner = doc.owner_list		
 			 %>
-			<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> <%else%> <%end%>
-		</p>
-	  </div>
-	</div>
- 	<hr />
+			
+			<% if owner.include?(String(current_user.id)) == true  %>
+			
+				<div class="media">
+				  <a class="pull-left" href= <%=doc_path(doc)%>>
+					<%if doc.photo.exists?%>
+						<p><%= image_tag doc.photo(:medium) %></p>
+					<%else%>
+					<%end%>
+				  </a>
+				  <div class="media-body">
+				    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+				    <%= doc.description %>
+					<p>
+						
+						<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> <%else%> <%end%>
+					</p>
+				  </div>
+				</div>
+			 	<hr />
+			<%else%> <%end%>
 
-	
-	
-<% end %>
+		<% end %>
+		
+    </div>
+    <div class="<%= if params[:tab] == 'tab3' then 'tab-pane active'  else 'tab-pane' end%>" id="tab3">
+		<% @docs.each do |doc| %>
+			
+			<% 	
+				u = User.find(doc.owner_list)
+				owner = doc.owner_list		
+			 %>
+			
+			<% if owner.include?(String(current_user.id)) == true  %>
+			
+			<%else%> 
+			
+				<div class="media">
+				  <a class="pull-left" href= <%=doc_path(doc)%>>
+					<%if doc.photo.exists?%>
+						<p><%= image_tag doc.photo(:medium) %></p>
+					<%else%>
+					<%end%>
+				  </a>
+				  <div class="media-body">
+				    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+				    <%= doc.description %>
+					<p>
+						
+						<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> <%else%> <%end%>
+					</p>
+				  </div>
+				</div>
+			 	<hr />
+			<%end%>
+
+		<% end %>
+		
+    </div>
+    <div class="<%= if params[:tab] == 'tab4' then 'tab-pane active'  else 'tab-pane' end%>" id="tab4">
+		Archived boards
+    </div>
+</div>
+
+</div>
+
+
+
+
 
 	<%= render "docs/newboard" %>
 

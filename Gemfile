@@ -33,6 +33,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'sendgrid'
 gem 'bcrypt-ruby'
 gem "twitter-bootstrap-rails"
+gem "tabs_on_rails"
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 group :production do
