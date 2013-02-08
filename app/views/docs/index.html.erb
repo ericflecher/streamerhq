@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">New Board</a>
 <p></p>
 
@@ -24,29 +25,46 @@
 			
 			<% 	
 				u = User.find(doc.owner_list)
-				owner = doc.owner_list		
+				owner = doc.owner_list	
+				arch = doc.archived_list[0]	
 			 %>
+			 	<%if arch == '1'%>
+				<%else%>
+					<% if owner.include?(String(current_user.id)) == true  %>
 			
-			<% if owner.include?(String(current_user.id)) == true  %>
-			
-				<div class="media">
-				  <a class="pull-left" href= <%=doc_path(doc)%>>
-					<%if doc.photo.exists?%>
-						<p><%= image_tag doc.photo(:medium) %></p>
-					<%else%>
-					<%end%>
-				  </a>
-				  <div class="media-body">
-				    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
-				    <%= doc.description %>
-					<p>
+						<div class="media">
+						  <a class="pull-left" href= <%=doc_path(doc)%>>
+							<%if doc.photo.exists?%>
+								<p><%= image_tag doc.photo(:medium) %></p>
+							<%else%>
+							<%end%>
+						  </a>
+						  <div class="media-body">
+						    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+						    <%= doc.description %>
+							<p>
 						
-						<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> <%else%> <%end%>
-					</p>
-				  </div>
-				</div>
-			 	<hr />
-			<%else%> <%end%>
+								<% if owner.include?(String(current_user.id)) == true  %> 
+									<%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> |				  <%if doc.archived_list[0] == '1'%>
+							
+										<%= link_to( 'Restore', arch_path(:doc_id => doc.id))%>
+								
+									<%else%>
+								
+										<%= link_to( 'Archive', arch_path(:doc_id => doc.id))%>
+								
+									<%end%>
+								<%else%>
+							
+								<%end%>
+						
+							</p>
+						  </div>
+						</div>
+					 	<hr />
+					<%else%> 
+					<%end%>
+				<%end%>
 
 		<% end %>
 		
@@ -56,37 +74,98 @@
 			
 			<% 	
 				u = User.find(doc.owner_list)
-				owner = doc.owner_list		
+				owner = doc.owner_list	
+				arch = doc.archived_list[0]	
 			 %>
+		 		<%if arch == '1'%>
+				<%else%>
+					<% if owner.include?(String(current_user.id)) == true  %>
 			
-			<% if owner.include?(String(current_user.id)) == true  %>
+					<%else%> 
 			
-			<%else%> 
-			
-				<div class="media">
-				  <a class="pull-left" href= <%=doc_path(doc)%>>
-					<%if doc.photo.exists?%>
-						<p><%= image_tag doc.photo(:medium) %></p>
-					<%else%>
-					<%end%>
-				  </a>
-				  <div class="media-body">
-				    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
-				    <%= doc.description %>
-					<p>
+						<div class="media">
+						  <a class="pull-left" href= <%=doc_path(doc)%>>
+							<%if doc.photo.exists?%>
+								<p><%= image_tag doc.photo(:medium) %></p>
+							<%else%>
+							<%end%>
+						  </a>
+						  <div class="media-body">
+						    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+						    <%= doc.description %>
+							<p>
 						
-						<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> <%else%> <%end%>
-					</p>
-				  </div>
-				</div>
-			 	<hr />
-			<%end%>
+								<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> 
+								<%else%>
+						 	
+									<%if doc.archived_list[0] == '1'%>
+							
+										<%= link_to( 'Restore', arch_path(:doc_id => doc.id))%>
+								
+									<%else%>
+								
+										<%= link_to( 'Archive', arch_path(:doc_id => doc.id))%>
+								
+									<%end%>
+							
+								<%end%>
+							</p>
+						  </div>
+						</div>
+					 	<hr />
+					<%end%>
+				
+				<%end%>
 
 		<% end %>
 		
     </div>
     <div class="<%= if params[:tab] == 'tab4' then 'tab-pane active'  else 'tab-pane' end%>" id="tab4">
-		Archived boards
+		<% @docs.each do |doc| %>
+			
+			<% 	
+				u = User.find(doc.owner_list)
+				owner = doc.owner_list	
+				arch = doc.archived_list[0]	
+			 %>
+		 		<%if arch == '1'%>
+				
+						<div class="media">
+						  <a class="pull-left" href= <%=doc_path(doc)%>>
+							<%if doc.photo.exists?%>
+								<p><%= image_tag doc.photo(:medium) %></p>
+							<%else%>
+							<%end%>
+						  </a>
+						  <div class="media-body">
+						    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+						    <%= doc.description %>
+							<p>
+						
+								<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> |
+								<%else%>
+								<%end%>
+						 	
+								<%if doc.archived_list[0] == '1'%>
+							
+									<%= link_to( 'Restore', arch_path(:doc_id => doc.id))%>
+								
+								<%else%>
+								
+									<%= link_to( 'Archive', arch_path(:doc_id => doc.id))%>
+								
+								<%end%>
+							
+								
+							</p>
+						  </div>
+						</div>
+					 	<hr />
+				<%else%>	
+				
+				<%end%>
+
+		<% end %>
     </div>
 </div>
 

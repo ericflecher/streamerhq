@@ -6,7 +6,7 @@ class Doc < ActiveRecord::Base
   acts_as_commentable
 
   # Alias for <tt>acts_as_ordered_taggable_on :tags</tt>:
-  acts_as_taggable_on :version, :baselineid, :owner, :private
+  acts_as_taggable_on :version, :baselineid, :owner, :private, :archived
   scope :by_join_date, order("created_at DESC")
   
   has_attached_file :photo,

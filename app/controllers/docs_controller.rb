@@ -268,6 +268,7 @@ class DocsController < ApplicationController
     
   end
   
+  # makes a document public or private
   def pdoc
     d = params[:doc_id]
     doc = Doc.find(d)
@@ -277,9 +278,27 @@ class DocsController < ApplicationController
     else
       doc.pdoc = 1
     end
-    session[:test] = doc.pdoc 
+   
     doc.save
     redirect_to doc
+  end
+  
+  # archives a document
+  def arch
+    
+    d = params[:doc_id]
+    doc = Doc.find(d)
+    
+    if doc.archived_list[0]  == '1'
+      doc.archived_list[0] = '0'
+    else
+      doc.archived_list[0] = '1'
+    end
+    session[:test] = doc.archived_list 
+    doc.save
+    
+    redirect_to docs_path
+    
   end
   
   

@@ -27,6 +27,7 @@ Streamerhq::Application.routes.draw do
   match '/featurevers/new/:feature_id' => 'featurevers#new', :as => 'newversion'
   match '/create_version_comment_return_feature/:version_id/:doc_id' => 'featurevers#create_version_comment_return_feature', :as => 'create_version_comment_return_feature'
   match '/remove_version_comment/:version_id/:comment_id' => 'comments#remove_version_comment', :as => 'remove_version_comment'
+  match '/arch/:doc_id' => 'docs#arch', :as => 'arch'
 
 
   authenticated :user do
