@@ -4,6 +4,8 @@ class Doc < ActiveRecord::Base
   acts_as_followable
   acts_as_follower
   acts_as_commentable
+  
+  validates_length_of :description, :maximum => 250, :message => "less than 250 characters please"
 
   # Alias for <tt>acts_as_ordered_taggable_on :tags</tt>:
   acts_as_taggable_on :version, :baselineid, :owner, :private, :archived

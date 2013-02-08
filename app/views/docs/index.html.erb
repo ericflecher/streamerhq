@@ -35,7 +35,7 @@
 						<div class="media">
 						  <a class="pull-left" href= <%=doc_path(doc)%>>
 							<%if doc.photo.exists?%>
-								<p><%= image_tag doc.photo(:medium) %></p>
+								<p><%= image_tag doc.photo(:thumb) %></p>
 							<%else%>
 							<%end%>
 						  </a>
@@ -86,7 +86,7 @@
 						<div class="media">
 						  <a class="pull-left" href= <%=doc_path(doc)%>>
 							<%if doc.photo.exists?%>
-								<p><%= image_tag doc.photo(:medium) %></p>
+								<p><%= image_tag doc.photo(:thumb) %></p>
 							<%else%>
 							<%end%>
 						  </a>
@@ -133,7 +133,7 @@
 						<div class="media">
 						  <a class="pull-left" href= <%=doc_path(doc)%>>
 							<%if doc.photo.exists?%>
-								<p><%= image_tag doc.photo(:medium) %></p>
+								<p><%= image_tag doc.photo(:thumb) %></p>
 							<%else%>
 							<%end%>
 						  </a>

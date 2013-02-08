@@ -5,130 +5,227 @@
 	session[:doc_id] = @doc.id
 %>
 
-
-	<% if owner.include?(String(current_user.id)) == true   %> 
-
-		<div class="row">
-		  <div class="span3">
-				<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">New Story</a>
-					<%= render "features/newsection" %>
-		  </div>
-		  <div class="span8"></div>
-		  <div class="span1"><a data-toggle="modal" href="#addfollower" class="btn btn-mini btn-primary" type="button">Admin</a></div>
-		</div>
-	
-		<%= render "docs/addfollower" %>
-	<%else%>
-	<%end%>
-
- <div class="row-fluid">
-  	<div class="span10"><p><% if current_user.id == u[0].id %>   
-		
-	<%else%> 
-	
-	<% if owner.include?(String(current_user.id)) == true  %>
-	
-	<%else%>
-		<%if current_user.following?(@doc) == true%>
-
-			<%= button_to('Unfollow', follow_path(:doc_id => @doc.id, :follow_code => 'u'), :class => 'btn btn-small btn-primary')%>
-
-		<%else%>
-			<%= button_to('Follow', follow_path(:doc_id => @doc.id, :follow_code => 'f'), :class => 'btn btn-small btn-primary')%>
-		<%end%>
-	<%end%>
-	
-	<%end%></p><p><h4><%= @doc.title %></4h></p> <p><small>By: <%= link_to u[0].name, user_path(u[0]) %></small></p></div>
-	<div class="span2">
-		
-	</div>
-</div>
-
-
- <div class="row-fluid">
-  <div class="span8">	<%if @doc.photo.exists?%>
-		<%= image_tag @doc.photo(:original) %>
-	<%else%>
-	<%end%>
-	<div class="well well-small">
-		<%= @doc.description %>
-	</div>
-	<a data-toggle="modal" href="#comment" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
- </div>
-	<div class="span4" class="well well-small pull-right">
-		<% if @all_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @doc.title %></4h></p> <%end%> 
-		
-		<%@all_comments.each do |comments| %>
-			<%u = User.find(comments.user_id)%>
-			<blockquote >
-			  <p><%=comments.body%>	 <% if current_user.id == comments.user_id %> 
-				<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
-				<%else%> 
-				<%end%> 
-			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y %I:%M")%></cite></small>
-			</blockquote>
-		<%end%>
-		
-      	<%= render "docs/comment" %>
-	</div>
-</div>
-
-
- <div class="row-fluid">
-	
-
-	<% @features.each do |feature| %>
-		<%
-		@feature = feature
-		@version = Featurever.where(:featureid => feature.id)
-		
-		if @version.size > 0
-		%>
-			<% @currentversion = @version.last%>
-			<%=render "docs/latestversion"%>
-			
-			
-			<% @subfeatures = @feature.following_features%>
-			
-			<% @subfeatures = @subfeatures.order("created_at ASC")%>
-			<% @subfeatures.each do |subfeature| %>
-				
-				<%
-				@subfeature = subfeature
-				@subversion = Featurever.where(:featureid => subfeature.id)
-			
-					
-				if @subversion.size > 0
-				%>
-					<% @currentsubversion = @subversion.last%>
-					<%= render "docs/latestsubfeature"
-					%>
-			
-				<%else%>
-					<% @currentversion = subfeature%>
-			  		<%= render "docs/initialsubfeature"
-					%>
-				<% end %>
-
-			
-			<%end%>
-		<%else%>
-	  		<%=render "docs/features"%>
-		<% end %>
-	<%end%>
-
-
-
-</div>
-
 <% if owner.include?(String(current_user.id)) == true   %> 
 
-	<div class="row">
-	  <div class="span3">	<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">New Story</a>
-			<%= render "features/newsection" %></div>
-	  <div class="span8"></div>
-	  <div class="span1"></div>
-	</div>
 
 <%else%>
+	<div class="row-fluid">
+	  <div class="span4">
+	  	<p>
+	  	<% if current_user.id == u[0].id %>   
+		
+	  	<%else%> 
+	
+	  		<% if owner.include?(String(current_user.id)) == true  %>
+	
+	  		<%else%>
+	  			<%if current_user.following?(@doc) == true%>
+
+	  				<%= button_to('Unfollow', follow_path(:doc_id => @doc.id, :follow_code => 'u'), :class => 'btn btn-small btn-primary')%>
+
+	  			<%else%>
+				
+	  				<%= button_to('Follow', follow_path(:doc_id => @doc.id, :follow_code => 'f'), :class => 'btn btn-small btn-primary')%>
+					
+	  			<%end%>
+	  		<%end%>
+	
+	  	<%end%>
+	  	</p>
+			
+	  </div>
+	  <div class="span8"></div>
+	</div>
+		
 <%end%>
+
+<div class="row-fluid">
+  	<div class="span12">
+		<p><h4><%= @doc.title %></4h><small></p>
+		<p>Owner: <%= link_to u[0].name, user_path(u[0]) %></small></p>
+	</div>
+</div>
+<div class="row-fluid">
+  	<div class="span12">	
+
+		<div class="lead">
+			<%= @doc.description %>
+		</div>
+		<a data-toggle="modal" href="#comment" class="btn btn-mini btn-primary pull-left" type="button">Create note</a>
+		
+ 	</div>
+
+	
+	<%= render "docs/comment" %>
+</div>
+
+
+
+<div class="nav nav-tabs">
+	<ul class="nav nav-tabs">
+	    <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Board</a></li>
+	    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">Board Activity</a></li>
+		<% if owner.include?(String(current_user.id)) == true   %> 
+			<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Administer Board</a></li>
+		<%else%>
+		<%end%>
+	</ul>
+
+
+	<div class="tab-content">
+	    <div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
+       
+
+			
+					
+			
+			<% if owner.include?(String(current_user.id)) == true   %> 
+
+				<div class="row-fluid">
+				  <div class="span4">
+						<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">New Story</a>
+							<%= render "features/newsection" %>
+				  </div>
+				  <div class="span8"></div>
+				</div>
+	
+			<%else%>
+				
+			<%end%>
+			
+			
+			
+
+			<div class="row-fluid">
+	
+				<% @features.each do |feature| %>
+					<%
+					@feature = feature
+					@version = Featurever.where(:featureid => feature.id)
+		
+					%>
+					<%if @version.size > 0%>
+						<% @currentversion = @version.last%>
+						<%=render "docs/latestversion"%>
+			
+			
+						<% @subfeatures = @feature.following_features%>
+			
+						<% @subfeatures = @subfeatures.order("created_at ASC")%>
+						<% @subfeatures.each do |subfeature| %>
+				
+							<%
+							@subfeature = subfeature
+							@subversion = Featurever.where(:featureid => subfeature.id)
+			
+					
+							if @subversion.size > 0
+							%>
+								<% @currentsubversion = @subversion.last%>
+								<%= render "docs/latestsubfeature"
+								%>
+			
+							<%else%>
+								<% @currentversion = subfeature%>
+						  		<%= render "docs/initialsubfeature"
+								%>
+							<% end %>
+
+			
+						<%end%>
+					<%else%>
+				  		<%=render "docs/features"%>
+					<% end %>
+				<%end%>
+
+			</div>
+	   
+	   
+	    </div>
+	    <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
+			<div class="span4" class="well well-small pull-right">
+				<% if @all_comments.length == 0 %> 
+				<%else%><p><h4>Feedback on <%= @doc.title %></4h></p> 
+				<%end%> 
+		
+				<%@all_comments.each do |comments| %>
+					<%u = User.find(comments.user_id)%>
+					<blockquote >
+					  <p><%=comments.body%>	 <% if current_user.id == comments.user_id %> 
+						<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
+						<%else%> 
+						<%end%> 
+					  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y %I:%M")%></cite></small>
+					</blockquote>
+				<%end%>	
+			</div>
+			
+		
+	    </div>
+	    <div class="<%= if params[:tab] == 'tab3' then 'tab-pane active'  else 'tab-pane' end%>" id="tab3">
+
+
+				<p>
+					<%if @doc.pdoc == 1%>
+						<%= button_to( 'Make Board Public', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-danger') %>
+					<%else%>
+						<%= button_to( 'Make Board Private', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-primary') %>
+					<%end%>
+			
+				</p>
+				<p>
+					<%= button_to 'Edit Board Header', edit_doc_path(@doc), :method => :get, :class => 'btn btn-mini btn-primary' %>
+				</p>
+
+	
+
+				<%= form_tag(add_follower_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
+	  
+					<%
+
+					x =	@doc.followers
+					x.delete current_user
+					owner = @doc.owner_list
+
+					%>
+
+		
+			<h4>Select a followed user to add to board:</h4>
+					<p><%= select_tag("user", options_from_collection_for_select(@users, :id, :name) )%></p>
+					<p>or invite a new users by email</p>
+					<%= field_set_tag do %>
+					  <p><%= text_field_tag 'email' %></p>
+					<% end %>
+					<p> <%= submit_tag("Add user to board", class: "btn btn-small btn-primary") %></p>
+					<table class="table table-condensed">
+
+						<% x.each do |y| %>
+							<tr>
+						    	<td><%= link_to y.name, y %></td>
+						    	<td><%= y.email %></td>
+								<td>
+
+								<% if owner.include?(String(y.id)) == true   %> 
+									<%= link_to 'Remove Admin', remove_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
+								<%else%>
+									<%= link_to 'Make Admin', make_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
+								<%end%>	
+								</td>
+						    	<td><%= link_to 'Remove', remove_follower_path(:doc_id => @doc.id, :user_id => y.id) %></td>
+						  	</tr>
+							<p></p>
+					    <%end%>
+
+					</table>
+		  	
+		
+		
+			<% end %>
+			
+		
+	    </div>
+
+	</div>
+
+</div>
+
