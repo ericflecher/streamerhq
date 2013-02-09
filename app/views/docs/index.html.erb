@@ -42,7 +42,7 @@
 						  <div class="media-body">
 				              <ul class="nav">
 				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
 								  </a>
 				  				  <ul class="dropdown-menu">
 	  								<% if owner.include?(String(current_user.id)) == true  %> 
@@ -101,7 +101,7 @@
 						  <div class="media-body">
 				              <ul class="nav">
 				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
 								  </a>
 				  				  <ul class="dropdown-menu">
 	  							
@@ -153,7 +153,7 @@
 						  <div class="media-body">
 				              <ul class="nav">
 				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
 								  </a>
 				  				  <ul class="dropdown-menu">
 	  								<% if owner.include?(String(current_user.id)) == true  %> 

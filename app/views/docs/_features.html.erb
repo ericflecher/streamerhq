@@ -17,25 +17,36 @@ docowner = @doc.owner_list
 
 
 <div class="row-fluid">
-  <div class="span8"><h4><%= link_to @feature.title, @feature %></h4></div>
+  <div class="span8">
+  
+      <ul class="nav">
+		<li class="dropdown">
+		  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to @feature.title, @feature %> <b class="caret"></b></h4>
+		  </a>
+		  <ul class="dropdown-menu">
+			<% if owner.include?(String(current_user.id)) == true  %> 
+				<li> <%= link_to "Edit", new_featurever_path(:feature_id => @feature.id) %> </li>
+	  									
+			<%else%>
+							
+			<%end%>
+			<li><a data-toggle="modal" href="#feature_comment-<%= @feature.id%>">Create comment</a> </li>
+						
+		  </ul>
+		</li>
+      </ul>
+  
+  </div>
   <div class="span4"></div>
 </div>
-<div class="row-fluid">
- 	<div class="span8">
-		<% if docowner.include?(String(current_user.id)) == true  %> 
-			<%= link_to "Edit", new_featurever_path(:feature_id => @feature.id) %> 
-		<%else%>
-		<%end%>
 
-	</div>
-</div>
 <div class="row-fluid">
    <div class="span8"><%if @feature.photo.exists?%><%= image_tag @feature.photo(:original) %><%else%><%end%>
 
 		<div class="well well-small"><%= @feature.gherkin %>
 		</div>
 		<% @f = @feature %>
-		<a data-toggle="modal" href="#feature_comment-<%= @f.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a> 
+
    </div>
    <div class="span4" class="well well-small pull-right">
 		<%@all_feature_comments = @feature.comment_threads%>
@@ -55,6 +66,7 @@ docowner = @doc.owner_list
    </div>
 </div>
 
+-------------------
 <% @subfeatures = @feature.following_features%>
 <% @subfeatures = @subfeatures.order("created_at ASC")%>
 <% @subfeatures.each do |subfeature| %>
@@ -88,7 +100,7 @@ docowner = @doc.owner_list
 		</div>
 	</div>
 <% end %> 
-	
+-----------------------
 
 
 
