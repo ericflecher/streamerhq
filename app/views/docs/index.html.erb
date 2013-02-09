@@ -40,28 +40,36 @@
 							<%end%>
 						  </a>
 						  <div class="media-body">
-						    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+				              <ul class="nav">
+				  				<li class="dropdown">
+				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+								  </a>
+				  				  <ul class="dropdown-menu">
+	  								<% if owner.include?(String(current_user.id)) == true  %> 
+										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
+	  								
+	  									<%if doc.archived_list[0] == '1'%>
+											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
+	  									<%else%>
+								
+	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
+								
+	  									<%end%>
+	  								<%else%>
+							
+	  								<%end%>
+						
+				  				  </ul>
+				  				</li>
+				  	          </ul>
 						    <%= doc.description %>
-							<p>
+							<hr />
+							<br>
 						
-								<% if owner.include?(String(current_user.id)) == true  %> 
-									<%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> |				  <%if doc.archived_list[0] == '1'%>
-							
-										<%= link_to( 'Restore', arch_path(:doc_id => doc.id))%>
-								
-									<%else%>
-								
-										<%= link_to( 'Archive', arch_path(:doc_id => doc.id))%>
-								
-									<%end%>
-								<%else%>
-							
-								<%end%>
-						
-							</p>
 						  </div>
 						</div>
-					 	<hr />
+					 	
+						
 					<%else%> 
 					<%end%>
 				<%end%>
@@ -69,6 +77,7 @@
 		<% end %>
 		
     </div>
+
     <div class="<%= if params[:tab] == 'tab3' then 'tab-pane active'  else 'tab-pane' end%>" id="tab3">
 		<% @docs.each do |doc| %>
 			
@@ -91,28 +100,34 @@
 							<%end%>
 						  </a>
 						  <div class="media-body">
-						    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
-						    <%= doc.description %>
-							<p>
+				              <ul class="nav">
+				  				<li class="dropdown">
+				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+								  </a>
+				  				  <ul class="dropdown-menu">
+	  							
+										
+	  								
+	  									<%if doc.archived_list[0] == '1'%>
+											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
+	  									<%else%>
+								
+	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
+								
+	  									<%end%>
+
 						
-								<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> 
-								<%else%>
-						 	
-									<%if doc.archived_list[0] == '1'%>
+				  				  </ul>
+				  				</li>
+				  	          </ul>
+						    
+						    <%= doc.description %>
+							<hr />
+							<br>
 							
-										<%= link_to( 'Restore', arch_path(:doc_id => doc.id))%>
-								
-									<%else%>
-								
-										<%= link_to( 'Archive', arch_path(:doc_id => doc.id))%>
-								
-									<%end%>
-							
-								<%end%>
-							</p>
 						  </div>
 						</div>
-					 	<hr />
+					 	
 					<%end%>
 				
 				<%end%>
@@ -138,29 +153,36 @@
 							<%end%>
 						  </a>
 						  <div class="media-body">
-						    <h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
-						    <%= doc.description %>
-							<p>
+				              <ul class="nav">
+				  				<li class="dropdown">
+				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+								  </a>
+				  				  <ul class="dropdown-menu">
+	  								<% if owner.include?(String(current_user.id)) == true  %> 
+										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
+	  									<li><%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+	  									
+	  								<%else%>
+							
+	  								<%end%>
+  									<%if doc.archived_list[0] == '1'%>
+										 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
+  									<%else%>
+								
+  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
+								
+  									<%end%>
 						
-								<% if owner.include?(String(current_user.id)) == true  %> <%= link_to 'Edit', edit_doc_path(doc) %> | <%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %> |
-								<%else%>
-								<%end%>
-						 	
-								<%if doc.archived_list[0] == '1'%>
-							
-									<%= link_to( 'Restore', arch_path(:doc_id => doc.id))%>
-								
-								<%else%>
-								
-									<%= link_to( 'Archive', arch_path(:doc_id => doc.id))%>
-								
-								<%end%>
-							
-								
-							</p>
+				  				  </ul>
+				  				</li>
+				  	          </ul>
+						   
+						    <%= doc.description %>
+							<hr />
+							<br>
 						  </div>
 						</div>
-					 	<hr />
+					 
 				<%else%>	
 				
 				<%end%>
