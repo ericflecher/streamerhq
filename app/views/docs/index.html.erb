@@ -3,8 +3,7 @@
 <html lang="en">
 
 
-<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">New Board</a>
-<p></p>
+
 
 <div class="nav nav-tabs">
 <ul class="nav nav-tabs">
@@ -20,7 +19,8 @@
        Feed
     </div>
     <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
-
+		<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">Create New Board</a>
+		<br>
 		<% @docs.each do |doc| %>
 			
 			<% 	
@@ -65,7 +65,6 @@
 						    <%= doc.description %>
 							<hr />
 							<br>
-						
 						  </div>
 						</div>
 					 	
@@ -124,7 +123,6 @@
 						    <%= doc.description %>
 							<hr />
 							<br>
-							
 						  </div>
 						</div>
 					 	
@@ -176,7 +174,6 @@
 				  				  </ul>
 				  				</li>
 				  	          </ul>
-						   
 						    <%= doc.description %>
 							<hr />
 							<br>
@@ -192,9 +189,6 @@
 </div>
 
 </div>
-
-
-
 
 
 	<%= render "docs/newboard" %>
