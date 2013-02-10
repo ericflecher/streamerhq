@@ -12,26 +12,36 @@
 
 
 <div class="row-fluid">
-  <div class="span7 offset1"><h4><%= @currentversion.title %></h4></div>
+  <div class="span7 offset1">
+	  
+      <ul class="nav">
+		<li class="dropdown">
+		  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to @currentversion.title, @currentversion %> <b class="caret"></b></h4>
+		  </a>
+		  <ul class="dropdown-menu">
+			<% if owner.include?(String(current_user.id)) == true  %> 
+				<li> <%= link_to "Edit", new_featurever_path(:feature_id => @currentversion.id) %> </li>
+	  									
+			<%else%>
+							
+			<%end%>
+			<li><a data-toggle="modal" href="#subfeature_comment-<%= @currentversion.id%>">Create comment</a> </li>
+						
+		  </ul>
+		</li>
+      </ul>
+  
+  
+  </div>
   <div class="span4"></div>
 </div>
- <div class="row-fluid">
-  	<div class="span7 offset1">
-		<% if docowner.include?(String(current_user.id)) == true  %> 
-			<%= link_to "Edit", new_featurever_path(:feature_id => @subfeature.id)   %> 
-		<%else%>
-		<%end%>
-
-    </div>
-	<div class="span4"></div>
-
-</div>
+ 
 
 <div class="row-fluid">
   <div class="span7 offset1"><%if @currentversion.photo.exists?%><%= image_tag @currentversion.photo(:original) %><%else%><%end%>
   	<div class="well well-small"><%= @currentversion.gherkin %></div>
 	<% @sf = @currentversion %>
-	<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a> 
+	 
   </div>
 
   <%= render "docs/subfeature_comment" %>

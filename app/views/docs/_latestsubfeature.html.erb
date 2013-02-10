@@ -12,7 +12,7 @@
 
 
 <div class="row-fluid">
-  <div class="span7 offset1"><h4><%= @currentsubversion.title%></h4>
+  <div class="span7 offset1">	
       <ul class="nav">
 		<li class="dropdown">
 		  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to @currentsubversion.title, @subfeature %> <b class="caret"></b></h4>
@@ -25,7 +25,7 @@
 							
 			<%end%>
 			<li><%= link_to "Versions", versions_path(:feature_id => @subfeature.id) %></li>
-			<li><a data-toggle="modal" href="#version_comment-<%= @subfeature.id%>">Create comment</a></li>
+			<li><a data-toggle="modal" href="#version_comment-<%= @currentsubversion.id%>">Create comment</a></li>
 						
 		  </ul>
 		</li>
@@ -34,24 +34,13 @@
   </div>
   <div class="span4"></div>
 </div>
- <div class="row-fluid">
-  	<div class="span7 offset1">
-		<%= link_to "Versions", versions_path(:feature_id => @subfeature.id) %>
-		<% if docowner.include?(String(current_user.id)) == true  %> 
-	 		 |<%= link_to "Edit", new_featurever_path(:feature_id => @subfeature.id) %> 
-		<%else%>
-		<%end%>
 
-    </div>
-	<div class="span4"></div>
-
-</div>
 
 <div class="row-fluid">
   <div class="span7 offset1"><%if @currentsubversion.photo.exists?%><%= image_tag @currentsubversion.photo(:original) %><%else%><%end%>
   	<div class="well well-small"><%= @currentsubversion.gherkin %></div>
 	<%@currentversion = @currentsubversion%>
-	<a data-toggle="modal" href="#version_comment-<%=@currentversion.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
+
   </div>
 
    <%= render "features/version_comment" %>

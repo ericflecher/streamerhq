@@ -92,26 +92,6 @@
 	    <div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
        
 
-			
-					
-			
-			<% if owner.include?(String(current_user.id)) == true   %> 
-
-				<div class="row-fluid">
-				  <div class="span4">
-						
-							<%= render "features/newsection" %>
-				  </div>
-				  <div class="span8"></div>
-				</div>
-	
-			<%else%>
-				
-			<%end%>
-			
-			
-			
-
 			<div class="row-fluid">
 	
 				<% @features.each do |feature| %>
@@ -151,7 +131,34 @@
 						<%end%>
 					<%else%>
 				  		<%=render "docs/features"%>
-					<% end %>
+						
+						<% @subfeatures = @feature.following_features%>
+			
+						<% @subfeatures = @subfeatures.order("created_at ASC")%>
+						<% @subfeatures.each do |subfeature| %>
+				
+							<%
+							@subfeature = subfeature
+							@subversion = Featurever.where(:featureid => subfeature.id)
+			
+					
+							if @subversion.size > 0
+							%>
+								<% @currentsubversion = @subversion.last%>
+								<%= render "docs/latestsubfeature"
+								%>
+			
+							<%else%>
+								<% @currentversion = subfeature%>
+						  		<%= render "docs/initialsubfeature"
+								%>
+							<% end %>
+
+			
+						<%end%>
+					<%end%>
+						
+						
 				<%end%>
 
 			</div>
@@ -244,4 +251,6 @@
 	</div>
 
 </div>
-
+					
+			
+<%= render "features/newsection" %>
