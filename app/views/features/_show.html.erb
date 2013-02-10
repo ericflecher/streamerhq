@@ -1,4 +1,4 @@
-<% 
+	<% 
 
 	u = User.find(@feature.owner_list)
 	owner = @feature.owner_list
@@ -16,7 +16,7 @@
 			pf = @feature.parent_feature_list
 		%>
 		<% if pf[0].nil? %>
-				<a data-toggle="modal" href="/features/#newsubsection" class="btn btn-mini btn-primary" type="button">Add a story to <%=@feature.title%></a>
+				<a data-toggle="modal" href="/features/#newsubsection" class="btn btn-mini btn-primary" type="button">New Story</a>
 				
 		<%else%>
 			
