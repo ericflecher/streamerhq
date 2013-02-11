@@ -289,12 +289,18 @@ class DocsController < ApplicationController
     d = params[:doc_id]
     doc = Doc.find(d)
     
-    if doc.archived_list[0]  == '1'
-      doc.archived_list[0] = '0'
+    #session[:d] = doc
+    
+    if doc.arch  == 1
+      
+      doc.arch = 0
+      
     else
-      doc.archived_list[0] = '1'
+      
+      doc.arch = 1
+      
     end
-    session[:test] = doc.archived_list 
+    
     doc.save
     
     redirect_to docs_path

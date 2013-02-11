@@ -21,6 +21,9 @@
     <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
 		<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">Create New Board</a>
 		<br>
+		
+
+		
 		<% @docs.each do |doc| %>
 			
 			<% 	
@@ -28,7 +31,8 @@
 				owner = doc.owner_list	
 				arch = doc.archived_list[0]	
 			 %>
-			 	<%if arch == '1'%>
+			 
+			 	<%if doc.arch == 1%>
 				<%else%>
 					<% if owner.include?(String(current_user.id)) == true  %>
 			
@@ -48,7 +52,7 @@
 	  								<% if owner.include?(String(current_user.id)) == true  %> 
 										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
 	  								
-	  									<%if doc.archived_list[0] == '1'%>
+	  									<%if doc.arch == 1%>
 											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
 	  									<%else%>
 								
@@ -85,7 +89,8 @@
 				owner = doc.owner_list	
 				arch = doc.archived_list[0]	
 			 %>
-		 		<%if arch == '1'%>
+
+		 		<%if doc.arch == 1%>
 				<%else%>
 					<% if owner.include?(String(current_user.id)) == true  %>
 			
@@ -107,7 +112,7 @@
 	  							
 										
 	  								
-	  									<%if doc.archived_list[0] == '1'%>
+	  									<%if doc.arch == 1%>
 											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
 	  									<%else%>
 								
@@ -141,7 +146,8 @@
 				owner = doc.owner_list	
 				arch = doc.archived_list[0]	
 			 %>
-		 		<%if arch == '1'%>
+
+		 		<%if doc.arch == 1%>
 				
 						<div class="media">
 						  <a class="pull-left" href= <%=doc_path(doc)%>>
@@ -163,7 +169,7 @@
 	  								<%else%>
 							
 	  								<%end%>
-  									<%if doc.archived_list[0] == '1'%>
+  									<%if doc.arch == 1%>
 										 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
   									<%else%>
 								

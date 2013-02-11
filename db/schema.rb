@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121229223304) do
+ActiveRecord::Schema.define(:version => 20130211032948) do
 
   create_table "comments", :force => true do |t|
     t.integer   "commentable_id",   :default => 0
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20121229223304) do
     t.integer   "photo_file_size"
     t.timestamp "photo_updated_at"
     t.integer   "pdoc"
+    t.integer   "arch"
   end
 
   create_table "features", :force => true do |t|
@@ -63,15 +64,15 @@ ActiveRecord::Schema.define(:version => 20121229223304) do
   end
 
   create_table "featurevers", :force => true do |t|
-    t.string   "title"
-    t.text     "gherkin"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.integer  "featureid"
+    t.string    "title"
+    t.text      "gherkin"
+    t.string    "photo_file_name"
+    t.string    "photo_content_type"
+    t.integer   "photo_file_size"
+    t.timestamp "photo_updated_at"
+    t.timestamp "created_at",         :null => false
+    t.timestamp "updated_at",         :null => false
+    t.integer   "featureid"
   end
 
   create_table "follows", :force => true do |t|
