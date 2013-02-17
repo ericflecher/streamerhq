@@ -175,10 +175,6 @@ GEM
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
-    redactor-rails (0.3.3)
-      devise
-      mime-types
-      orm_adapter
     ref (1.0.2)
     rolify (3.2.0)
     rspec-core (2.12.2)
@@ -277,7 +273,6 @@ DEPENDENCIES
   quiet_assets (>= 1.0.1)
   rails (= 3.2.11)
   rails3-jquery-autocomplete
-  redactor-rails
   rolify (>= 3.2.0)
   rspec-rails (>= 2.11.4)
   sass-rails (~> 3.2.3)

@@ -36,8 +36,6 @@ gem "twitter-bootstrap-rails"
 gem "tabs_on_rails"
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem 'redactor-rails'
-#gem "ckeditor"
 gem 'ckeditor_rails'
 group :production do
   gem 'pg'
