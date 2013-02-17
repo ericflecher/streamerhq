@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ckeditor-jquery
 //= require bootstrap
 //= require_tree .
 //= require jquery-ui
 //= require autocomplete-rails
-
 

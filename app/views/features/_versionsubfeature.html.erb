@@ -41,7 +41,7 @@
 
 <div class="row-fluid">
   <div class="span7 offset1"><%if @currentversion.photo.exists?%><%= image_tag @currentversion.photo(:original) %><%else%><%end%>
-  	<div class="well well-small"><%= @currentversion.gherkin %></div>
+  	<div class="well well-small"><%= @currentversion.gherkin.html_safe %></div>
 	<a data-toggle="modal" href="#version_comment-<%= @currentversion.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
   </div>
 

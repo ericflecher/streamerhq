@@ -65,7 +65,7 @@ baselineid = feature.baselineid_list
 	  <div class="span8"><%if feature.photo.exists?%><%= image_tag feature.photo(:original) %><%else%><%end%>
 
 		<div class="well well-small">
-			<%= feature.gherkin %>
+			<%= feature.gherkin.html_safe %>
 		</div>
 		<% @currentversion = feature %> 
 		
@@ -103,7 +103,7 @@ baselineid = feature.baselineid_list
 
 <div class="row-fluid">
   <div class="span8"><%if @feature.photo.exists?%><%= image_tag @feature.photo(:original) %><%else%><%end%>
-  	<div class="well well-small"><%= @feature.gherkin %></div>
+  	<div class="well well-small"><%= @feature.gherkin.html_safe %></div>
 	<a data-toggle="modal" href="#feature_comment-<%= @feature.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
   </div>
   

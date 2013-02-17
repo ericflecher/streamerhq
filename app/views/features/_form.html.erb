@@ -6,8 +6,8 @@
 	    <p>Stories make up boards. Use stories to describe how to accomplish a boards goals</p>
 	    <div class="row-fluid">
 	      <div class="span8">
-	        <%= f.input :title,:input_html => { :rows => 1 , :class => "span8"}, :label => "1 - Name it" %>
-			<%= f.input :gherkin, :as => :text, :input_html => { :rows => 8 , :class => "span8"}, :label => "3 - Describe the story" %>
+	        <%= f.input :title,:input_html => { :rows => 1 , :class => "span12"}, :label => "1 - Name it" %>
+			<%= f.input :gherkin, :as => :text, :input_html => { :rows => 8 , :class => "span12 ckeditor"}, :label => "3 - Describe the story" %>
 	      </div>
 	      <div class="span4"><%if @feature.photo.exists?%><%= image_tag @feature.photo(:original) %><%else%><%end%><%= f.input :photo, :label => "2 - Add a photo which represents the story" %></div>
 	    </div>

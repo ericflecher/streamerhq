@@ -29,7 +29,7 @@
 
 <div class="row-fluid">
 	<div class="span7 offset1"><%if @subfeature.photo.exists?%><%= image_tag @subfeature.photo(:original) %><%else%><%end%>
-		<div class="well well-small"><%= @subfeature.gherkin %></div>
+		<div class="well well-small"><%= @subfeature.gherkin.html_safe %></div>
 		<% @sf = @subfeature %>
 		<a data-toggle="modal" href="#subfeature_comment-<%= @sf.id%>" class="btn btn-mini btn-primary pull-right" type="button">Add your feedback</a>
 	</div>

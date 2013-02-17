@@ -6,8 +6,8 @@
 	    <p>Boards are used to get stuff done. To create a board:</p>
 	    <div class="row-fluid">
 	      <div class="span8">
-	        <%= f.input :title,:input_html => { :rows => 1 , :class => "span8"}, :label => "1 - Name it" %>
-			<%= f.input :description, :as => :text, :input_html => { :rows => 8 , :class => "span8"}, :label => "2 - Define success for this board" %>
+	        <%= f.input :title,:input_html => { :rows => 1 , :class => "span12"}, :label => "1 - Name it" %>
+			<%= f.input :description, :as => :text, :input_html => { :rows => 8 , :class => "span12 ckeditor"}, :label => "2 - Define success for this board" %>
 	      </div>
 	      <div class="span4"><%if @doc.photo.exists?%><%= image_tag @doc.photo(:original) %><%else%><%end%><%= f.input :photo, :label => "3 - Add a photo which represents the board" %></div>
 	    </div>
