@@ -9,13 +9,22 @@ body { padding-top: 60px; }
   filter: none;
 }
 
+// For dropdown on hover, display it
 ul.nav li.dropdown:hover ul.dropdown-menu {
     display: block;
 }
 
+// Replace margin with padding to Fix issue with hiding dropdown by moving over margin
 ul.dropdown-menu {
   padding: 7px 0 5px;
   margin: 0;
+}
+
+// Show dropdown past tab content
+.tab-content, 
+.media,
+.media-body {
+  overflow: visible;
 }
 
 .media-heading {
