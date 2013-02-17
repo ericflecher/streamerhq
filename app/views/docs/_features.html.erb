@@ -43,7 +43,7 @@ docowner = @doc.owner_list
 <div class="row-fluid">
    <div class="span8"><%if @feature.photo.exists?%><%= image_tag @feature.photo(:original) %><%else%><%end%>
 
-		<div class="well well-small"><%= @feature.gherkin %>
+		<div class="well well-small"><%= @feature.gherkin.html_safe %>
 		</div>
 		<% @f = @feature %>
 
