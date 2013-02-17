@@ -2,201 +2,139 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
-
 <div class="nav nav-tabs">
-<ul class="nav nav-tabs">
-    <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Feed</a></li>
-    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">Boards I Own</a></li>
-	<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Boards I am Invited</a></li>
-	<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived Boards</a></li>
-</ul>
+	<ul class="nav nav-tabs">
+		<li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Feed</a></li>
+		<li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">Boards I Own</a></li>
+		<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Boards I am Invited</a></li>
+		<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived Boards</a></li>
+	</ul>
 
-
-<div class="tab-content">
-    <div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
-       Feed
-    </div>
-    <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
-		<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">Create New Board</a>
-		<br>
-		
-
-		
-		<% @docs.each do |doc| %>
+	<div class="tab-content">
+		<div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
+			Feed
+		</div>
+		<div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
+			<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">Create New Board</a>
+			<br>
+			<% @docs.each do |doc| %>
 			
-			<% 	
-				u = User.find(doc.owner_list)
-				owner = doc.owner_list	
-				arch = doc.archived_list[0]	
-			 %>
+				<% 	
+					u = User.find(doc.owner_list)
+					owner = doc.owner_list	
+					arch = doc.archived_list[0]	
+				 %>
 			 
-			 	<%if doc.arch == 1%>
-				<%else%>
-					<% if owner.include?(String(current_user.id)) == true  %>
+				 	<% if doc.arch != 1 %>
+						<% if owner.include?(String(current_user.id)) == true  %>
 			
+							<div class="media">
+								<% if doc.photo.exists? %>
+									<a class="pull-left" href="<%= doc_path(doc) %>">
+										<p><%= image_tag doc.photo(:thumb) %></p>
+									</a>
+								<%end%>
+							  <div class="media-body">
+									<ul class="nav">
+										<li class="dropdown">
+											<a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4></a>
+											<% if owner.include?(String(current_user.id)) == true  %>
+												<ul class="dropdown-menu">
+													<li><a href="<%= edit_doc_path(doc) %>">Edit</a></li>
+													<li>
+														<a href="<%= arch_path(:doc_id => doc.id)%>"><%= if doc.arch == 1 then "Restore" else "Archive" end %></a>
+													</li>
+												</ul>
+											<% end %>
+										</li>
+									</ul>
+									<%= doc.description.html_safe %>
+									<hr />
+									<br>
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+			<% end %>
+		</div>
+
+		<div class="<%= if params[:tab] == 'tab3' then 'tab-pane active' else 'tab-pane' end %>" id="tab3">
+			<% @docs.each do |doc| %>
+				<%
+					u = User.find(doc.owner_list)
+					owner = doc.owner_list	
+					arch = doc.archived_list[0]	
+				%>
+				<%if doc.arch != 1 %>
+					<% if owner.include?(String(current_user.id)) == false %>
 						<div class="media">
-						  <a class="pull-left" href= <%=doc_path(doc)%>>
-							<%if doc.photo.exists?%>
-								<p><%= image_tag doc.photo(:thumb) %></p>
-							<%else%>
+							<% if doc.photo.exists? %>
+								<a class="pull-left" href="<%= doc_path(doc) %>">
+									<p><%= image_tag doc.photo(:thumb) %></p>
+								</a>
 							<%end%>
-						  </a>
-						  <div class="media-body">
-				              <ul class="nav">
-				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
-								  </a>
-				  				  <ul class="dropdown-menu">
-	  								<% if owner.include?(String(current_user.id)) == true  %> 
-										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
-	  								
-	  									<%if doc.arch == 1%>
-											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
-	  									<%else%>
-								
-	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
-								
-	  									<%end%>
-	  								<%else%>
-							
-	  								<%end%>
-						
-				  				  </ul>
-				  				</li>
-				  	          </ul>
-						    <%= doc.description.html_safe %>
+							<div class="media-body">
+								<ul class="nav">
+									<li class="dropdown">
+										<a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4></a>
+										<ul class="dropdown-menu">
+											<li>
+												<a href="<%= arch_path(:doc_id => doc.id)%>"><%= if doc.arch == 1 then "Restore" else "Archive" end %></a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<%= doc.description.html_safe %>
+								<hr />
+								<br>
+							</div>
+						</div>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+
+		<div class="<%= if params[:tab] == 'tab4' then 'tab-pane active' else 'tab-pane' end %>" id="tab4">
+			<% @docs.each do |doc| %>
+				<%
+					u = User.find(doc.owner_list)
+					owner = doc.owner_list	
+					arch = doc.archived_list[0]	
+				%>
+				<% if doc.arch == 1 %>
+					<div class="media">
+						<% if doc.photo.exists? %>
+							<a class="pull-left" href="<%= doc_path(doc) %>">
+								<p><%= image_tag doc.photo(:thumb) %></p>
+							</a>
+						<%end%>
+						<div class="media-body">
+							<ul class="nav">
+								<li class="dropdown">
+									<a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4></a>
+									<ul class="dropdown-menu">
+										<% if owner.include?(String(current_user.id)) == true %>
+											<li><a href="<%= edit_doc_path(doc)%>">Edit</a></li>
+											<li><%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+										<% end %>
+										<li>
+											<a href="<%= arch_path(:doc_id => doc.id)%>">Restore</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<%= doc.description.html_safe %>
 							<hr />
 							<br>
-						  </div>
 						</div>
-					 	
-						
-					<%else%> 
-					<%end%>
-				<%end%>
-
-		<% end %>
-		
-    </div>
-
-    <div class="<%= if params[:tab] == 'tab3' then 'tab-pane active'  else 'tab-pane' end%>" id="tab3">
-		<% @docs.each do |doc| %>
-			
-			<% 	
-				u = User.find(doc.owner_list)
-				owner = doc.owner_list	
-				arch = doc.archived_list[0]	
-			 %>
-
-		 		<%if doc.arch == 1%>
-				<%else%>
-					<% if owner.include?(String(current_user.id)) == true  %>
-			
-					<%else%> 
-			
-						<div class="media">
-						  <a class="pull-left" href= <%=doc_path(doc)%>>
-							<%if doc.photo.exists?%>
-								<p><%= image_tag doc.photo(:thumb) %></p>
-							<%else%>
-							<%end%>
-						  </a>
-						  <div class="media-body">
-				              <ul class="nav">
-				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
-								  </a>
-				  				  <ul class="dropdown-menu">
-	  							
-										
-	  								
-	  									<%if doc.arch == 1%>
-											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
-	  									<%else%>
-								
-	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
-								
-	  									<%end%>
-
-						
-				  				  </ul>
-				  				</li>
-				  	          </ul>
-						    
-						    <%= doc.description.html_safe %>
-							<hr />
-							<br>
-						  </div>
-						</div>
-					 	
-					<%end%>
-				
-				<%end%>
-
-		<% end %>
-		
-    </div>
-    <div class="<%= if params[:tab] == 'tab4' then 'tab-pane active'  else 'tab-pane' end%>" id="tab4">
-		<% @docs.each do |doc| %>
-			
-			<% 	
-				u = User.find(doc.owner_list)
-				owner = doc.owner_list	
-				arch = doc.archived_list[0]	
-			 %>
-
-		 		<%if doc.arch == 1%>
-				
-						<div class="media">
-						  <a class="pull-left" href= <%=doc_path(doc)%>>
-							<%if doc.photo.exists?%>
-								<p><%= image_tag doc.photo(:thumb) %></p>
-							<%else%>
-							<%end%>
-						  </a>
-						  <div class="media-body">
-				              <ul class="nav">
-				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
-								  </a>
-				  				  <ul class="dropdown-menu">
-	  								<% if owner.include?(String(current_user.id)) == true  %> 
-										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
-	  									<li><%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-	  									
-	  								<%else%>
-							
-	  								<%end%>
-  									<%if doc.arch == 1%>
-										 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
-  									<%else%>
-								
-  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
-								
-  									<%end%>
-						
-				  				  </ul>
-				  				</li>
-				  	          </ul>
-						    <%= doc.description.html_safe %>
-							<hr />
-							<br>
-						  </div>
-						</div>
-					 
-				<%else%>	
-				
-				<%end%>
-
-		<% end %>
-    </div>
-</div>
-
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
 </div>
 
 
-	<%= render "docs/newboard" %>
+<%= render "docs/newboard" %>
 
 </html>
