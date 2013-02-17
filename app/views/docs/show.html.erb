@@ -6,14 +6,22 @@
 %>
 
 <%if @doc.pdoc == 1%>
+	<div class="alert alert-info">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h5>Private board - This board is only avalable to invited Bckto'ers</h5>
+	</div>
 	<%if current_user.following?(@doc) == true%>
 		<%= render "docs/show" %>
 	<%else%>
 		<% if owner.include?(String(current_user.id)) == true   %> 
-			<%= render "docs/show" %>
+			<%= render "docs/show"  %>
 		<%end%>
 	<%end%>
 <%else%>
+		<div class="alert alert-block">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h5>Public board - This board is avalable to the public</h5>
+		</div>
 		<%= render "docs/show" %>
 <%end%>
 

@@ -5,6 +5,7 @@
 	session[:doc_id] = @doc.id
 %>
 
+
 <% if owner.include?(String(current_user.id)) == true   %> 
 
 
@@ -127,8 +128,11 @@
 								%>
 							<% end %>
 
-			
+					
 						<%end%>
+						
+						<hr />
+						
 					<%else%>
 				  		<%=render "docs/features"%>
 						
@@ -156,6 +160,8 @@
 
 			
 						<%end%>
+						
+						<hr />
 					<%end%>
 						
 						

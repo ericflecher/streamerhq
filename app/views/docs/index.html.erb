@@ -53,7 +53,7 @@
 										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
 	  								
 	  									<%if doc.arch == 1%>
-											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
+											<li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
 	  									<%else%>
 								
 	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>

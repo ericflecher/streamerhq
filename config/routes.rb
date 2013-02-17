@@ -1,7 +1,7 @@
 Streamerhq::Application.routes.draw do
   
   resources :featurevers
-
+  resources :feeds
   resources :features
   resources :docs
   resources :custom_ass

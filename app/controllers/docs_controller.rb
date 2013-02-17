@@ -102,7 +102,9 @@ class DocsController < ApplicationController
     #Used to define doc version
     @doc.version_list = 1
     
-
+    #make doc private by default
+    @doc.pdoc = 1
+    
     respond_to do |format|
       if @doc.save
         @doc.baselineid_list = @doc.id
