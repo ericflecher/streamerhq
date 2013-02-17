@@ -1,21 +1,11 @@
-
-<html lang="en">
-
 <% 
 	owner = @doc.owner_list
 %>
 
-<%if @doc.pdoc == 1%>
-	<%if current_user.following?(@doc) == true%>
+<% if @doc.pdoc == 1 %>
+	<% if owner.include?(current_user.id.to_s) == true or current_user.following?(@doc) == true %>
 		<%= render "docs/show" %>
-	<%else%>
-		<% if owner.include?(String(current_user.id)) == true   %> 
-			<%= render "docs/show" %>
-		<%end%>
-	<%end%>
-<%else%>
-		<%= render "docs/show" %>
-<%end%>
-
-
-</html>
+	<% end %>
+<% else %>
+	<%= render "docs/show" %>
+<% end %>
