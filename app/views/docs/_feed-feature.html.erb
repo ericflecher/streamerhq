@@ -1,0 +1,11 @@
+
+<%
+	u = User.find(@feed.user_id)
+	f = Feature.find(@feed.feature_id)
+%>
+
+<blockquote >
+	<%if f.photo.exists?%><%= image_tag f.photo(:medium) %><%else%><%end%>
+  <p><%= link_to u.name, u %> created a new story: <%= link_to f.title, f%>
+	  <small> <cite title="Source Title"><%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+</blockquote>

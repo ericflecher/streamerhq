@@ -1,0 +1,12 @@
+
+<%
+	u = User.find(@feed.user_id)
+	v = Featurever.find(@feed.featurever_id)
+	
+%>
+
+<blockquote >
+	<%if v.photo.exists?%><%= image_tag v.photo(:medium) %><%else%><%end%>
+  <p><%= link_to u.name, u %> created a new version: <%= link_to v.title, versions_path(:feature_id => v.featureid)%>
+	  <small> <cite title="Source Title"><%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+</blockquote>

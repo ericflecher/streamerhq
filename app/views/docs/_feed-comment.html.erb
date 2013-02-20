@@ -1,0 +1,21 @@
+
+<%
+	u = User.find(@feed.user_id)
+
+	if @feed.featurever_id.nil?
+		x=1
+		f = Feature.find(@feed.feature_id)
+	else
+		x=2
+		v = Featurever.find(@feed.featurever_id)
+	end
+	
+	
+%>
+
+<%if x==1%>
+	<%= render "docs/feed-feature-comment" %>
+<%else%>
+
+	<%= render "docs/feed-version-comment" %>
+<%end%>

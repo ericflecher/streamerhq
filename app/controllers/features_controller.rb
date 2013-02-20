@@ -96,6 +96,16 @@ class FeaturesController < ApplicationController
         @feature.baselineid_list = @feature.id
         @feature.save
         
+        # adds a create event to the board feed
+        feed = Feed.new
+        
+        feed.message = "Created a new story - " + @feature.title
+        feed.feature_id = @feature.id
+        feed.user_id = current_user.id
+        feed.doc_id = Doc.find(@feature.parent_doc_list[0]).id
+        feed.feedtype = "Feature create" 
+        feed.save
+        
         if doc.nil?
         else
           doc.follow(@feature) 
@@ -161,6 +171,18 @@ class FeaturesController < ApplicationController
     respond_to do |format|
       if @feature.update_attributes(params[:feature])
         
+        
+        # adds a create event to the board feed
+        feed = Feed.new
+        
+        feed.message = "Updated" + @feature.title
+        feed.feature_id = @feature.id
+        feed.user_id = current_user.id
+        feed.doc_id = @feature.parent_doc_list[0]
+        feed.feedtype = "Feature update" 
+        feed.save
+        
+        
         # email notificaiton
         doc = Doc.find(@feature.parent_doc_list[0])
         @followers = doc.followers
@@ -189,6 +211,17 @@ class FeaturesController < ApplicationController
     
     if @feature.parent_doc_list.nil?
       r = Doc.find(@feature.parent_doc_list)
+      
+      # adds a create event to the board feed
+      feed = Feed.new
+        
+      feed.message = "Deleted: " + @feature.title
+      feed.feature_id = @feature.id
+      feed.user_id = current_user.id
+      feed.doc_id = r.id
+        
+      feed.save
+      
       @feature.destroy
 
       respond_to do |format|
@@ -197,6 +230,16 @@ class FeaturesController < ApplicationController
       end
     else
       r = Doc.find(@feature.parent_doc_list)
+      
+      # adds a create event to the board feed
+      feed = Feed.new
+        
+      feed.message = "Deleted: " + @feature.title
+      feed.feature_id = @feature.id
+      feed.user_id = current_user.id
+      feed.doc_id = r[0].id
+      feed.feedtype = "Feature delete"  
+      feed.save
       
       @feature.destroy
 
@@ -234,6 +277,16 @@ class FeaturesController < ApplicationController
       
     end
     
+    # adds a comment event to the board feed
+    feed = Feed.new
+        
+    feed.message = comment
+    feed.feature_id = feature.id
+    feed.doc_id = doc.id
+    feed.user_id = current_user.id
+    feed.feedtype = "Feature comment" 
+    feed.save
+    
     redirect_to doc_path(doc)
   end
   
@@ -268,8 +321,18 @@ class FeaturesController < ApplicationController
       #UserMailer.comment_email(user, doc, feature, comment).deliver
       UserMailer.comment_email(user, doc, feature, comment, send_to_user).deliver
     end
+    
+    # adds a comment event to the board feed
+    feed = Feed.new
+        
+    feed.message = comment
+    feed.feature_id = feature.id
+    feed.user_id = current_user.id
+    feed.doc_id = doc.id
+    feed.feedtype = "Feature comment" 
+    feed.save
 
-
+    
   
     redirect_to feature_path(f)
   end

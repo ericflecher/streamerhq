@@ -94,6 +94,11 @@
        
 
 			<div class="row-fluid">
+				
+				<%if @features.size < 1%>
+					<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">Create your first story</a>
+				<%end%>
+			
 	
 				<% @features.each do |feature| %>
 					<%
@@ -168,25 +173,40 @@
 				<%end%>
 
 			</div>
-	   
+	   </br>
 	   
 	    </div>
 	    <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
 			<div class="span4" class="well well-small pull-right">
-				<% if @all_comments.length == 0 %> 
-				<%else%><p><h4>Feedback on <%= @doc.title %></4h></p> 
-				<%end%> 
+				
+				
 		
-				<%@all_comments.each do |comments| %>
-					<%u = User.find(comments.user_id)%>
-					<blockquote >
-					  <p><%=comments.body%>	 <% if current_user.id == comments.user_id %> 
-						<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
-						<%else%> 
-						<%end%> 
-					  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y %I:%M")%></cite></small>
-					</blockquote>
+				<%@feeds.each do |feed| %>
+					<%@feed = feed%>
+					
+					
+					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
+						<%= render "docs/feed-comment"%>
+					<%end%>
+						
+					<%if feed.feedtype == "Feature create"%>
+			  			<%= render "docs/feed-feature"%>
+					<%end%>
+					
+					<%if feed.feedtype == "Feature version update"%>
+			  			<%= render "docs/feed-feature-version"%>
+					<%end%>
+					
+					<%if feed.feedtype == "Board create"%>
+						<%= render "docs/feed-board-create"%>
+					<%end%>
+					
 				<%end%>	
+				
+				
+				
+				
+				
 			</div>
 			
 		

@@ -1,0 +1,14 @@
+
+<%
+	u = User.find(@feed.user_id)
+	f = Feature.find(@feed.feature_id)
+	v = Featurever.where(:featureid => f.id)
+	
+%>
+
+
+<blockquote >
+	<%if f.photo.exists?%><%= image_tag f.photo(:medium) %><%else%><%end%>
+  <p>Comment on <%=link_to f.title, f%>: <%=@feed.message%>
+	  <small> <cite title="Source Title"><%if User.exists?(@feed.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+</blockquote>

@@ -1,0 +1,15 @@
+
+<%
+	u = User.find(@feed.user_id)
+	d = Doc.find(@feed.doc_id)
+	
+	
+		
+	
+%>
+
+<blockquote >
+	<%if d.photo.exists?%><%= image_tag d.photo(:thumb) %><%else%><%end%>
+  <p> <%= link_to u.name, u %>: Created a new board called <%= link_to d.title, d%>
+	  <small> <cite title="Source Title"> <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+</blockquote>
