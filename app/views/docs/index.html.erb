@@ -18,7 +18,34 @@
     <div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
        
 	   
-TBD FEED
+		<div class="row-fluid">
+		  <div class="span12">
+		
+			<%@feeds.each do |feed| %>
+				<%@feed = feed%>
+					
+					
+				<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
+					<%= render "docs/feed-comment"%>
+				<%end%>
+						
+				<%if feed.feedtype == "Feature create"%>
+		  			<%= render "docs/feed-feature"%>
+				<%end%>
+					
+				<%if feed.feedtype == "Feature version update"%>
+		  			<%= render "docs/feed-feature-version"%>
+				<%end%>
+					
+				<%if feed.feedtype == "Board create"%>
+					<%= render "docs/feed-board-create"%>
+				<%end%>
+					
+			<%end%>	
+				
+				  
+		  </div>
+		</div>
 	   
 	   
     </div>
@@ -108,26 +135,7 @@ TBD FEED
 							<%end%>
 						  </a>
 						  <div class="media-body">
-				              <ul class="nav">
-				  				<li class="dropdown">
-				  				  <a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4>
-								  </a>
-				  				  <ul class="dropdown-menu">
-	  							
-										
-	  								
-	  									<%if doc.arch == 1%>
-											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
-	  									<%else%>
-								
-	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
-								
-	  									<%end%>
-
-						
-				  				  </ul>
-				  				</li>
-				  	          </ul>
+							 <h4 class="media-heading"> <%= link_to doc.title, doc_path(doc) %></h4>
 						    
 						    <%= doc.description %>
 							<hr />
@@ -169,17 +177,18 @@ TBD FEED
 	  								<% if owner.include?(String(current_user.id)) == true  %> 
 										<li><a href= <%= edit_doc_path(doc)%> >Edit</a></li>
 	  									<li><%= link_to 'Delete', doc, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+	  									<%if doc.arch == 1%>
+											 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
+	  									<%else%>
+								
+	  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
+								
+	  									<%end%>
 	  									
 	  								<%else%>
 							
 	  								<%end%>
-  									<%if doc.arch == 1%>
-										 <li><a href= <%= arch_path(:doc_id => doc.id)%> >Restore</a></li>
-  									<%else%>
-								
-  										<li><a href= <%= arch_path(:doc_id => doc.id)%> >Archive</a></li>
-								
-  									<%end%>
+  									
 						
 				  				  </ul>
 				  				</li>

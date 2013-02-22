@@ -212,15 +212,12 @@ class FeatureversController < ApplicationController
     feature = Feature.find(@featurever.featureid)
     r = Doc.find(feature.parent_doc_list)
     
-    # adds a create event to the board feed
-    feed = Feed.new
-        
-    feed.message = "Deleted: " + @featurever.title
-    feed.featurever_id = @featurever.id
-    feed.user_id = current_user.id
-    feed.doc_id = r[0].id 
-    feed.feedtype = "Deleted feature version"
-    feed.save
+    #remove all feeds for a doc
+    f = Feed.where(:featurever_id => @featurever.id)
+    f.each do |x| 
+      x.destroy
+    end
+
     
     @featurever.destroy
     

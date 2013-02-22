@@ -209,6 +209,13 @@ class FeaturesController < ApplicationController
   def destroy
     @feature = Feature.find(params[:id])
     
+    #remove all feeds for a doc
+    f = Feed.where(:feature_id => @feature.id)
+    f.each do |x| 
+      x.destroy
+    end
+    
+    
     if @feature.parent_doc_list.nil?
       r = Doc.find(@feature.parent_doc_list)
       

@@ -177,37 +177,37 @@
 	   
 	    </div>
 	    <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
-			<div class="span4" class="well well-small pull-right">
-				
-				
+			
+
+			<div class="row-fluid">
+			  <div class="span12">
 		
-				<%@feeds.each do |feed| %>
-					<%@feed = feed%>
+  				<%@feeds.each do |feed| %>
+  					<%@feed = feed%>
 					
 					
-					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
-						<%= render "docs/feed-comment"%>
-					<%end%>
+  					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
+  						<%= render "docs/feed-comment"%>
+  					<%end%>
 						
-					<%if feed.feedtype == "Feature create"%>
-			  			<%= render "docs/feed-feature"%>
-					<%end%>
+  					<%if feed.feedtype == "Feature create"%>
+  			  			<%= render "docs/feed-feature"%>
+  					<%end%>
 					
-					<%if feed.feedtype == "Feature version update"%>
-			  			<%= render "docs/feed-feature-version"%>
-					<%end%>
+  					<%if feed.feedtype == "Feature version update"%>
+  			  			<%= render "docs/feed-feature-version"%>
+  					<%end%>
 					
-					<%if feed.feedtype == "Board create"%>
-						<%= render "docs/feed-board-create"%>
-					<%end%>
+  					<%if feed.feedtype == "Board create"%>
+  						<%= render "docs/feed-board-create"%>
+  					<%end%>
 					
-				<%end%>	
+  				<%end%>	
 				
-				
-				
-				
-				
+				  
+			  </div>
 			</div>
+
 			
 		
 	    </div>

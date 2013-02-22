@@ -8,6 +8,12 @@ class DocsController < ApplicationController
   # GET /docs
   # GET /docs.json
   def index
+    
+    #feed selection and sorting
+    @feeds = Feed.all
+    
+    
+    
     #@docs = Doc.all
     @docs = current_user.following_docs 
     
@@ -154,7 +160,17 @@ class DocsController < ApplicationController
   # DELETE /docs/1.json
   def destroy
     @doc = Doc.find(params[:id])
+    
+    #remove all feeds for a doc
+    f = Feed.where(:doc_id => @doc.id)
+    f.each do |x| 
+      x.destroy
+    end
+    
     @doc.destroy
+
+
+    
 
     respond_to do |format|
       format.html { redirect_to docs_url }
