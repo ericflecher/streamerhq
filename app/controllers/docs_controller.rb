@@ -8,14 +8,23 @@ class DocsController < ApplicationController
   # GET /docs
   # GET /docs.json
   def index
-    
-    #feed selection and sorting
-    @feeds = Feed.all
+
     
     
     
     #@docs = Doc.all
     @docs = current_user.following_docs 
+    @f = Array.new
+    
+    @docs.each do |d| 
+      
+      f = Feed.where(:doc_id => d.id)
+      @f += f  
+    end
+    
+    
+    #@f.reject! { |c| c.empty? }
+    @feeds = @f
     
 
     respond_to do |format|

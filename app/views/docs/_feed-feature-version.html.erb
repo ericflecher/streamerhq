@@ -2,10 +2,22 @@
 <%
 	u = User.find(@feed.user_id)
 	v = Featurever.find(@feed.featurever_id)
-	
-%>
+	doc = Doc.find(@feed.doc_id)
+	owner = doc.owner_list	
+ %>
+					
 
+  
+  
 <blockquote >
+    <a class="pull-left" href= <%=doc_path(doc)%>>
+  	<%if doc.photo.exists?%>
+  		<p><%= image_tag doc.photo(:thumb) %></p>
+  	<%else%>
+  	<%end%>
+    </a>
+	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+
 	<%if v.photo.exists?%><%= image_tag v.photo(:medium) %><%else%><%end%>
   <p><%= link_to u.name, u %> created a new version: <%= link_to v.title, versions_path(:feature_id => v.featureid)%>
 	  <small> <cite title="Source Title"><%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>

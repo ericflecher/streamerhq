@@ -21,30 +21,30 @@
 		<div class="row-fluid">
 		  <div class="span12">
 		
-			<%@feeds.each do |feed| %>
-				<%@feed = feed%>
+				<%@feeds.each do |feed| %>
+					<%@feed = feed%>
 					
 					
-				<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
-					<%= render "docs/feed-comment"%>
-				<%end%>
+					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
+						<%= render "docs/feed-comment"%>
+					<%end%>
 						
-				<%if feed.feedtype == "Feature create"%>
-		  			<%= render "docs/feed-feature"%>
-				<%end%>
+					<%if feed.feedtype == "Feature create"%>
+			  			<%= render "docs/feed-feature"%>
+					<%end%>
 					
-				<%if feed.feedtype == "Feature version update"%>
-		  			<%= render "docs/feed-feature-version"%>
-				<%end%>
+					<%if feed.feedtype == "Feature version update"%>
+			  			<%= render "docs/feed-feature-version"%>
+					<%end%>
 					
-				<%if feed.feedtype == "Board create"%>
-					<%= render "docs/feed-board-create"%>
-				<%end%>
+					<%if feed.feedtype == "Board create"%>
+						<%= render "docs/feed-board-create"%>
+					<%end%>
 					
-			<%end%>	
-				
-				  
-		  </div>
+				<%end%>	
+		
+			 
+		  </div>	
 		</div>
 	   
 	   
