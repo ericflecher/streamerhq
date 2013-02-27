@@ -24,7 +24,8 @@ class DocsController < ApplicationController
     
     
     #@f.reject! { |c| c.empty? }
-    @feeds = @f
+    @feeds = @f.sort_by &:created_at
+    @feeds = @feeds.sort.reverse
     
 
     respond_to do |format|
