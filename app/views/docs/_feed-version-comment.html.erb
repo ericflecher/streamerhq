@@ -1,6 +1,6 @@
 
 <%
-	u = User.find(@feed.user_id)
+	
 	v = Featurever.find(@feed.featurever_id)
 	
 
@@ -27,7 +27,7 @@
 	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
 
   <p>Comment on <%= link_to v.title, versions_path(:feature_id => v.featureid)%>: <%=@feed.message%>
-	  <small> <cite title="Source Title"><%if User.exists?(@feed.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+	  <small> <cite title="Source Title"><%if User.exists?(@feed.user_id)%><%u = User.find(@feed.user_id) %><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
 </blockquote>
 
 

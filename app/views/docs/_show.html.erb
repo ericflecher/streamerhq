@@ -194,7 +194,11 @@
 	  					<%if feed.feedtype == "Feature create"%>
 	  			  			<%= render "docs/feed-feature"%>
 	  					<%end%>
-					
+						
+	  					<%if feed.feedtype == "Board comment"%>
+	  			  			<%= render "docs/feed-doc-comment"%>
+	  					<%end%>
+						
 	  					<%if feed.feedtype == "Feature version update"%>
 	  			  			<%= render "docs/feed-feature-version"%>
 	  					<%end%>

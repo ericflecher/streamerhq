@@ -1,6 +1,6 @@
 
 <%
-	u = User.find(@feed.user_id)
+
 	f = Feature.find(@feed.feature_id)
 
 
@@ -26,6 +26,6 @@
 
 	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
 
-  <p><%= link_to u.name, u %> created a new story: <%= link_to f.title, f%>
+  <p><%if User.exists?(@feed.user_id)%><%u = User.find(@feed.user_id) %><%= link_to u.name, u %><%else%>Author unknown<%end%> created a new story: <%= link_to f.title, f%>
 	  <small> <cite title="Source Title"><%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
 </blockquote>

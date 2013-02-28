@@ -1,6 +1,6 @@
 
 <%
-	u = User.find(@feed.user_id)
+	
 	v = Featurever.find(@feed.featurever_id)
 
 	doc = Doc.find(@feed.doc_id)
@@ -25,6 +25,6 @@
 
 	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
 
-  <p><%= link_to u.name, u %> created a new version: <%= link_to v.title, versions_path(:feature_id => v.featureid)%>
+  <p><%if User.exists?(@feed.user_id)%><%u = User.find(@feed.user_id) %><%= link_to u.name, u %><%else%>Author unknown<%end%> created a new version: <%= link_to v.title, versions_path(:feature_id => v.featureid)%>
 	  <small> <cite title="Source Title"><%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
 </blockquote>
