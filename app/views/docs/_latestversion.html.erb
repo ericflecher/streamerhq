@@ -38,7 +38,7 @@
 
 <div class="row-fluid">
   <div class="span8"><%if @currentversion.photo.exists?%><%= image_tag @currentversion.photo(:original) %><%else%><%end%>
-  	<div class="well well-small"><%= @currentversion.gherkin %></div>
+  	<div class="well well-small"><%= @currentversion.gherkin.html_safe  %></div>
   </div>
 
   <%= render "features/version_comment" %>

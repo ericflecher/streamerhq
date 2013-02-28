@@ -38,7 +38,7 @@
 
 <div class="row-fluid">
   <div class="span7 offset1"><%if @currentsubversion.photo.exists?%><%= image_tag @currentsubversion.photo(:original) %><%else%><%end%>
-  	<div class="well well-small"><%= @currentsubversion.gherkin %></div>
+  	<div class="well well-small"><%= @currentsubversion.gherkin.html_safe  %></div>
 	<%@currentversion = @currentsubversion%>
 
   </div>
