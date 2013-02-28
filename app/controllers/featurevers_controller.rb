@@ -212,11 +212,13 @@ class FeatureversController < ApplicationController
     feature = Feature.find(@featurever.featureid)
     r = Doc.find(feature.parent_doc_list)
     
+
     #remove all feeds for a doc
     f = Feed.where(:featurever_id => @featurever.id)
     f.each do |x| 
       x.destroy
     end
+
 
     
     @featurever.destroy

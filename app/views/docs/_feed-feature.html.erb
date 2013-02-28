@@ -3,6 +3,7 @@
 	u = User.find(@feed.user_id)
 	f = Feature.find(@feed.feature_id)
 
+
 	doc = Doc.find(@feed.doc_id)
 	owner = doc.owner_list	
  %>
@@ -18,6 +19,7 @@
   	<%end%>
     </a>
 	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+
 	<%if f.photo.exists?%><%= image_tag f.photo(:medium) %><%else%><%end%>
   <p><%= link_to u.name, u %> created a new story: <%= link_to f.title, f%>
 	  <small> <cite title="Source Title"><%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>

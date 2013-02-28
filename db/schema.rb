@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130228025421) do
+=======
+ActiveRecord::Schema.define(:version => 20130217063040) do
+>>>>>>> board feed is complete and tested... to add feed to board index page next
 
   create_table "comments", :force => true do |t|
     t.integer   "commentable_id",   :default => 0

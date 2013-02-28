@@ -4,6 +4,7 @@
 	f = Feature.find(@feed.feature_id)
 	v = Featurever.where(:featureid => f.id)
 	
+
 	
 	doc = Doc.find(@feed.doc_id)
 	owner = doc.owner_list	
