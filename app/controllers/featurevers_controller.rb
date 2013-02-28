@@ -36,6 +36,16 @@ class FeatureversController < ApplicationController
       #UserMailer.comment_email(user, doc, feature, comment).deliver
      # UserMailer.comment_email(user, doc, version.featureid, comment, send_to_user).deliver
     end
+    
+    # adds a comment event to the board feed
+    feed = Feed.new
+        
+    feed.message = comment
+    feed.featurever_id = version.id
+    feed.user_id = current_user.id
+    feed.feedtype = "Version comment"
+    feed.doc_id = doc.id
+    feed.save
 
   
     redirect_to feature_path(version.featureid)
@@ -126,6 +136,21 @@ class FeatureversController < ApplicationController
 
     respond_to do |format|
       if @featurever.save
+        
+        
+        # adds a create event to the board feed
+        feed = Feed.new
+        
+        feed.message = "Updated"
+        feed.featurever_id = @featurever.id
+        feed.user_id = current_user.id
+        feed.doc_id = @feature.parent_doc_list[0]
+        feed.feedtype = "Feature version create"
+        feed.save
+        
+        
+        
+        
         session[:feature_id] = nil
         format.html { redirect_to feature_path(feature_redirect), notice: 'New story saved.' }
         format.json { render json: @featurever, status: :created, location: @featurever }
@@ -158,6 +183,19 @@ class FeatureversController < ApplicationController
 
     respond_to do |format|
       if @featurever.update_attributes(params[:featurever])
+        
+        
+        # adds a create event to the board feed
+        feed = Feed.new
+        
+        feed.message = "Updated"
+        feed.featurever_id = @featurever.id
+        feed.user_id = current_user.id
+        feed.doc_id = @feature.parent_doc_list[0]
+        feed.feedtype = "Feature version update"
+        feed.save
+        
+        
         format.html { redirect_to feature_path(feature_redirect), notice: 'Your story successfully updated.' }
         format.json { head :no_content }
       else
@@ -171,9 +209,21 @@ class FeatureversController < ApplicationController
   # DELETE /featurevers/1.json
   def destroy
     @featurever = Featurever.find(params[:id])
+    feature = Feature.find(@featurever.featureid)
+    r = Doc.find(feature.parent_doc_list)
+    
+
+    #remove all feeds for a doc
+    f = Feed.where(:featurever_id => @featurever.id)
+    f.each do |x| 
+      x.destroy
+    end
+
+
+    
     @featurever.destroy
     
-    feature = Feature.find(@featurever.featureid)
+    
     
      pf = feature.parent_feature_list
 

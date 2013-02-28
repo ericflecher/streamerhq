@@ -1,0 +1,24 @@
+
+<%
+	u = User.find(@feed.user_id)
+	d = Doc.find(@feed.doc_id)
+	
+	
+	doc = Doc.find(@feed.doc_id)
+	owner = doc.owner_list	
+ %>
+					
+
+  
+  
+<blockquote >
+    <a class="pull-left" href= <%=doc_path(doc)%>>
+	  	<%if doc.photo.exists?%>
+	  		<p><%= image_tag doc.photo(:thumb) %>&nbsp;</p>
+	  	<%else%>
+	  	<%end%>
+    </a>
+	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+  <p> <%= link_to u.name, u %>: Created a new board called <%= link_to d.title, d%>
+	  <small> <cite title="Source Title"> <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+</blockquote>

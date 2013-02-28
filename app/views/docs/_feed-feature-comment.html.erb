@@ -1,0 +1,33 @@
+
+<%
+	u = User.find(@feed.user_id)
+	f = Feature.find(@feed.feature_id)
+	v = Featurever.where(:featureid => f.id)
+	
+
+	
+	doc = Doc.find(@feed.doc_id)
+	owner = doc.owner_list	
+ %>
+					
+
+  
+  
+<blockquote >
+    <a class="pull-left" href= <%=doc_path(doc)%>>
+	<%if f.photo.exists?%>
+		<p><%= image_tag f.photo(:thumb) %>&nbsp;</p>
+	<%else%>
+	  	<%if doc.photo.exists?%>
+	  		<p ><%= image_tag doc.photo(:thumb) %>&nbsp;</p>
+	  	<%else%>
+	  	<%end%>
+	<%end%>
+
+    </a>
+		<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+		
+	  <p>  Comment on <%=link_to f.title, f%>: <%=@feed.message%>
+		  <small> <cite title="Source Title"><%if User.exists?(@feed.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+
+</blockquote>

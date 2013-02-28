@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211032948) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(:version => 20130228025421) do
+=======
+ActiveRecord::Schema.define(:version => 20130217063040) do
+>>>>>>> board feed is complete and tested... to add feed to board index page next
 
   create_table "comments", :force => true do |t|
     t.integer   "commentable_id",   :default => 0
@@ -73,6 +77,17 @@ ActiveRecord::Schema.define(:version => 20130211032948) do
     t.timestamp "created_at",         :null => false
     t.timestamp "updated_at",         :null => false
     t.integer   "featureid"
+  end
+
+  create_table "feeds", :force => true do |t|
+    t.integer  "doc_id"
+    t.integer  "feature_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "featurever_id"
+    t.text     "feedtype"
   end
 
   create_table "follows", :force => true do |t|
@@ -149,5 +164,21 @@ ActiveRecord::Schema.define(:version => 20130211032948) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "votes", :force => true do |t|
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], :name => "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type"], :name => "index_votes_on_votable_id_and_votable_type"
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], :name => "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
 end

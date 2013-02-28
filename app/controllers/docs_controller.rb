@@ -8,8 +8,24 @@ class DocsController < ApplicationController
   # GET /docs
   # GET /docs.json
   def index
+
+    
+    
+    
     #@docs = Doc.all
     @docs = current_user.following_docs 
+    @f = Array.new
+    
+    @docs.each do |d| 
+      
+      f = Feed.where(:doc_id => d.id)
+      @f += f  
+    end
+    
+    
+    #@f.reject! { |c| c.empty? }
+    @feeds = @f.sort_by &:created_at
+    @feeds = @feeds.sort.reverse
     
 
     respond_to do |format|
@@ -24,9 +40,6 @@ class DocsController < ApplicationController
     
     #feature modal create window... makes ure parent feature is null
     session[:parent_story_id] = nil
-    
-   
-
     
   
     #Adds doc as followed for current user
@@ -47,6 +60,12 @@ class DocsController < ApplicationController
     else
       @doc = Doc.find(params[:id])
     end
+    
+    
+    #populate board feed
+    @feeds = Feed.where(:doc_id => @doc.id).order("created_at DESC")
+
+    
     
     @users = current_user.following_user
     # deletes current following documnet from users list
@@ -103,8 +122,22 @@ class DocsController < ApplicationController
     @doc.version_list = 1
     
 
+    
+    
+    #make doc private by default
+    @doc.pdoc = 1
+    
     respond_to do |format|
       if @doc.save
+        
+        # adds a create event to the board feed
+        feed = Feed.new 
+        feed.message = "Created a new board - " + @doc.title
+        feed.user_id = current_user.id
+        feed.doc_id = @doc.id
+        feed.feedtype = "Board create" 
+        feed.save
+        
         @doc.baselineid_list = @doc.id
         @doc.save
         user.follow(@doc) # Creates a record for the user as the follower and the book as the followable
@@ -137,7 +170,17 @@ class DocsController < ApplicationController
   # DELETE /docs/1.json
   def destroy
     @doc = Doc.find(params[:id])
+    
+    #remove all feeds for a doc
+    f = Feed.where(:doc_id => @doc.id)
+    f.each do |x| 
+      x.destroy
+    end
+    
     @doc.destroy
+
+
+    
 
     respond_to do |format|
       format.html { redirect_to docs_url }
@@ -156,6 +199,14 @@ class DocsController < ApplicationController
     
     @comment = Comment.build_from(doc, commenter, comment)
     @comment.save
+    
+    # adds a create event to the board feed
+    feed = Feed.new 
+    feed.message = comment
+    feed.user_id = current_user.id
+    feed.doc_id = doc.id
+    feed.feedtype = "Board comment" 
+    feed.save
     
      # email notificaiton
      feature = 1

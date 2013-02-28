@@ -49,7 +49,7 @@ docowner = @doc.owner_list
 
    </div>
    <div class="span4" class="well well-small pull-right">
-		<%@all_feature_comments = @feature.comment_threads%>
+		<%@all_feature_comments = @feature.comment_threads.order("created_at DESC")%>
 		<% if @all_feature_comments.length == 0 %> <%else%><p><h4>Feedback on <%= @feature.title %></4h></p><%end%>
 		<%@all_feature_comments.each do |comments| %>
 			<%u = User.find(comments.user_id)%>
@@ -57,7 +57,7 @@ docowner = @doc.owner_list
 			  <p><%=comments.body%></p>	<% if current_user.id == comments.user_id %> 
 					<%= button_to('Remove', remove_comment_path(:doc_id => @doc.id, :comment_id => comments.id), :class => 'btn btn-mini pull-right')%>
 					<%else%> <%end%>
-			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at%></cite></small>
+			  <small> <cite title="Source Title"><%if User.exists?(comments.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= comments.created_at.strftime("%m/%d/%Y")%></cite></small>
 			</blockquote>
 			
 		<%end%>

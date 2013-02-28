@@ -1,18 +1,54 @@
 <div class="nav nav-tabs">
-	<ul class="nav nav-tabs">
-		<li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Feed</a></li>
-		<li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">Boards I Own</a></li>
-		<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Boards I am Invited</a></li>
-		<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived Boards</a></li>
-	</ul>
 
-	<div class="tab-content">
-		<div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
-			Feed
-		</div>
-		<div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
-			<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">Create New Board</a>
-			<% @docs.each do |doc| %>
+<ul class="nav nav-tabs">
+    <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Feed</a></li>
+    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">I Own</a></li>
+	<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Invited Too</a></li>
+	<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived</a></li>
+</ul>
+
+
+<div class="tab-content">
+    <div class="<%= if (params[:tab] == 'tab1' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1">
+       
+
+		<div class="row-fluid">
+		  <div class="span12">
+		
+				<%@feeds.each do |feed| %>
+					<%@feed = feed%>
+					
+					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
+						<%= render "docs/feed-comment"%>
+					<%end%>
+						
+					<%if feed.feedtype == "Feature create"%>
+			  			<%= render "docs/feed-feature"%>
+					<%end%>
+					
+					<%if feed.feedtype == "Feature version update"%>
+			  			<%= render "docs/feed-feature-version"%>
+					<%end%>
+					
+					<%if feed.feedtype == "Board create"%>
+						<%= render "docs/feed-board-create"%>
+					<%end%>
+					
+				<%end%>	
+		
+			 
+		  </div>	
+		</div>	   
+	   
+    </div>
+    <div class="<%= if params[:tab] == 'tab2' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2">
+		<a data-toggle="modal" href="#newboard" class="btn btn-mini btn-primary" type="button">Create New Board</a>
+		<br>
+		
+
+		
+		<% @docs.each do |doc| %>
+
 			
 				<% 	
 					u = User.find(doc.owner_list)
@@ -117,6 +153,7 @@
 								</li>
 							</ul>
 							<%= doc.description.html_safe %>
+
 							<hr />
 						</div>
 					</div>
@@ -124,6 +161,9 @@
 			<% end %>
 		</div>
 	</div>
+
+					 	
+
 </div>
 
 

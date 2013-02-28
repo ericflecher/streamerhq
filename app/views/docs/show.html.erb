@@ -2,10 +2,21 @@
 	owner = @doc.owner_list
 %>
 
+
 <% if @doc.pdoc == 1 %>
 	<% if owner.include?(current_user.id.to_s) == true or current_user.following?(@doc) == true %>
+
+	<div class="alert alert-info">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h5>Private board - This board is only avalable to invited Bckto'ers</h5>
+	</div>
+
 		<%= render "docs/show" %>
 	<% end %>
 <% else %>
+	<div class="alert alert-block">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h5>Public board - This board is avalable to the public</h5>
+	</div>
 	<%= render "docs/show" %>
 <% end %>
