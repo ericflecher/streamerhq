@@ -15,12 +15,13 @@
 <blockquote >
     <a class="pull-left" href= <%=doc_path(doc)%>>
   	<%if doc.photo.exists?%>
-  		<p><%= image_tag doc.photo(:thumb) %></p>
+  		<p ><%= image_tag doc.photo(:thumb) %>&nbsp;</p>
   	<%else%>
   	<%end%>
     </a>
-	<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
-	<%if f.photo.exists?%><%= image_tag f.photo(:medium) %><%else%><%end%>
-  <p>  Comment on <%=link_to f.title, f%>: <%=@feed.message%>
-	  <small> <cite title="Source Title"><%if User.exists?(@feed.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+		<h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4>
+		<%if f.photo.exists?%><%= image_tag f.photo(:medium) %><%else%><%end%>
+	  <p>  Comment on <%=link_to f.title, f%>: <%=@feed.message%>
+		  <small> <cite title="Source Title"><%if User.exists?(@feed.user_id)%><%= link_to u.name, u %><%else%>Author unknown<%end%>, <%= @feed.created_at.strftime("%m/%d/%Y")%></cite></small></p>
+
 </blockquote>

@@ -8,9 +8,9 @@
 <div class="nav nav-tabs">
 <ul class="nav nav-tabs">
     <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Feed</a></li>
-    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">Boards I Own</a></li>
-	<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Boards I am Invited</a></li>
-	<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived Boards</a></li>
+    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">I Own</a></li>
+	<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Invited Too</a></li>
+	<li class="<%= 'active' if params[:tab] == 'tab4' %>"> <a href="#tab4" data-toggle="tab">Archived</a></li>
 </ul>
 
 
@@ -23,7 +23,6 @@
 		
 				<%@feeds.each do |feed| %>
 					<%@feed = feed%>
-					
 					
 					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
 						<%= render "docs/feed-comment"%>

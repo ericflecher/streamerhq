@@ -16,7 +16,7 @@
 <blockquote >
     <a class="pull-left" href= <%=doc_path(doc)%>>
   	<%if doc.photo.exists?%>
-  		<p><%= image_tag doc.photo(:thumb) %></p>
+  		<p><%= image_tag doc.photo(:thumb) %>&nbsp;</p>
   	<%else%>
   	<%end%>
     </a>

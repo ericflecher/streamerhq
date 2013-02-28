@@ -31,6 +31,7 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'acts_as_commentable_with_threading'
 gem 'rails3-jquery-autocomplete'
 gem 'sendgrid'
+gem 'acts_as_votable', '~> 0.5.0'
 gem 'bcrypt-ruby'
 gem "twitter-bootstrap-rails"
 gem "tabs_on_rails"
