@@ -181,12 +181,21 @@
 
 			<div class="row-fluid">
 			  <div class="span12">
-				  
+					
+	  			 <%if @since_last_login > 0  %>
+	  			  	<div class="small"> 
+	  					<b class="icon-star"></b> - <%=  @since_last_login %> - <em>Changes, updates, messages since your last login</em>
+	  				</div>
+	  			 <%end%>
 		
 	  				<%@feeds.each do |feed| %>
 	  					<%@feed = feed%>
-					
-					
+
+						
+	 					<%if feed.created_at >= current_user.last_sign_in_at%>
+	 						<b class="icon-star"></b>
+	 					<%end%>
+						
 	  					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
 	  						<%= render "docs/feed-comment"%>
 	  					<%end%>
