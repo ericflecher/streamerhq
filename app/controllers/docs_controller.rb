@@ -17,10 +17,11 @@ class DocsController < ApplicationController
       @f += f  
     end
     
-    
-    #@f.reject! { |c| c.empty? }
     @feeds = @f.sort_by &:created_at
     @feeds = @feeds.sort.reverse
+    @since_last_login  = @feeds.select{|feed| feed.created_at >= current_user.last_sign_in_at }.size
+    
+
     
 
     respond_to do |format|
@@ -59,7 +60,10 @@ class DocsController < ApplicationController
     
     #populate board feed
     @feeds = Feed.where(:doc_id => @doc.id).order("created_at DESC")
-
+    
+  
+    @since_last_login  = @feeds.select{|feed| feed.created_at >= current_user.last_sign_in_at }.size
+    
     
     
     @users = current_user.following_user
