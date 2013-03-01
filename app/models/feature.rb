@@ -18,6 +18,6 @@ class Feature < ActiveRecord::Base
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/s3.yml",
     :path => ":attachment/:id/:style.:extension",
-    :bucket => 'streamerhq_feature_dev'
+    :bucket => 'streamerhq_feature'
   
 end

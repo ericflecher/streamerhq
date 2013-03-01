@@ -81,7 +81,8 @@
 <div class="nav nav-tabs">
 	<ul class="nav nav-tabs">
 	    <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Board</a></li>
-	    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">[<%=  @since_last_login %>] Board Activity</a></li>
+	    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">
+ 			 <%if @since_last_login > 0  %>[<%=  @since_last_login %>]<%end%> Board Activity</a></li>
 		<% if owner.include?(String(current_user.id)) == true   %> 
 			<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Administer Board</a></li>
 		<%else%>
@@ -184,7 +185,7 @@
 					
 	  			 <%if @since_last_login > 0  %>
 	  			  	<div class="small"> 
-	  					<b class="icon-star"></b> - <%=  @since_last_login %> - <em>Changes, updates, messages since your last login</em>
+	  					<b class="icon-star"></b> - <%=  @since_last_login %> - <em>New changes, updates, messages</em>
 	  				</div>
 	  			 <%end%>
 		
