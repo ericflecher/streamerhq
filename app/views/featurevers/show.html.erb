@@ -2,15 +2,15 @@
 
 <p>
   <b>Title:</b>
-  <%= @featurever.title %>
+  <% @featurever.title %>
 </p>
 
 <p>
   <b>Gherkin:</b>
-  <%= @featurever.gherkin.html_safe %>
+  <% @featurever.gherkin.html_safe %>
 </p>
 
 
 
-<%= link_to 'Edit', edit_featurever_path(@featurever) %> |
-<%= link_to 'Back', featurevers_path %>
+<% link_to 'Edit', edit_featurever_path(@featurever) %> |
+<% link_to 'Back', featurevers_path %>
