@@ -121,12 +121,8 @@
 							<div class="media-body">
 								<ul class="nav">
 									<li class="dropdown">
-										<a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %><b class="caret"></b></h4></a>
-										<ul class="dropdown-menu">
-											<li>
-												<a href="<%= arch_path(:doc_id => doc.id)%>"><%= if doc.arch == 1 then "Restore" else "Archive" end %></a>
-											</li>
-										</ul>
+										<a class="dropdown-toggle" href="#"><h4 class="media-heading"><%= link_to doc.title, doc_path(doc) %></h4></a>
+										
 									</li>
 								</ul>
 								<%= doc.description.html_safe %>
