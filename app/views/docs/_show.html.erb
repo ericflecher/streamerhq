@@ -209,7 +209,7 @@
 	  			  			<%= render "docs/feed-doc-comment"%>
 	  					<%end%>
 						
-	  					<%if feed.feedtype == "Feature version update"%>
+	  					<%if feed.feedtype == "Feature version update" || feed.feedtype == "Feature version create" %>
 	  			  			<%= render "docs/feed-feature-version"%>
 	  					<%end%>
 					
