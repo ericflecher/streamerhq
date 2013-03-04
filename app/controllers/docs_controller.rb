@@ -17,7 +17,8 @@ class DocsController < ApplicationController
     
     @docs.each do |d| 
       
-      f = Feed.where(:doc_id => d.id)
+      #f = Feed.where(:doc_id => d.id)
+      f = Feed.where(['doc_id = ? AND user_id <> ?', d.id, current_user.id])
       @f += f  
     end
     
