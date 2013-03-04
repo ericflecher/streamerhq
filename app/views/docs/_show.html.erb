@@ -82,7 +82,7 @@
 	<ul class="nav nav-tabs">
 	    <li class="<%= 'active' if params[:tab] == 'tab1' %>"><a href="#tab1" data-toggle="tab">Board</a></li>
 	    <li class="<%= 'active' if params[:tab] == 'tab2' %>"> <a href="#tab2" data-toggle="tab">
- 			 <%if @since_last_login > 0  %>[<%=  @since_last_login %>]<%end%>Activity & Chat</a></li>
+ 			 <%if @since_last_login > 0  %>[<%=  @since_last_login %>]<%end%> Activity & Chat</a></li>
 		<% if owner.include?(String(current_user.id)) == true   %> 
 			<li class="<%= 'active' if params[:tab] == 'tab3' %>"> <a href="#tab3" data-toggle="tab">Administer Board</a></li>
 		<%else%>
@@ -184,7 +184,7 @@
 			  <div class="span12">
 				  <%= form_tag(create_comment_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
 				  <div class="input-append">
-				    <%= text_field_tag "commenttext", "", :class => "span7"%>
+				    <%= text_field_tag "commenttext", "", :class => "span11"%>
 					<%= submit_tag("Send Chat", class: "btn") %>
 				  </div>
 				  <%end%>
