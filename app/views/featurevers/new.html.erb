@@ -1,5 +1,6 @@
 <% 
 
+	
 	u = User.find(@feature.owner_list)
 	owner = @feature.owner_list
 	p = @feature.parent_doc_list
@@ -12,7 +13,7 @@
 		session[:latest_feature] = @feature.id
 
 	else
-		v = @versions.last
+		v = @versions.first
 		session[:latest_version] = v.id
 	end
 

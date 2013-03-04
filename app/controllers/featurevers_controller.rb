@@ -101,9 +101,10 @@ class FeatureversController < ApplicationController
       @feature_redirect = pf
     end
     
-    @versions = Featurever.where(:featureid => @feature.id).order('created_at DESC')
+    @versions = Featurever.where(:featureid => @feature.id).sort.reverse
     
     session[:feature_id] = @feature.id
+    
     @featurever = Featurever.new
 
     respond_to do |format|

@@ -14,6 +14,11 @@ class FeaturesController < ApplicationController
   # GET /features/1
   # GET /features/1.json
   def show
+    
+    #clean session variable
+    session[:latest_version] = nil
+    session[:latest_feature] = nil
+    
     @feature = Feature.find(params[:id])
     session[:parent_story_id] = @feature.id
     

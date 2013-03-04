@@ -7,6 +7,10 @@ class DocsController < ApplicationController
   # GET /docs.json
   def index
     
+    #clean session variable
+    session[:latest_version] = nil
+    session[:latest_feature] = nil
+    
     #@docs = Doc.all
     @docs = current_user.following_docs 
     @f = Array.new
@@ -33,6 +37,10 @@ class DocsController < ApplicationController
   # GET /docs/1
   # GET /docs/1.json
   def show
+    
+    #clean session variable
+    session[:latest_version] = nil
+    session[:latest_feature] = nil
     
     #feature modal create window... makes ure parent feature is null
     session[:parent_story_id] = nil
