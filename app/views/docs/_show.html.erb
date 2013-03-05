@@ -97,7 +97,9 @@
 			<div class="row-fluid">
 				
 				<%if @features.size < 1%>
-					<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">Create your first story</a>
+					<% if owner.include?(String(current_user.id)) == true   %>
+						<a data-toggle="modal" href="/features/#newsection" class="btn btn-mini btn-primary" type="button">Create your first story</a>
+					<%end%>
 				<%end%>
 			
 	
@@ -225,6 +227,8 @@
 	  					<%if feed.feedtype == "Board create"%>
 	  						<%= render "docs/feed-board-create"%>
 	  					<%end%>
+						
+						<hr />
 					
 	  				<%end%>	
 				
