@@ -27,30 +27,35 @@
 					<%@feed = feed%>
 					
 					<%if feed.created_at >= current_user.last_sign_in_at%>
-						<b class="icon-star"></b>
-					<%end%>
 					
-					<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
-						<%= render "docs/feed-comment"%>
-					<%end%>
+						<%if feed.feedtype == "Feature comment" || feed.feedtype == "Version comment" %>
+							<%= render "docs/feed-comment"%>
+						<%end%>
 					
-  					<%if feed.feedtype == "Board comment"%>
-  			  			<%= render "docs/feed-doc-comment"%>
-  					<%end%>
+	  					<%if feed.feedtype == "Board comment"%>
+	  			  			<%= render "docs/feed-doc-comment"%>
+	  					<%end%>
 						
-					<%if feed.feedtype == "Feature create" %>
-			  			<%= render "docs/feed-feature"%>
-					<%end%>
+						<%if feed.feedtype == "Feature create" %>
+				  			<%= render "docs/feed-feature"%>
+						<%end%>
 					
-					<%if feed.feedtype == "Feature version update" || feed.feedtype == "Feature version create" %>
-			  			<%= render "docs/feed-feature-version"%>
-					<%end%>
+						<%if feed.feedtype == "Feature version update" || feed.feedtype == "Feature version create" %>
+				  			<%= render "docs/feed-feature-version"%>
+						<%end%>
 					
-					<%if feed.feedtype == "Board create"%>
-						<%= render "docs/feed-board-create"%>
-					<%end%>
+						<%if feed.feedtype == "Board create"%>
+							<%= render "docs/feed-board-create"%>
+						<%end%>
+						
+						
 					
 					<hr />
+					<%else%>
+					
+					<em>Your feed is empty... go create a board, comment on a story, stir the mud!</em>
+					
+					<%end%>
 					
 				<%end%>	
 		
