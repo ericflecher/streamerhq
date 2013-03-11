@@ -241,64 +241,104 @@
 	    </div>
 	    <div class="<%= if params[:tab] == 'tab3' then 'tab-pane active'  else 'tab-pane' end%>" id="tab3">
 
+			<div class="tabbable tabs-left">
 
-				<p>
-					<%if @doc.pdoc == 1%>
-						<%= button_to( 'Make Board Public', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-danger') %>
-					<%else%>
-						<%= button_to( 'Make Board Private', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-primary') %>
-					<%end%>
+				<ul class="nav nav-tabs">
+				    <li class="<%= 'active' if params[:taba] == 'tab1a' %>"><a href="#tab1a" data-toggle="tab">Privacy</a></li>
+				    <li class="<%= 'active' if params[:taba] == 'tab2a' %>"> <a href="#tab2a" data-toggle="tab">Users</a></li>
+				     <li class="<%= 'active' if params[:taba] == 'tab3a' %>"> <a href="#tab3a" data-toggle="tab">Time</a></li>
+				   
+				</ul>
+
+
+				<div class="tab-content">
+				    <div class="<%= if (params[:taba] == 'tab1a' || !params[:taba])then 'tab-pane active'  else 'tab-pane' end%>" id="tab1a">
+      
+						<p>
+							<%if @doc.pdoc == 1%>
+								<%= button_to( 'Make Board Public', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-danger') %>
+							<%else%>
+								<%= button_to( 'Make Board Private', pdoc_path(:doc_id => @doc), :class => 'btn btn-mini btn-primary') %>
+							<%end%>
 			
-				</p>
-				<p>
-					<%= button_to 'Edit Board Header', edit_doc_path(@doc), :method => :get, :class => 'btn btn-mini btn-primary' %>
-				</p>
+						</p>
 
-	
-
-				<%= form_tag(add_follower_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
+						
+				          
+       
+				    </div>
+				    <div class="<%= if params[:taba] == 'tab2a' then 'tab-pane active'  else 'tab-pane' end%>" id="tab2a">
+						<div class="row-fluid">
+						  <div class="span10">
+						  	
+  						   <%= form_tag(add_follower_path(@doc.id), :html => {:method => :put, :class => 'form-horizontal' }) do %>
 	  
-					<%
+  								<%
 
-					x =	@doc.followers
-					x.delete current_user
-					owner = @doc.owner_list
+  								x =	@doc.followers
+  								x.delete current_user
+  								owner = @doc.owner_list
 
-					%>
+  								%>
 
-		
-			<h4>Select a followed user to add to board:</h4>
-					<p><%= select_tag("user", options_from_collection_for_select(@users, :id, :name) )%></p>
-					<p>or invite a new users by email</p>
-					<%= field_set_tag do %>
-					  <p><%= text_field_tag 'email' %></p>
-					<% end %>
-					<p> <%= submit_tag("Add user to board", class: "btn btn-small btn-primary") %></p>
-					<table class="table table-condensed">
+  								<table class="table table-hover">
 
-						<% x.each do |y| %>
-							<tr>
-						    	<td><%= link_to y.name, y %></td>
-						    	<td><%= y.email %></td>
-								<td>
+  									<% x.each do |y| %>
+  										<tr>
+  									    	<td><%= link_to y.name, y %></td>
+  									    	<td><%= y.email %></td>
+  											<td>
+  											<% if owner.include?(String(y.id)) == true   %> 
+  												<%= link_to 'Remove Admin', remove_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
+  											<%else%>
+  												<%= link_to 'Make Admin', make_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
+  											<%end%>	
+  											</td>
+  									    	<td><%= link_to 'Remove', remove_follower_path(:doc_id => @doc.id, :user_id => y.id) %></td>
+  									  	</tr>
+  										<p></p>
+  								    <%end%>
 
-								<% if owner.include?(String(y.id)) == true   %> 
-									<%= link_to 'Remove Admin', remove_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
-								<%else%>
-									<%= link_to 'Make Admin', make_admin_path(:doc_id => @doc.id, :user_id => y.id) %>
-								<%end%>	
-								</td>
-						    	<td><%= link_to 'Remove', remove_follower_path(:doc_id => @doc.id, :user_id => y.id) %></td>
-						  	</tr>
-							<p></p>
-					    <%end%>
-
-					</table>
+  								</table>
+								<hr />
+  								<h4>Select a followed user to add to board:</h4>
+  								<p><%= select_tag("user", options_from_collection_for_select(@users, :id, :name) )%></p>
+  								<p>or invite any user by email</p>
+  								<%= field_set_tag do %>
+  								  <p><%= text_field_tag 'email' %></p>
+  								<% end %>
+  								<p> <%= submit_tag("Add user to board", class: "btn btn-small btn-primary") %></p>
+							
 		  	
 		
 		
-			<% end %>
+  						    <% end %>
 			
+							
+							
+						  </div>
+						 
+						</div>
+							
+         
+				     </div>
+
+				     <div class="<%= if params[:taba] == 'tab3a' then 'tab-pane active' else 'tab-pane' end %>" id="tab3a">
+         
+						 <p>Comming soon to a Bckto near you. Track your time per story. Wow that cool.</p>
+         
+				     </div>
+
+                              
+				</div>
+			</div>
+			
+
+
+				
+	
+
+				
 		
 	    </div>
 
